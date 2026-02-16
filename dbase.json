@@ -233,12 +233,12 @@
       "name": "рендер дома один",
       "images": [
         { "id": "render_house_1_01", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_02", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_03", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_04", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_05", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_06", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_07", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" }
+        { "id": "render_house_1_02", "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg" },
+        { "id": "render_house_1_03", "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg" },
+        { "id": "render_house_1_04", "image": "https://static.tildacdn.com/tild6431-3935-4637-a265-363666376232/11.jpg" },
+        { "id": "render_house_1_05", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
+        { "id": "render_house_1_06", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
+        { "id": "render_house_1_07", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
       ]
     },
     {
@@ -246,12 +246,12 @@
       "name": "рендер дома два",
       "images": [
         { "id": "render_house_2_01", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_02", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_03", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_04", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_05", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_06", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_07", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" }
+        { "id": "render_house_2_02", "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg" },
+        { "id": "render_house_2_03", "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg" },
+        { "id": "render_house_2_04", "image": "https://static.tildacdn.com/tild6431-3935-4637-a265-363666376232/11.jpg" },
+        { "id": "render_house_2_05", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
+        { "id": "render_house_2_06", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
+        { "id": "render_house_2_07", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
       ]
     }
   ],
@@ -270,3 +270,4 @@
     }
   ]
 }
+
