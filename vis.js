@@ -12,7 +12,7 @@
      [1] Конфиг
      ========================================================================== */
   const CONFIG = {
-    DB_URL: "dbase.json", // лежит рядом с vis.js
+    DB_URL: "https://chaicreator.github.io/visualizer_t-block_for_mzt/dbase.json", // лежит рядом с vis.js
     ROOT_ID: "cusvis",
     MAX_WIDTH: 1920,
     ASPECT_W: 16,
@@ -664,3 +664,4 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
