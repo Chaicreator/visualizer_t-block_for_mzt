@@ -1,8 +1,5 @@
 /* ==========================================================================
    MZT Visualizer (Tilda custom block)
-   Контейнер: <div id="cusvis"></div>
-   Скрипт:   <script src=".../vis.js" defer></script>
-   Данные:   https://chaicreator.github.io/visualizer_t-block_for_mzt/dbase.json
    ========================================================================== */
 
 (() => {
@@ -12,17 +9,19 @@
      [1] Конфиг
      ========================================================================== */
   const CONFIG = {
-    // ВАЖНО: абсолютный путь к базе
     DB_URL: "https://chaicreator.github.io/visualizer_t-block_for_mzt/dbase.json",
-
     ROOT_ID: "cusvis",
     MAX_WIDTH: 1920,
 
-    // Требование: пропорционально ужать, чтобы высота была 900px на 1920x1080
-    TARGET_DESKTOP_HEIGHT: 900,
+    // Важно: вы просили 1920x1080 (FullHD), чтобы всё влезало без скролла
+    ASPECT_W: 1920,
+    ASPECT_H: 1080,
 
-    ASPECT_W: 16,
-    ASPECT_H: 9
+    // Кол-во плиток на странице (3x3)
+    TILES_PER_PAGE: 9,
+
+    // Миниатюр снизу (7 по заданию)
+    THUMBS_COUNT: 7
   };
 
   /* ==========================================================================
@@ -36,7 +35,6 @@
     Object.entries(attrs).forEach(([k, v]) => {
       if (k === "class") node.className = v;
       else if (k === "text") node.textContent = v;
-      else if (k === "html") node.innerHTML = v;
       else if (k.startsWith("on") && typeof v === "function") node.addEventListener(k.slice(2), v);
       else node.setAttribute(k, v);
     });
@@ -63,11 +61,6 @@
     );
   }
 
-  function allFiltersAreBlank() {
-    const f = state.filters;
-    return f.tile_color === "---" && f.grout_color === "---" && f.price_category === "---";
-  }
-
   /* ==========================================================================
      [3] Состояние
      ========================================================================== */
@@ -85,64 +78,54 @@
 
     selectedTileId: null,
     activeRenderSetId: null,
-    activeRenderImages: []
+
+    // Ровно 8 картинок: [0] = main, [1..7] = thumbs
+    activeRenderImages: [],
+
+    // режим плиток: "default" (все ---), "empty" (нет совпадений), "normal"
+    tilesMode: "default"
   };
 
-  /* ==========================================================================
-     [4] Шрифт Montserrat (подключаем аккуратно)
-     ========================================================================== */
-  function ensureMontserrat() {
-    // Если на странице уже есть Montserrat — лишнего не грузим.
-    if (document.querySelector('link[data-mzt-font="montserrat"]')) return;
-
-    const pre1 = el("link", { rel: "preconnect", href: "https://fonts.googleapis.com", "data-mzt-font": "montserrat" });
-    const pre2 = el("link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "", "data-mzt-font": "montserrat" });
-    const link = el("link", {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
-      "data-mzt-font": "montserrat"
-    });
-
-    document.head.appendChild(pre1);
-    document.head.appendChild(pre2);
-    document.head.appendChild(link);
+  function isAllDefaultFilters() {
+    return (
+      state.filters.tile_color === "---" &&
+      state.filters.grout_color === "---" &&
+      state.filters.price_category === "---"
+    );
   }
 
   /* ==========================================================================
-     [5] CSS (в отдельном блоке)
+     [4] CSS (в отдельном блоке)
      ========================================================================== */
   function injectStyles() {
     const css = `
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
 /* ===================== ROOT ===================== */
 #${CONFIG.ROOT_ID}{
   box-sizing:border-box;
   width:100%;
-  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
-#${CONFIG.ROOT_ID} *{ box-sizing:border-box; font-family: inherit; }
+#${CONFIG.ROOT_ID} *{ box-sizing:border-box; }
 
-/* ===================== STAGE (центрирование + фикс высоты 900) ===================== */
+/* ===================== STAGE (центрирование 1920x1080) ===================== */
 #${CONFIG.ROOT_ID} .mzt-stage-wrap{
   width:100%;
   display:flex;
   justify-content:center;
-  padding:24px 16px 18px;
+  padding:24px 16px;
   background: #f3f4f6;
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
-  /* ключевой момент: высота ограничена 900px, ширина считается по aspect-ratio */
-  height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
+  width: min(100%, ${CONFIG.MAX_WIDTH}px);
   aspect-ratio: ${CONFIG.ASPECT_W} / ${CONFIG.ASPECT_H};
-
-  width: auto;
-  max-width: min(100%, ${CONFIG.MAX_WIDTH}px);
-
   display:flex;
   gap:20px;
   align-items:stretch;
 }
 
-/* ===================== CARD ===================== */
+/* ===================== CARDS ===================== */
 #${CONFIG.ROOT_ID} .mzt-card{
   background:#ffffff;
   border-radius:16px;
@@ -150,38 +133,46 @@
   overflow:hidden;
 }
 
-/* ===================== LEFT: RENDER ===================== */
+/* ===================== LEFT: RENDER (без горизонтального скролла) ===================== */
 #${CONFIG.ROOT_ID} #visrender{
   flex: 3;
   display:flex;
   flex-direction:column;
   padding:16px;
   gap:14px;
+  min-width:0; /* важно для корректного shrink */
 }
+
+/* Большое изображение занимает всё доступное место */
 #${CONFIG.ROOT_ID} .mzt-render-main{
   position:relative;
-  flex:1;
+  flex:1 1 auto;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
+  min-height:0;
 }
 #${CONFIG.ROOT_ID} .mzt-render-main img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
-  transform: translateZ(0);
 }
+
+/* Миниатюры: строго 7 в ряд, без overflow/скролла */
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
   display:flex;
   gap:10px;
-  overflow:auto;
-  padding-bottom:2px;
-}
-#${CONFIG.ROOT_ID} .mzt-thumb{
+  overflow:hidden;     /* убираем скролл */
+  padding-bottom:0;
   flex:0 0 auto;
-  width: 150px;
-  aspect-ratio: 16/10;
+}
+
+/* 7 одинаковых миниатюр, которые всегда помещаются */
+#${CONFIG.ROOT_ID} .mzt-thumb{
+  flex: 1 1 0;         /* все делят ширину поровну */
+  min-width: 0;
+  aspect-ratio: 16/10; /* аккуратная пропорция */
   border-radius:12px;
   overflow:hidden;
   background:#eaecef;
@@ -198,7 +189,7 @@
   border-color:#c5a27a;
 }
 
-/* empty / helper text */
+/* empty state */
 #${CONFIG.ROOT_ID} .mzt-empty{
   width:100%;
   height:100%;
@@ -219,12 +210,11 @@
   flex-direction:column;
   padding:16px;
   gap:14px;
+  min-width:0;
 }
 #${CONFIG.ROOT_ID} #vispanel-top{
   padding:10px 10px 2px;
 }
-
-/* ====== custom select (rounded + animated) ====== */
 #${CONFIG.ROOT_ID} .mzt-field{
   margin-bottom:12px;
 }
@@ -235,107 +225,55 @@
   margin:0 0 6px;
 }
 
-#${CONFIG.ROOT_ID} .mzt-select{
-  position:relative;
-}
-#${CONFIG.ROOT_ID} .mzt-select-btn{
+/* Select: скругление + кастом-стрелка + микро-анимации */
+#${CONFIG.ROOT_ID} .mzt-field select{
   width:100%;
-  height:42px;
+  height:40px;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.12);
-  padding:0 44px 0 12px;
-  background:#fff;
-  cursor:pointer;
+  padding:0 48px 0 12px;
   font-size:14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  transition: box-shadow .18s ease, border-color .18s ease, transform .18s ease;
-}
-#${CONFIG.ROOT_ID} .mzt-select-btn:focus{
+  background-color:#fff;
   outline:none;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:14px;
+  background-position: right 18px calc(50% + 2px);
+}
+#${CONFIG.ROOT_ID} .mzt-field select:focus{
   border-color:#c5a27a;
   box-shadow: 0 0 0 3px rgba(197,162,122,.25);
+  transform: translateY(-1px);
 }
-#${CONFIG.ROOT_ID} .mzt-select-btn:hover{
-  border-color: rgba(0,0,0,.22);
-}
-
-#${CONFIG.ROOT_ID} .mzt-select-arrow{
-  position:absolute;
-  right: clamp(10px, 1.2vw, 14px);
-  top: 52%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  opacity:.7;
-  pointer-events:none;
-  transition: transform .18s ease;
-}
-#${CONFIG.ROOT_ID} .mzt-select.is-open .mzt-select-arrow{
-  transform: translateY(-50%) rotate(180deg);
+#${CONFIG.ROOT_ID} .mzt-field select:active{
+  transform: translateY(0px);
 }
 
-#${CONFIG.ROOT_ID} .mzt-select-list{
-  position:absolute;
-  left:0;
-  right:0;
-  top: calc(100% + 8px);
-  background:#fff;
-  border-radius:14px;
-  border:1px solid rgba(0,0,0,.10);
-  box-shadow: 0 12px 26px rgba(0,0,0,.14);
-  overflow:hidden;
-
-  /* анимация открытия */
-  max-height:0;
-  opacity:0;
-  transform: translateY(-6px);
-  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
-  z-index: 5;
-}
-#${CONFIG.ROOT_ID} .mzt-select.is-open .mzt-select-list{
-  max-height: 260px;
-  opacity:1;
-  transform: translateY(0);
-}
-#${CONFIG.ROOT_ID} .mzt-select-item{
-  height:40px;
-  padding:0 12px;
-  display:flex;
-  align-items:center;
-  cursor:pointer;
-  font-size:14px;
-  color:#111827;
-  transition: background .12s ease;
-}
-#${CONFIG.ROOT_ID} .mzt-select-item:hover{
-  background: rgba(197,162,122,.12);
-}
-#${CONFIG.ROOT_ID} .mzt-select-item.is-active{
-  background: rgba(197,162,122,.18);
-  font-weight:600;
-}
-
-/* ===================== Tiles grid + placeholders ===================== */
+/* Нижний блок: плитка + пагинация */
 #${CONFIG.ROOT_ID} #vispanel-bot{
   flex:1;
   display:flex;
   flex-direction:column;
   gap:10px;
   padding:8px 8px 10px;
+  min-height:0;
 }
-#${CONFIG.ROOT_ID} .mzt-tiles-wrap{
-  position:relative;
-  flex:1;
-}
+
+/* Сетка 3x3: ячейки всегда 1:1 и одного размера */
 #${CONFIG.ROOT_ID} .mzt-tiles-grid{
-  height:100%;
+  position:relative;
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap:10px;
+  flex:1 1 auto;
+  min-height:0;
 }
-
 #${CONFIG.ROOT_ID} .mzt-tile{
   border-radius:14px;
   overflow:hidden;
@@ -343,6 +281,9 @@
   cursor:pointer;
   border:2px solid transparent;
   position:relative;
+
+  /* ключ: всегда 1:1 */
+  aspect-ratio: 1 / 1;
 }
 #${CONFIG.ROOT_ID} .mzt-tile img{
   width:100%;
@@ -354,35 +295,26 @@
   border-color:#c5a27a;
 }
 
-/* еле видные серые плейсхолдеры */
+/* Placeholder (серые еле видные блоки) */
 #${CONFIG.ROOT_ID} .mzt-tile.is-empty{
-  background: linear-gradient(135deg, rgba(0,0,0,.035), rgba(0,0,0,.02));
-  border: 1px solid rgba(0,0,0,.06);
+  background:#d1d5db;
+  opacity:.28;
   cursor:default;
 }
 
-/* overlay message */
-#${CONFIG.ROOT_ID} .mzt-grid-overlay{
+/* Overlay message поверх grid */
+#${CONFIG.ROOT_ID} .mzt-overlay-message{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:18px;
-  border-radius:14px;
-  pointer-events:none;
-}
-#${CONFIG.ROOT_ID} .mzt-grid-overlay-card{
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(0,0,0,.08);
-  box-shadow: 0 10px 22px rgba(0,0,0,.12);
-  border-radius:14px;
-  padding:14px 14px;
-  max-width: 340px;
-  color:#111827;
+  padding:20px;
   font-size:14px;
-  line-height:1.35;
+  font-weight:500;
+  color:#374151;
+  pointer-events:none;
 }
 
 /* pagination */
@@ -392,6 +324,7 @@
   justify-content:center;
   align-items:center;
   padding-top:2px;
+  flex:0 0 auto;
 }
 #${CONFIG.ROOT_ID} .mzt-pagebtn{
   min-width:34px;
@@ -405,36 +338,6 @@
 #${CONFIG.ROOT_ID} .mzt-pagebtn.is-active{
   border-color:#c5a27a;
   box-shadow: 0 0 0 3px rgba(197,162,122,.22);
-}
-
-/* ===================== CTA Button (bottom) ===================== */
-#${CONFIG.ROOT_ID} .mzt-cta-wrap{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  background:#f3f4f6;
-  padding: 0 16px 26px;
-}
-#${CONFIG.ROOT_ID} .mzt-cta{
-  width: min(520px, 92vw);
-  height: 64px;
-  border:none;
-  border-radius: 999px;
-  cursor:pointer;
-  font-weight:700;
-  letter-spacing: .02em;
-  color:#ffffff;
-  background: #b78967;
-  box-shadow: 0 14px 26px rgba(0,0,0,.18);
-  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
-}
-#${CONFIG.ROOT_ID} .mzt-cta:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 18px 30px rgba(0,0,0,.20);
-}
-#${CONFIG.ROOT_ID} .mzt-cta:active{
-  transform: translateY(0);
-  opacity:.95;
 }
 
 /* ===================== LOADER ===================== */
@@ -458,22 +361,58 @@
 }
 @keyframes mztspin { to { transform: rotate(360deg); } }
 
+/* ===================== CTA BUTTON (ниже визуализатора) ===================== */
+#${CONFIG.ROOT_ID} .mzt-cta-wrap{
+  display:flex;
+  justify-content:center;
+  padding: 10px 16px 40px;
+  background:#f3f4f6;
+}
+#${CONFIG.ROOT_ID} .mzt-cta-btn{
+  background:#c5a27a;
+  color:#fff;
+  border:none;
+  padding:18px 48px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+#${CONFIG.ROOT_ID} .mzt-cta-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  filter: brightness(1.02);
+}
+#${CONFIG.ROOT_ID} .mzt-cta-btn:active{
+  transform:translateY(-1px);
+}
+
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 980px){
   #${CONFIG.ROOT_ID} .mzt-stage{
-    height: auto;
     aspect-ratio: auto;
-    width: min(100%, ${CONFIG.MAX_WIDTH}px);
     flex-direction:column;
   }
   #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 420px; }
   #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
-  #${CONFIG.ROOT_ID} .mzt-thumb{ width: 140px; }
+
+  /* На мобилке миниатюры могут начать сжиматься слишком сильно — разрешим скролл только тут */
+  #${CONFIG.ROOT_ID} .mzt-render-thumbs{
+    overflow:auto;
+  }
+  #${CONFIG.ROOT_ID} .mzt-thumb{
+    flex: 0 0 auto;
+    width: 140px;
+    aspect-ratio: 16/10;
+  }
 }
 @media (max-width: 520px){
-  #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px 12px; }
+  #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px; }
   #${CONFIG.ROOT_ID} #visrender{ padding:12px; }
   #${CONFIG.ROOT_ID} #vispanel{ padding:12px; }
+
+  /* На мобилке верх панели (селекты) — в горизонтальную раскладку */
   #${CONFIG.ROOT_ID} #vispanel-top{
     display:flex;
     gap:10px;
@@ -492,7 +431,7 @@
   }
 
   /* ==========================================================================
-     [6] Разметка (создаём внутри #cusvis)
+     [5] Разметка (создаём внутри #cusvis)
      ========================================================================== */
   function buildLayout(root) {
     root.innerHTML = "";
@@ -507,12 +446,12 @@
     const main = el("div", { class: "mzt-render-main", id: "mztRenderMain" });
     const thumbs = el("div", { class: "mzt-render-thumbs", id: "mztRenderThumbs" });
 
-    // initial empty
+    // default empty state
     main.appendChild(
       el("div", {
         class: "mzt-empty",
         id: "mztRenderEmpty",
-        text: "Выберите значения справа для отображения."
+        text: "Выберите плитку справа, чтобы увидеть рендеры дома."
       })
     );
 
@@ -523,13 +462,10 @@
     const top = el("div", { id: "vispanel-top" });
     const bot = el("div", { id: "vispanel-bot" });
 
-    const tilesWrap = el("div", { class: "mzt-tiles-wrap", id: "mztTilesWrap" });
     const grid = el("div", { class: "mzt-tiles-grid", id: "mztTilesGrid" });
-    tilesWrap.appendChild(grid);
-
     const pagination = el("div", { class: "mzt-pagination", id: "mztPagination" });
 
-    bot.appendChild(tilesWrap);
+    bot.appendChild(grid);
     bot.appendChild(pagination);
 
     right.appendChild(top);
@@ -538,18 +474,33 @@
     stage.appendChild(left);
     stage.appendChild(right);
     stageWrap.appendChild(stage);
-
     root.appendChild(stageWrap);
 
-    // CTA (нижняя кнопка будет добавляться отдельным разделом)
+    /* ==========================================================================
+       [SECTION: BOTTOM CTA BUTTON]
+       Этот блок можно полностью закомментировать/удалить без вреда для скрипта
+       ========================================================================== */
+    const ctaWrap = el("div", { class: "mzt-cta-wrap" });
+    const ctaBtn = el("button", {
+      class: "mzt-cta-btn",
+      text: "ПОЛУЧИТЬ РАСЧЁТ СТОИМОСТИ",
+      type: "button"
+    });
+    // Пока без экшена (позже сюда добавите ваш обработчик клика)
+    // ctaBtn.addEventListener("click", () => { ... });
+
+    ctaWrap.appendChild(ctaBtn);
+    root.appendChild(ctaWrap);
   }
 
   /* ==========================================================================
-     [7] Loader
+     [6] Loader
      ========================================================================== */
   function showLoader() {
     if (qs(".mzt-loader")) return;
-    const loader = el("div", { class: "mzt-loader", id: "mztLoader" }, [el("div", { class: "mzt-spinner", "aria-label": "loading" })]);
+    const loader = el("div", { class: "mzt-loader", id: "mztLoader" }, [
+      el("div", { class: "mzt-spinner", "aria-label": "loading" })
+    ]);
     document.body.appendChild(loader);
   }
 
@@ -559,219 +510,159 @@
   }
 
   /* ==========================================================================
-     [8] Данные: загрузка dbase.json
+     [7] Данные: загрузка dbase.json
      ========================================================================== */
   async function loadDB() {
     const res = await fetch(CONFIG.DB_URL, { cache: "no-store" });
-    if (!res.ok) throw new Error(`Не удалось загрузить DB_URL: ${res.status} (${CONFIG.DB_URL})`);
+    if (!res.ok) throw new Error(`Не удалось загрузить dbase.json: ${res.status}`);
     return res.json();
   }
 
   /* ==========================================================================
-     [9] Custom Selects (rounded + animated)
+     [8] UI: Селекты
      ========================================================================== */
-  function closeAllSelects(exceptKey = null) {
-    qsa(".mzt-select").forEach((box) => {
-      const key = box.getAttribute("data-key");
-      if (exceptKey && key === exceptKey) return;
-      box.classList.remove("is-open");
-    });
-  }
-
   function renderSelects() {
     const top = qs("#vispanel-top");
     top.innerHTML = "";
 
     const { selects } = state.db;
 
-    const arrowSvg = `
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    `;
-
     const makeField = (key) => {
       const field = el("div", { class: "mzt-field" });
-      const label = el("label", { text: selects[key].label });
-
-      const box = el("div", { class: "mzt-select", "data-key": key });
-      const btn = el("button", { class: "mzt-select-btn", type: "button" });
-      const btnText = el("span", { class: "mzt-select-text", text: state.filters[key] });
-      btn.appendChild(btnText);
-
-      const arrow = el("div", { class: "mzt-select-arrow", html: arrowSvg });
-      box.appendChild(btn);
-      box.appendChild(arrow);
-
-      const list = el("div", { class: "mzt-select-list", role: "listbox" });
+      const label = el("label", { for: `mztSel_${key}`, text: selects[key].label });
+      const select = el("select", { id: `mztSel_${key}` });
 
       selects[key].values.forEach((v) => {
-        const item = el("div", {
-          class: "mzt-select-item" + (state.filters[key] === v ? " is-active" : ""),
-          text: v,
-          role: "option",
-          "data-value": v
-        });
-
-        item.addEventListener("click", () => {
-          state.filters[key] = v;
-          state.page = 1;
-
-          // обновляем текст кнопки
-          btnText.textContent = v;
-
-          // обновляем активный пункт
-          qsa(".mzt-select-item", list).forEach((x) => x.classList.remove("is-active"));
-          item.classList.add("is-active");
-
-          // закрываем
-          box.classList.remove("is-open");
-
-          // применяем фильтры
-          applyFiltersAndRenderTiles();
-
-          // Если пользователь сбросил всё в --- — левый блок возвращаем к подсказке
-          if (allFiltersAreBlank()) {
-            state.selectedTileId = null;
-            state.activeRenderSetId = null;
-            state.activeRenderImages = [];
-            renderRenderBlock();
-          }
-        });
-
-        list.appendChild(item);
+        const opt = el("option", { value: v, text: v });
+        if (state.filters[key] === v) opt.selected = true;
+        select.appendChild(opt);
       });
 
-      box.appendChild(list);
-
-      btn.addEventListener("click", () => {
-        const isOpen = box.classList.contains("is-open");
-        closeAllSelects(key);
-        box.classList.toggle("is-open", !isOpen);
+      select.addEventListener("change", () => {
+        state.filters[key] = select.value;
+        state.page = 1;
+        applyFiltersAndRenderTiles();
       });
 
       field.appendChild(label);
-      field.appendChild(box);
+      field.appendChild(select);
       return field;
     };
 
     top.appendChild(makeField("tile_color"));
     top.appendChild(makeField("grout_color"));
     top.appendChild(makeField("price_category"));
-
-    // закрывать селекты при клике вне
-    document.addEventListener("click", (e) => {
-      const inside = e.target.closest(`#${CONFIG.ROOT_ID} .mzt-select`);
-      if (!inside) closeAllSelects();
-    });
-    // закрывать по ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAllSelects();
-    });
   }
 
   /* ==========================================================================
-     [10] Фильтрация + Плитка (grid) + пагинация + overlay состояния
+     [9] Фильтрация + Плитка (grid) + пагинация
      ========================================================================== */
   function tileMatchesFilters(tile) {
     const f = state.filters;
+
     const okColor = f.tile_color === "---" || tile.tile_color === f.tile_color;
     const okGrout = f.grout_color === "---" || tile.grout_color === f.grout_color;
     const okPrice = f.price_category === "---" || tile.price_category === f.price_category;
+
     return okColor && okGrout && okPrice;
   }
 
   function applyFiltersAndRenderTiles() {
-    // ВАЖНО: если все фильтры --- => мы НЕ показываем плитку, а просим выбрать значения
-    if (allFiltersAreBlank()) {
+    if (isAllDefaultFilters()) {
+      state.tilesMode = "default";
       state.filteredTiles = [];
       state.page = 1;
-      renderTilesPage({ mode: "need_selection" });
-      renderPagination({ forceSingle: true });
+      renderTilesPage();
+      renderPagination();
       return;
     }
 
     state.filteredTiles = state.db.tiles.filter(tileMatchesFilters);
-    renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
+
+    if (state.filteredTiles.length === 0) state.tilesMode = "empty";
+    else state.tilesMode = "normal";
+
+    renderTilesPage();
     renderPagination();
   }
 
-  function renderTilesPage({ mode }) {
+  function renderTilesPage() {
     const grid = qs("#mztTilesGrid");
-    const wrap = qs("#mztTilesWrap");
     grid.innerHTML = "";
 
-    // чистим overlay
-    const oldOverlay = qs(".mzt-grid-overlay", wrap);
-    if (oldOverlay) oldOverlay.remove();
+    // Всегда сначала рисуем 9 серых квадратов 1:1
+    for (let i = 0; i < CONFIG.TILES_PER_PAGE; i++) {
+      grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
+    }
 
-    const perPage = state.db.ui?.tiles_per_page ?? 9;
-    const total = state.filteredTiles.length;
-    const pages = Math.max(1, Math.ceil(total / perPage));
-    state.page = clamp(state.page, 1, pages);
-
-    // всегда рисуем 9 плейсхолдеров (еле видные серые блоки)
-    if (mode === "need_selection" || mode === "no_matches") {
-      for (let i = 0; i < perPage; i++) {
-        grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
-      }
-
-      const msg =
-        mode === "need_selection"
-          ? "Выберите значения для отображения"
-          : "По выбранным параметрам совпадений не найдено";
-
-      const overlay = el("div", { class: "mzt-grid-overlay" }, [
-        el("div", { class: "mzt-grid-overlay-card", text: msg })
-      ]);
-      wrap.appendChild(overlay);
-
+    // Сообщение поверх
+    if (state.tilesMode === "default") {
+      grid.appendChild(el("div", { class: "mzt-overlay-message", text: "Выберите значения для отображения" }));
+      return;
+    }
+    if (state.tilesMode === "empty") {
+      grid.appendChild(
+        el("div", { class: "mzt-overlay-message", text: "По выбранным параметрам совпадений не найдено" })
+      );
       return;
     }
 
-    const start = (state.page - 1) * perPage;
-    const pageItems = state.filteredTiles.slice(start, start + perPage);
+    // normal: заменяем первые N плейсхолдеров на реальные карточки по странице
+    const total = state.filteredTiles.length;
+    const pages = Math.max(1, Math.ceil(total / CONFIG.TILES_PER_PAGE));
+    state.page = clamp(state.page, 1, pages);
 
-    pageItems.forEach((t) => {
-      const card = el("div", { class: "mzt-tile" + (state.selectedTileId === t.id ? " is-selected" : "") });
+    const start = (state.page - 1) * CONFIG.TILES_PER_PAGE;
+    const pageItems = state.filteredTiles.slice(start, start + CONFIG.TILES_PER_PAGE);
+
+    const cells = qsa(".mzt-tile", grid);
+
+    pageItems.forEach((t, idx) => {
+      const card = el("div", {
+        class: "mzt-tile" + (state.selectedTileId === t.id ? " is-selected" : "")
+      });
+
       const img = el("img", { src: t.image, alt: t.name, loading: "lazy" });
       card.appendChild(img);
-      card.addEventListener("click", () => onTileClick(t.id));
-      grid.appendChild(card);
-    });
 
-    // добиваем до 9
-    for (let i = pageItems.length; i < perPage; i++) {
-      grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
-    }
+      card.addEventListener("click", () => onTileClick(t.id));
+
+      if (cells[idx]) cells[idx].replaceWith(card);
+    });
   }
 
-  function renderPagination({ forceSingle } = {}) {
+  function renderPagination() {
     const wrap = qs("#mztPagination");
     wrap.innerHTML = "";
 
-    const perPage = state.db.ui?.tiles_per_page ?? 9;
-    const total = state.filteredTiles.length;
-    const pages = Math.max(1, Math.ceil(total / perPage));
-
-    if (forceSingle || total === 0) {
+    // default/empty: одна страница "1"
+    if (state.tilesMode !== "normal") {
       wrap.appendChild(el("button", { class: "mzt-pagebtn is-active", text: "1", type: "button" }));
       return;
     }
 
+    const total = state.filteredTiles.length;
+    const pages = Math.max(1, Math.ceil(total / CONFIG.TILES_PER_PAGE));
+
     for (let p = 1; p <= pages; p++) {
-      const btn = el("button", { class: "mzt-pagebtn" + (p === state.page ? " is-active" : ""), text: String(p), type: "button" });
+      const btn = el("button", {
+        class: "mzt-pagebtn" + (p === state.page ? " is-active" : ""),
+        text: String(p),
+        type: "button"
+      });
+
       btn.addEventListener("click", () => {
         state.page = p;
-        renderTilesPage({ mode: "normal" });
+        renderTilesPage();
         renderPagination();
       });
+
       wrap.appendChild(btn);
     }
   }
 
   /* ==========================================================================
-     [11] Клик по плитке -> привязка -> рендеры
+     [10] Клик по плитке -> найти привязку -> показать рендеры
      ========================================================================== */
   function getRenderSetById(id) {
     return state.db.renderSets.find((r) => r.id === id) || null;
@@ -786,7 +677,7 @@
     state.selectedTileId = tileId;
 
     // подсветка выбранной плитки
-    renderTilesPage({ mode: "normal" });
+    renderTilesPage();
 
     const renderSetId = getBoundRenderSetId(tileId);
     state.activeRenderSetId = renderSetId;
@@ -804,16 +695,19 @@
       return;
     }
 
+    // Берём максимум 8 изображений: 1 main + 7 thumbs
+    const images = (set.images || []).map((x) => x.image).filter(Boolean).slice(0, 1 + CONFIG.THUMBS_COUNT);
+
     showLoader();
-    await preloadImages(set.images.map((x) => x.image));
+    await preloadImages(images);
     hideLoader();
 
-    state.activeRenderImages = set.images.map((x) => x.image);
+    state.activeRenderImages = images;
     renderRenderBlock();
   }
 
   /* ==========================================================================
-     [12] Render block: большая + миниатюры, swap
+     [11] Render block: большая + 7 миниатюр, swap
      ========================================================================== */
   function renderRenderBlock() {
     const main = qs("#mztRenderMain");
@@ -822,14 +716,7 @@
     main.innerHTML = "";
     thumbs.innerHTML = "";
 
-    // Если пользователь ничего не выбрал и фильтры пустые — подсказка
-    if (!state.selectedTileId && allFiltersAreBlank()) {
-      main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
-      return;
-    }
-
     if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
-      // Текст заменён по вашему требованию
       main.appendChild(
         el("div", {
           class: "mzt-empty",
@@ -838,68 +725,57 @@
             : "Выберите плитку справа, чтобы увидеть рендеры дома."
         })
       );
+
+      // Чтобы высота не прыгала — рисуем 7 пустых миниатюрных блоков
+      for (let i = 0; i < CONFIG.THUMBS_COUNT; i++) {
+        thumbs.appendChild(el("div", { class: "mzt-thumb" }, [el("div", { class: "mzt-tile is-empty" })]));
+      }
       return;
     }
 
-    // main = first
+    // main image = first
     const mainImg = el("img", { src: state.activeRenderImages[0], alt: "render main", loading: "eager" });
     main.appendChild(mainImg);
 
-    // thumbs
-    state.activeRenderImages.forEach((src, idx) => {
-      const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
-      const img = el("img", { src, alt: `thumb ${idx + 1}`, loading: "lazy" });
-      t.appendChild(img);
+    // thumbs: всегда 7 ячеек
+    const thumbsSources = state.activeRenderImages.slice(1, 1 + CONFIG.THUMBS_COUNT);
+    for (let i = 0; i < CONFIG.THUMBS_COUNT; i++) {
+      const src = thumbsSources[i] || null;
 
-      t.addEventListener("click", () => {
-        if (idx === 0) return;
-        const next = [...state.activeRenderImages];
-        const picked = next.splice(idx, 1)[0];
-        next.unshift(picked);
-        state.activeRenderImages = next;
-        renderRenderBlock();
-      });
+      const t = el("div", { class: "mzt-thumb" + (i === 0 ? " is-active" : "") });
+      if (src) {
+        const img = el("img", { src, alt: `thumb ${i + 1}`, loading: "lazy" });
+        t.appendChild(img);
+
+        t.addEventListener("click", () => {
+          // swap: выбранная миниатюра становится main
+          const idxInState = i + 1; // т.к. [0] main
+          if (!state.activeRenderImages[idxInState]) return;
+
+          const next = [...state.activeRenderImages];
+          const picked = next.splice(idxInState, 1)[0];
+          next.unshift(picked);
+          state.activeRenderImages = next;
+          renderRenderBlock();
+        });
+      } else {
+        // пустая ячейка, но размер тот же
+        t.style.background = "#d1d5db";
+        t.style.opacity = "0.28";
+        t.style.cursor = "default";
+      }
 
       thumbs.appendChild(t);
-    });
+    }
   }
 
   /* ==========================================================================
-     [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
-     --------------------------------------------------------------------------
-     Кнопка пока без экшена. В перспективе сюда добавите свой обработчик.
-     Чтобы полностью убрать кнопку без вреда для скрипта:
-     - закомментируйте вызов initBottomCTA() в init()
-     - либо закомментируйте весь этот раздел
-     ========================================================================== */
-  function initBottomCTA() {
-    const root = qs(`#${CONFIG.ROOT_ID}`);
-    if (!root) return;
-
-    const ctaWrap = el("div", { class: "mzt-cta-wrap" });
-    const btn = el("button", {
-      class: "mzt-cta",
-      type: "button",
-      text: "ПОЛУЧИТЬ РАСЧЁТ СТОИМОСТИ"
-    });
-
-    // TODO: будущий экшен кнопки:
-    // btn.addEventListener("click", () => {
-    //   // сюда вставите ваш скрипт
-    // });
-
-    ctaWrap.appendChild(btn);
-    root.appendChild(ctaWrap);
-  }
-
-  /* ==========================================================================
-     [14] Init
+     [12] Init
      ========================================================================== */
   async function init() {
     const root = qs(`#${CONFIG.ROOT_ID}`);
     if (!root) return;
 
-    ensureMontserrat();
     injectStyles();
     buildLayout(root);
 
@@ -907,12 +783,10 @@
     try {
       state.db = await loadDB();
 
+      // первичная отрисовка UI
       renderSelects();
       applyFiltersAndRenderTiles();
       renderRenderBlock();
-
-      // нижняя кнопка
-      initBottomCTA();
     } catch (e) {
       console.error(e);
       const main = qs("#mztRenderMain");
