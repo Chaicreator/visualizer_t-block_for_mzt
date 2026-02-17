@@ -130,15 +130,15 @@
   background: #f3f4f6;
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
-  /* ключевой момент: высота ограничена 900px, ширина считается по aspect-ratio */
   height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
-  aspect-ratio: ${CONFIG.ASPECT_W} / ${CONFIG.ASPECT_H};
 
-  width: auto;
-  max-width: min(100%, ${CONFIG.MAX_WIDTH}px);
+  /* расширяем примерно на 10% */
+  width: min(100%, calc(${CONFIG.TARGET_DESKTOP_HEIGHT}px * 16 / 9 * 1.1));
+
+  max-width: ${CONFIG.MAX_WIDTH}px;
 
   display:flex;
-  gap:20px;
+  gap:22px;
   align-items:stretch;
 }
 
@@ -337,6 +337,8 @@
 }
 
 #${CONFIG.ROOT_ID} .mzt-tile{
+  aspect-ratio: 1 / 1;   /* ВСЕГДА квадрат */
+  width:100%;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
@@ -932,3 +934,4 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
