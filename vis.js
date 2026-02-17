@@ -13,15 +13,8 @@
     ROOT_ID: "cusvis",
     MAX_WIDTH: 1920,
 
-    // Важно: вы просили 1920x1080 (FullHD), чтобы всё влезало без скролла
-    ASPECT_W: 1920,
-    ASPECT_H: 1080,
-
-    // Кол-во плиток на странице (3x3)
-    TILES_PER_PAGE: 9,
-
-    // Миниатюр снизу (7 по заданию)
-    THUMBS_COUNT: 7
+    // Основной визуализатор фиксированной высоты 900px (на десктопе)
+    STAGE_HEIGHT_DESKTOP: 900
   };
 
   /* ==========================================================================
@@ -78,8 +71,6 @@
 
     selectedTileId: null,
     activeRenderSetId: null,
-
-    // Ровно 8 картинок: [0] = main, [1..7] = thumbs
     activeRenderImages: [],
 
     // режим плиток: "default" (все ---), "empty" (нет совпадений), "normal"
@@ -109,7 +100,7 @@
 }
 #${CONFIG.ROOT_ID} *{ box-sizing:border-box; }
 
-/* ===================== STAGE (центрирование 1920x1080) ===================== */
+/* ===================== STAGE (фикс высота 900px на десктопе) ===================== */
 #${CONFIG.ROOT_ID} .mzt-stage-wrap{
   width:100%;
   display:flex;
@@ -119,7 +110,7 @@
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
   width: min(100%, ${CONFIG.MAX_WIDTH}px);
-  aspect-ratio: ${CONFIG.ASPECT_W} / ${CONFIG.ASPECT_H};
+  height: ${CONFIG.STAGE_HEIGHT_DESKTOP}px;      /* ВАЖНО: фикс высота */
   display:flex;
   gap:20px;
   align-items:stretch;
@@ -133,20 +124,20 @@
   overflow:hidden;
 }
 
-/* ===================== LEFT: RENDER (без горизонтального скролла) ===================== */
+/* ===================== LEFT: RENDER ===================== */
 #${CONFIG.ROOT_ID} #visrender{
   flex: 3;
   display:flex;
   flex-direction:column;
   padding:16px;
   gap:14px;
-  min-width:0; /* важно для корректного shrink */
+  min-width:0;
 }
 
-/* Большое изображение занимает всё доступное место */
+/* Главная картинка занимает всё оставшееся место */
 #${CONFIG.ROOT_ID} .mzt-render-main{
   position:relative;
-  flex:1 1 auto;
+  flex: 1 1 auto;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
@@ -159,25 +150,23 @@
   display:block;
 }
 
-/* Миниатюры: строго 7 в ряд, без overflow/скролла */
+/* ВНИЗУ: 7 миниатюр без прокрутки, равномерно по ширине */
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
+  flex: 0 0 auto;
   display:flex;
   gap:10px;
-  overflow:hidden;     /* убираем скролл */
-  padding-bottom:0;
-  flex:0 0 auto;
+  overflow:hidden; /* ВАЖНО: убрали прокрутку */
 }
-
-/* 7 одинаковых миниатюр, которые всегда помещаются */
 #${CONFIG.ROOT_ID} .mzt-thumb{
-  flex: 1 1 0;         /* все делят ширину поровну */
-  min-width: 0;
-  aspect-ratio: 16/10; /* аккуратная пропорция */
+  flex: 1 1 0;           /* равномерное распределение */
+  width: auto;           /* не фиксируем */
+  aspect-ratio: 16/10;   /* эстетично, но без скролла */
   border-radius:12px;
   overflow:hidden;
   background:#eaecef;
   border:2px solid transparent;
   cursor:pointer;
+  min-width: 0;          /* чтобы реально ужималось */
 }
 #${CONFIG.ROOT_ID} .mzt-thumb img{
   width:100%;
@@ -251,9 +240,6 @@
   box-shadow: 0 0 0 3px rgba(197,162,122,.25);
   transform: translateY(-1px);
 }
-#${CONFIG.ROOT_ID} .mzt-field select:active{
-  transform: translateY(0px);
-}
 
 /* Нижний блок: плитка + пагинация */
 #${CONFIG.ROOT_ID} #vispanel-bot{
@@ -265,25 +251,25 @@
   min-height:0;
 }
 
-/* Сетка 3x3: ячейки всегда 1:1 и одного размера */
+/* Сетка 3x3. КАЖДАЯ ЯЧЕЙКА СТРОГО 1:1 */
 #${CONFIG.ROOT_ID} .mzt-tiles-grid{
   position:relative;
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap:10px;
-  flex:1 1 auto;
+  flex:1;
   min-height:0;
 }
+
+/* Плитка: фиксируем квадрат */
 #${CONFIG.ROOT_ID} .mzt-tile{
+  aspect-ratio: 1 / 1;   /* ВАЖНО: 1:1 всегда */
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
   cursor:pointer;
   border:2px solid transparent;
   position:relative;
-
-  /* ключ: всегда 1:1 */
-  aspect-ratio: 1 / 1;
 }
 #${CONFIG.ROOT_ID} .mzt-tile img{
   width:100%;
@@ -294,8 +280,6 @@
 #${CONFIG.ROOT_ID} .mzt-tile.is-selected{
   border-color:#c5a27a;
 }
-
-/* Placeholder (серые еле видные блоки) */
 #${CONFIG.ROOT_ID} .mzt-tile.is-empty{
   background:#d1d5db;
   opacity:.28;
@@ -319,12 +303,12 @@
 
 /* pagination */
 #${CONFIG.ROOT_ID} .mzt-pagination{
+  flex: 0 0 auto;
   display:flex;
   gap:8px;
   justify-content:center;
   align-items:center;
   padding-top:2px;
-  flex:0 0 auto;
 }
 #${CONFIG.ROOT_ID} .mzt-pagebtn{
   min-width:34px;
@@ -384,28 +368,14 @@
   box-shadow:0 10px 25px rgba(0,0,0,.15);
   filter: brightness(1.02);
 }
-#${CONFIG.ROOT_ID} .mzt-cta-btn:active{
-  transform:translateY(-1px);
-}
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 980px){
   #${CONFIG.ROOT_ID} .mzt-stage{
-    aspect-ratio: auto;
+    height: auto;            /* на моб/планшет — авто */
     flex-direction:column;
   }
-  #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 420px; }
-  #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
-
-  /* На мобилке миниатюры могут начать сжиматься слишком сильно — разрешим скролл только тут */
-  #${CONFIG.ROOT_ID} .mzt-render-thumbs{
-    overflow:auto;
-  }
-  #${CONFIG.ROOT_ID} .mzt-thumb{
-    flex: 0 0 auto;
-    width: 140px;
-    aspect-ratio: 16/10;
-  }
+  #${CONFIG.ROOT_ID} #visrender{ min-height: 420px; }
 }
 @media (max-width: 520px){
   #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px; }
@@ -446,7 +416,6 @@
     const main = el("div", { class: "mzt-render-main", id: "mztRenderMain" });
     const thumbs = el("div", { class: "mzt-render-thumbs", id: "mztRenderThumbs" });
 
-    // default empty state
     main.appendChild(
       el("div", {
         class: "mzt-empty",
@@ -486,7 +455,7 @@
       text: "ПОЛУЧИТЬ РАСЧЁТ СТОИМОСТИ",
       type: "button"
     });
-    // Пока без экшена (позже сюда добавите ваш обработчик клика)
+    // Пока без экшена
     // ctaBtn.addEventListener("click", () => { ... });
 
     ctaWrap.appendChild(ctaBtn);
@@ -590,30 +559,30 @@
     const grid = qs("#mztTilesGrid");
     grid.innerHTML = "";
 
-    // Всегда сначала рисуем 9 серых квадратов 1:1
-    for (let i = 0; i < CONFIG.TILES_PER_PAGE; i++) {
+    const perPage = state.db.ui?.tiles_per_page ?? 9;
+
+    // Сначала рисуем 9 одинаковых квадратных placeholder'ов
+    for (let i = 0; i < perPage; i++) {
       grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
     }
 
-    // Сообщение поверх
     if (state.tilesMode === "default") {
       grid.appendChild(el("div", { class: "mzt-overlay-message", text: "Выберите значения для отображения" }));
       return;
     }
+
     if (state.tilesMode === "empty") {
-      grid.appendChild(
-        el("div", { class: "mzt-overlay-message", text: "По выбранным параметрам совпадений не найдено" })
-      );
+      grid.appendChild(el("div", { class: "mzt-overlay-message", text: "По выбранным параметрам совпадений не найдено" }));
       return;
     }
 
-    // normal: заменяем первые N плейсхолдеров на реальные карточки по странице
+    // normal
     const total = state.filteredTiles.length;
-    const pages = Math.max(1, Math.ceil(total / CONFIG.TILES_PER_PAGE));
+    const pages = Math.max(1, Math.ceil(total / perPage));
     state.page = clamp(state.page, 1, pages);
 
-    const start = (state.page - 1) * CONFIG.TILES_PER_PAGE;
-    const pageItems = state.filteredTiles.slice(start, start + CONFIG.TILES_PER_PAGE);
+    const start = (state.page - 1) * perPage;
+    const pageItems = state.filteredTiles.slice(start, start + perPage);
 
     const cells = qsa(".mzt-tile", grid);
 
@@ -635,14 +604,14 @@
     const wrap = qs("#mztPagination");
     wrap.innerHTML = "";
 
-    // default/empty: одна страница "1"
     if (state.tilesMode !== "normal") {
       wrap.appendChild(el("button", { class: "mzt-pagebtn is-active", text: "1", type: "button" }));
       return;
     }
 
+    const perPage = state.db.ui?.tiles_per_page ?? 9;
     const total = state.filteredTiles.length;
-    const pages = Math.max(1, Math.ceil(total / CONFIG.TILES_PER_PAGE));
+    const pages = Math.max(1, Math.ceil(total / perPage));
 
     for (let p = 1; p <= pages; p++) {
       const btn = el("button", {
@@ -695,14 +664,11 @@
       return;
     }
 
-    // Берём максимум 8 изображений: 1 main + 7 thumbs
-    const images = (set.images || []).map((x) => x.image).filter(Boolean).slice(0, 1 + CONFIG.THUMBS_COUNT);
-
     showLoader();
-    await preloadImages(images);
+    await preloadImages(set.images.map((x) => x.image));
     hideLoader();
 
-    state.activeRenderImages = images;
+    state.activeRenderImages = set.images.map((x) => x.image);
     renderRenderBlock();
   }
 
@@ -725,11 +691,6 @@
             : "Выберите плитку справа, чтобы увидеть рендеры дома."
         })
       );
-
-      // Чтобы высота не прыгала — рисуем 7 пустых миниатюрных блоков
-      for (let i = 0; i < CONFIG.THUMBS_COUNT; i++) {
-        thumbs.appendChild(el("div", { class: "mzt-thumb" }, [el("div", { class: "mzt-tile is-empty" })]));
-      }
       return;
     }
 
@@ -737,36 +698,23 @@
     const mainImg = el("img", { src: state.activeRenderImages[0], alt: "render main", loading: "eager" });
     main.appendChild(mainImg);
 
-    // thumbs: всегда 7 ячеек
-    const thumbsSources = state.activeRenderImages.slice(1, 1 + CONFIG.THUMBS_COUNT);
-    for (let i = 0; i < CONFIG.THUMBS_COUNT; i++) {
-      const src = thumbsSources[i] || null;
+    // thumbs (ровно столько, сколько в массиве — у вас 7)
+    state.activeRenderImages.forEach((src, idx) => {
+      const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
+      const img = el("img", { src, alt: `thumb ${idx + 1}`, loading: "lazy" });
+      t.appendChild(img);
 
-      const t = el("div", { class: "mzt-thumb" + (i === 0 ? " is-active" : "") });
-      if (src) {
-        const img = el("img", { src, alt: `thumb ${i + 1}`, loading: "lazy" });
-        t.appendChild(img);
-
-        t.addEventListener("click", () => {
-          // swap: выбранная миниатюра становится main
-          const idxInState = i + 1; // т.к. [0] main
-          if (!state.activeRenderImages[idxInState]) return;
-
-          const next = [...state.activeRenderImages];
-          const picked = next.splice(idxInState, 1)[0];
-          next.unshift(picked);
-          state.activeRenderImages = next;
-          renderRenderBlock();
-        });
-      } else {
-        // пустая ячейка, но размер тот же
-        t.style.background = "#d1d5db";
-        t.style.opacity = "0.28";
-        t.style.cursor = "default";
-      }
+      t.addEventListener("click", () => {
+        if (idx === 0) return;
+        const next = [...state.activeRenderImages];
+        const picked = next.splice(idx, 1)[0];
+        next.unshift(picked);
+        state.activeRenderImages = next;
+        renderRenderBlock();
+      });
 
       thumbs.appendChild(t);
-    }
+    });
   }
 
   /* ==========================================================================
@@ -783,7 +731,6 @@
     try {
       state.db = await loadDB();
 
-      // первичная отрисовка UI
       renderSelects();
       applyFiltersAndRenderTiles();
       renderRenderBlock();
