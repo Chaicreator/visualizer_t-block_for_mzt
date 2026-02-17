@@ -1,5 +1,14 @@
 /* ==========================================================================
    MZT Visualizer (Tilda custom block)
+   Контейнер: <div id="cusvis"></div>
+   Подключение: <script src="https://chaicreator.github.io/visualizer_t-block_for_mzt/vis.js" defer></script>
+   Данные:      https://chaicreator.github.io/visualizer_t-block_for_mzt/dbase.json
+
+   Обновления по запросу:
+   - Основной блок визуализатора под FullHD: фикс. высота 900px (без скролла в превью слева).
+   - Левый и правый блоки +10% (и внутренности) за счет пересчета flex и уменьшения “раздувающих” отступов.
+   - Превью снизу: 7 миниатюр всегда помещаются без горизонтальной прокрутки (авто-ширина на 7).
+   - Плитка справа: фреймы всегда 1:1 и одинакового размера, даже если пустые.
    ========================================================================== */
 
 (() => {
@@ -13,8 +22,8 @@
     ROOT_ID: "cusvis",
     MAX_WIDTH: 1920,
 
-    // Основной визуализатор фиксированной высоты 900px (на десктопе)
-    STAGE_HEIGHT_DESKTOP: 900
+    // FullHD высота основного блока визуализатора (внутри cusvis)
+    STAGE_HEIGHT_PX: 900
   };
 
   /* ==========================================================================
@@ -100,19 +109,21 @@
 }
 #${CONFIG.ROOT_ID} *{ box-sizing:border-box; }
 
-/* ===================== STAGE (фикс высота 900px на десктопе) ===================== */
+/* ===================== STAGE WRAP ===================== */
 #${CONFIG.ROOT_ID} .mzt-stage-wrap{
   width:100%;
   display:flex;
   justify-content:center;
-  padding:24px 16px;
+  padding:18px 14px;
   background: #f3f4f6;
 }
+
+/* ===================== STAGE (фикс высота 900px на FullHD, без скролла) ===================== */
 #${CONFIG.ROOT_ID} .mzt-stage{
   width: min(100%, ${CONFIG.MAX_WIDTH}px);
-  height: ${CONFIG.STAGE_HEIGHT_DESKTOP}px;      /* ВАЖНО: фикс высота */
+  height: ${CONFIG.STAGE_HEIGHT_PX}px;
   display:flex;
-  gap:20px;
+  gap:16px;
   align-items:stretch;
 }
 
@@ -124,49 +135,53 @@
   overflow:hidden;
 }
 
-/* ===================== LEFT: RENDER ===================== */
+/* ===================== LEFT: RENDER (растянули ~на 10%) ===================== */
 #${CONFIG.ROOT_ID} #visrender{
-  flex: 3;
+  flex: 3.3; /* было 3 */
   display:flex;
   flex-direction:column;
-  padding:16px;
-  gap:14px;
-  min-width:0;
+  padding:12px; /* было 16 */
+  gap:10px;     /* было 14 */
+  min-width: 0;
 }
 
-/* Главная картинка занимает всё оставшееся место */
+/* Главная картинка занимает максимум, чтобы влезли 7 превью */
 #${CONFIG.ROOT_ID} .mzt-render-main{
   position:relative;
-  flex: 1 1 auto;
+  flex:1 1 auto;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
-  min-height:0;
+  min-height: 0;
 }
 #${CONFIG.ROOT_ID} .mzt-render-main img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
+  transform: translateZ(0);
 }
 
-/* ВНИЗУ: 7 миниатюр без прокрутки, равномерно по ширине */
+/* Превью: без скролла, 7 миниатюр равномерно по ширине */
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
   flex: 0 0 auto;
   display:flex;
   gap:10px;
-  overflow:hidden; /* ВАЖНО: убрали прокрутку */
+  overflow:hidden; /* важно: без полосы прокрутки */
+  padding-bottom:0;
 }
+
+/* 7 превью помещаются: каждая берет 1/7 ширины (учитывая gap) */
 #${CONFIG.ROOT_ID} .mzt-thumb{
-  flex: 1 1 0;           /* равномерное распределение */
-  width: auto;           /* не фиксируем */
-  aspect-ratio: 16/10;   /* эстетично, но без скролла */
+  flex: 1 1 0;
+  width:auto;
+  aspect-ratio: 16/10;
   border-radius:12px;
   overflow:hidden;
   background:#eaecef;
   border:2px solid transparent;
   cursor:pointer;
-  min-width: 0;          /* чтобы реально ужималось */
+  min-width: 0;
 }
 #${CONFIG.ROOT_ID} .mzt-thumb img{
   width:100%;
@@ -186,26 +201,27 @@
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:24px;
+  padding:20px;
   color:#6b7280;
-  font-size:16px;
+  font-size:15px;
   line-height:1.35;
 }
 
-/* ===================== RIGHT: PANEL ===================== */
+/* ===================== RIGHT: PANEL (растянули ~на 10%) ===================== */
 #${CONFIG.ROOT_ID} #vispanel{
-  flex: 1;
+  flex: 1.1; /* было 1 */
   display:flex;
   flex-direction:column;
-  padding:16px;
-  gap:14px;
-  min-width:0;
+  padding:12px; /* было 16 */
+  gap:10px;     /* было 14 */
+  min-width: 0;
 }
+
 #${CONFIG.ROOT_ID} #vispanel-top{
-  padding:10px 10px 2px;
+  padding:8px 8px 0;
 }
 #${CONFIG.ROOT_ID} .mzt-field{
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 #${CONFIG.ROOT_ID} .mzt-field label{
   display:block;
@@ -241,29 +257,30 @@
   transform: translateY(-1px);
 }
 
-/* Нижний блок: плитка + пагинация */
+/* ===================== BOTTOM: tiles + pagination ===================== */
 #${CONFIG.ROOT_ID} #vispanel-bot{
   flex:1;
   display:flex;
   flex-direction:column;
   gap:10px;
-  padding:8px 8px 10px;
-  min-height:0;
+  padding:6px 6px 8px;
+  min-height: 0;
 }
 
-/* Сетка 3x3. КАЖДАЯ ЯЧЕЙКА СТРОГО 1:1 */
+/* ВАЖНО: ячейки всегда квадрат 1:1 и одинаковые */
 #${CONFIG.ROOT_ID} .mzt-tiles-grid{
   position:relative;
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap:10px;
-  flex:1;
-  min-height:0;
+  flex:1 1 auto;
+  min-height: 0;
 }
 
-/* Плитка: фиксируем квадрат */
+/* Фрейм плитки строго 1:1 */
 #${CONFIG.ROOT_ID} .mzt-tile{
-  aspect-ratio: 1 / 1;   /* ВАЖНО: 1:1 всегда */
+  aspect-ratio: 1 / 1;   /* << главное */
+  width: 100%;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
@@ -280,6 +297,8 @@
 #${CONFIG.ROOT_ID} .mzt-tile.is-selected{
   border-color:#c5a27a;
 }
+
+/* Placeholder (серые еле видные блоки) */
 #${CONFIG.ROOT_ID} .mzt-tile.is-empty{
   background:#d1d5db;
   opacity:.28;
@@ -368,15 +387,21 @@
   box-shadow:0 10px 25px rgba(0,0,0,.15);
   filter: brightness(1.02);
 }
+#${CONFIG.ROOT_ID} .mzt-cta-btn:active{
+  transform:translateY(-1px);
+}
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 980px){
   #${CONFIG.ROOT_ID} .mzt-stage{
-    height: auto;            /* на моб/планшет — авто */
+    height: auto;
     flex-direction:column;
   }
-  #${CONFIG.ROOT_ID} #visrender{ min-height: 420px; }
+  #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 420px; }
+  #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
+  #${CONFIG.ROOT_ID} .mzt-render-thumbs{ gap:8px; }
 }
+
 @media (max-width: 520px){
   #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px; }
   #${CONFIG.ROOT_ID} #visrender{ padding:12px; }
@@ -416,6 +441,7 @@
     const main = el("div", { class: "mzt-render-main", id: "mztRenderMain" });
     const thumbs = el("div", { class: "mzt-render-thumbs", id: "mztRenderThumbs" });
 
+    // default empty state
     main.appendChild(
       el("div", {
         class: "mzt-empty",
@@ -455,7 +481,7 @@
       text: "ПОЛУЧИТЬ РАСЧЁТ СТОИМОСТИ",
       type: "button"
     });
-    // Пока без экшена
+    // Пока без экшена (позже сюда добавите ваш обработчик клика)
     // ctaBtn.addEventListener("click", () => { ... });
 
     ctaWrap.appendChild(ctaBtn);
@@ -561,7 +587,7 @@
 
     const perPage = state.db.ui?.tiles_per_page ?? 9;
 
-    // Сначала рисуем 9 одинаковых квадратных placeholder'ов
+    // Всегда сначала рисуем 9 серых квадратных блоков 1:1
     for (let i = 0; i < perPage; i++) {
       grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
     }
@@ -576,7 +602,7 @@
       return;
     }
 
-    // normal
+    // normal: заменяем плейсхолдеры на реальные карточки по странице
     const total = state.filteredTiles.length;
     const pages = Math.max(1, Math.ceil(total / perPage));
     state.page = clamp(state.page, 1, pages);
@@ -593,7 +619,6 @@
 
       const img = el("img", { src: t.image, alt: t.name, loading: "lazy" });
       card.appendChild(img);
-
       card.addEventListener("click", () => onTileClick(t.id));
 
       if (cells[idx]) cells[idx].replaceWith(card);
@@ -673,7 +698,7 @@
   }
 
   /* ==========================================================================
-     [11] Render block: большая + 7 миниатюр, swap
+     [11] Render block: большая + миниатюры, swap
      ========================================================================== */
   function renderRenderBlock() {
     const main = qs("#mztRenderMain");
@@ -698,7 +723,7 @@
     const mainImg = el("img", { src: state.activeRenderImages[0], alt: "render main", loading: "eager" });
     main.appendChild(mainImg);
 
-    // thumbs (ровно столько, сколько в массиве — у вас 7)
+    // thumbs (без скролла — 7 штук ровно в ряд)
     state.activeRenderImages.forEach((src, idx) => {
       const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
       const img = el("img", { src, alt: `thumb ${idx + 1}`, loading: "lazy" });
