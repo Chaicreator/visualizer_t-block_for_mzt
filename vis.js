@@ -631,7 +631,9 @@
 
           // применяем фильтры
           applyFiltersAndRenderTiles();
-           
+
+          // Если пользователь сбросил всё в --- — левый блок возвращаем к подсказке
+          
         });
 
         list.appendChild(item);
@@ -691,12 +693,34 @@ function tileMatchesFilters(tile) {
   function applyFiltersAndRenderTiles() {
     // ВАЖНО: если все фильтры --- => мы НЕ показываем плитку, а просим выбрать значения
     if (allFiltersAreBlank()) {
-      state.filteredTiles = [];
-      state.page = 1;
-      renderTilesPage({ mode: "need_selection" });
-      renderPagination({ forceSingle: true });
-      return;
-    }
+  const initial = state.db.initial_state;
+
+  // ПРАВЫЙ БЛОК: 9 популярных плиток
+  if (initial?.popular_tiles?.length) {
+    state.filteredTiles = state.db.tiles.filter(t => initial.popular_tiles.includes(t.id));
+  } else {
+    state.filteredTiles = [];
+  }
+
+  // ЛЕВЫЙ БЛОК: дефолтный набор рендеров
+  if (initial?.render_set_id) {
+    state.activeRenderSetId = initial.render_set_id;
+    const set = getRenderSetById(initial.render_set_id);
+    state.activeRenderImages = set ? set.images.map(x => x.image) : [];
+  } else {
+    state.activeRenderSetId = null;
+    state.activeRenderImages = [];
+  }
+
+  // На дефолтном экране ничего не "выбрано"
+  state.selectedTileId = null;
+  state.page = 1;
+
+  renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
+  renderPagination({ forceSingle: true }); // 9 плиток без пагинации
+  renderRenderBlock();
+  return;
+}
 
     state.filteredTiles = state.db.tiles.filter(tileMatchesFilters);
     renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
@@ -939,7 +963,3 @@ function tileMatchesFilters(tile) {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
-
-
-
