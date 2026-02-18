@@ -10,7 +10,7 @@
   "selects": {
     "tile_color": {
       "label": "Цвет плитки",
-      "values": ["---", "Красный", "Бежевый", "Коричневый", "Черный", "Синий"]
+      "values": ["---", "Красный", "Бежевый", "Коричневый", "Черный", "Желтый"]
     },
     "grout_color": {
       "label": "Цвет затирки",
@@ -41,11 +41,11 @@
     },
     {
       "id": "tile_red_02",
-      "name": "красное два",
-      "tile_color": ["Красный", "Синий"],
+      "name": "красное и желтое два",
+      "tile_color": ["Красный", "Желтый"],
       "grout_color": "Белый",
       "price_category": "Средняя",
-      "image": "https://static.tildacdn.com/tild6266-6363-4561-b337-613139323834/____2__1.jpg"
+      "image": "https://static.tildacdn.com/tild6637-6365-4361-a635-373536663539/__-.jpg"
     },
     {
       "id": "tile_red_03",
@@ -53,7 +53,7 @@
       "tile_color": "Красный",
       "grout_color": "Белый",
       "price_category": "Средняя",
-      "image": "https://static.tildacdn.com/tild6266-6363-4561-b337-613139323834/____2__1.jpg"
+      "image": "https://static.tildacdn.com/tild3462-3238-4631-a333-643761353465/____2__2.jpg"
     },
     {
       "id": "tile_red_04",
@@ -158,7 +158,7 @@
       "tile_color": "Бежевый",
       "grout_color": "Белый",
       "price_category": "Средняя",
-      "image": "https://static.tildacdn.com/tild6666-6531-4335-a361-643231346463/____3__1.jpg"
+      "image": "https://static.tildacdn.com/tild6563-6332-4635-a536-653765663232/____3__2.jpg"
     },
     {
       "id": "tile_beige_05",
@@ -224,6 +224,81 @@
       "price_category": "Средняя",
       "image": "https://static.tildacdn.com/tild6666-6531-4335-a361-643231346463/____3__1.jpg"
     }
+
+    {
+      "id": "tile_brown_1",
+      "name": "коричневый один",
+      "tile_color": "Коричневый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6163-3434-4266-b739-333832313731/_____1.jpg"
+    },
+    {
+      "id": "tile_brown_2",
+      "name": "коричневый два",
+      "tile_color": "Коричневый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6163-3434-4266-b739-333832313731/_____1.jpg"
+    },
+    {
+      "id": "tile_brown_3",
+      "name": "коричневый три",
+      "tile_color": "Коричневый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6163-3434-4266-b739-333832313731/_____1.jpg"
+    }
+
+    {
+      "id": "tile_black_1",
+      "name": "черный один",
+      "tile_color": "Черный",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6330-6465-4132-a439-666434653739/____5__1.jpg"
+    },
+    {
+      "id": "tile_black_2",
+      "name": "черный два",
+      "tile_color": "Черный",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6330-6465-4132-a439-666434653739/____5__1.jpg"
+    },
+    {
+      "id": "tile_black_3",
+      "name": "черный три",
+      "tile_color": "Черный",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6330-6465-4132-a439-666434653739/____5__1.jpg"
+    }
+
+    {
+      "id": "tile_yellow_1",
+      "name": "желтый один",
+      "tile_color": "Желтый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6135-6662-4634-a133-646432363866/____3__1.jpg"
+    },
+    {
+      "id": "tile_yellow_2",
+      "name": "желтый два",
+      "tile_color": "Желтый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6135-6662-4634-a133-646432363866/____3__1.jpg"
+    },
+    {
+      "id": "tile_yellow_3",
+      "name": "желтый три",
+      "tile_color": "Желтый",
+      "grout_color": "Белый",
+      "price_category": "Средняя",
+      "image": "https://static.tildacdn.com/tild6135-6662-4634-a133-646432363866/____3__1.jpg"
+    }
   ],
 
   "_comment_renders": "==================== РЕНДЕРЫ (левый блок) ====================",
@@ -233,9 +308,9 @@
       "name": "рендер дома один",
       "images": [
         { "id": "render_house_1_01", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_02", "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg" },
-        { "id": "render_house_1_03", "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg" },
-        { "id": "render_house_1_04", "image": "https://static.tildacdn.com/tild6431-3935-4637-a265-363666376232/11.jpg" },
+        { "id": "render_house_1_02", "image": "https://static.tildacdn.com/tild3464-3765-4661-a365-373637306430/generated.jpg" },
+        { "id": "render_house_1_03", "image": "https://static.tildacdn.com/tild6665-3836-4161-a161-393139636635/generated.jpg" },
+        { "id": "render_house_1_04", "image": "https://static.tildacdn.com/tild3066-6136-4764-a139-393265363464/generated.jpg" },
         { "id": "render_house_1_05", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
         { "id": "render_house_1_06", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
         { "id": "render_house_1_07", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
@@ -245,31 +320,51 @@
       "id": "render_house_2",
       "name": "рендер дома два",
       "images": [
-        { "id": "render_house_2_01", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_2_02", "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg" },
-        { "id": "render_house_2_03", "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg" },
-        { "id": "render_house_2_04", "image": "https://static.tildacdn.com/tild6431-3935-4637-a265-363666376232/11.jpg" },
-        { "id": "render_house_2_05", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
-        { "id": "render_house_2_06", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
-        { "id": "render_house_2_07", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
+        { "id": "render_house_2_01", "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg" },
+        { "id": "render_house_2_02", "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg" },
+        { "id": "render_house_2_03", "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg" },
+        { "id": "render_house_2_04", "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg" },
+        { "id": "render_house_2_05", "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg" },
+        { "id": "render_house_2_06", "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg" },
+        { "id": "render_house_2_07", "image": "https://static.tildacdn.com/tild6431-3935-4637-a265-363666376232/11.jpg" }
       ]
     }
   ],
 
+  "_comment_popset": "==================== ПРИВЯЗКА ПО-УМОЛЧАНИЮ к --- ====================",
+  "initial_state": {
+  "_comment": "Состояние по умолчанию когда все фильтры = '---'",
+
+  "render_set_id": "render_house_1",
+
+  "popular_tiles": [
+    "tile_red_01",
+    "tile_red_02",
+    "tile_red_03",
+    "tile_beige_01",
+    "tile_beige_02",
+    "tile_beige_03",
+    "tile_red_04",
+    "tile_beige_04",
+    "tile_red_05"
+  ]
+}
+  
   "_comment_bindings": "==================== ПРИВЯЗКА ПЛИТКА -> РЕНДЕРЫ ====================",
   "bindings": [
     {
       "_comment": "По заданию: второй объект из массива красной плитки -> render_house_1",
-      "tile_id": "tile_red_02",
+      "tile_id": "tile_red_03",
       "render_set_id": "render_house_1"
     },
     {
       "_comment": "По заданию: третий объект из массива красной плитки -> render_house_2",
-      "tile_id": "tile_red_03",
+      "tile_id": "tile_beige_04",
       "render_set_id": "render_house_2"
     }
   ]
 }
+
 
 
 
