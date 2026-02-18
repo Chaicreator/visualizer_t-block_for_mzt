@@ -223,7 +223,7 @@
       "grout_color": "Белый",
       "price_category": "Средняя",
       "image": "https://static.tildacdn.com/tild6666-6531-4335-a361-643231346463/____3__1.jpg"
-    }
+    },
 
     {
       "id": "tile_brown_1",
@@ -248,7 +248,7 @@
       "grout_color": "Белый",
       "price_category": "Средняя",
       "image": "https://static.tildacdn.com/tild6163-3434-4266-b739-333832313731/_____1.jpg"
-    }
+    },
 
     {
       "id": "tile_black_1",
@@ -273,7 +273,7 @@
       "grout_color": "Белый",
       "price_category": "Средняя",
       "image": "https://static.tildacdn.com/tild6330-6465-4132-a439-666434653739/____5__1.jpg"
-    }
+    },
 
     {
       "id": "tile_yellow_1",
@@ -364,6 +364,7 @@
     }
   ]
 }
+
 
 
 
