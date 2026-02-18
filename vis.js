@@ -675,13 +675,25 @@
   /* ==========================================================================
      [10] Фильтрация + Плитка (grid) + пагинация + overlay состояния
      ========================================================================== */
-  function tileMatchesFilters(tile) {
-    const f = state.filters;
-    const okColor = f.tile_color === "---" || tile.tile_color === f.tile_color;
-    const okGrout = f.grout_color === "---" || tile.grout_color === f.grout_color;
-    const okPrice = f.price_category === "---" || tile.price_category === f.price_category;
-    return okColor && okGrout && okPrice;
-  }
+function tileMatchesFilters(tile) {
+  const f = state.filters;
+
+  const okColor =
+    f.tile_color === "---" ||
+    (Array.isArray(tile.tile_color)
+      ? tile.tile_color.includes(f.tile_color)
+      : tile.tile_color === f.tile_color);
+
+  const okGrout =
+    f.grout_color === "---" ||
+    tile.grout_color === f.grout_color;
+
+  const okPrice =
+    f.price_category === "---" ||
+    tile.price_category === f.price_category;
+
+  return okColor && okGrout && okPrice;
+}
 
   function applyFiltersAndRenderTiles() {
     // ВАЖНО: если все фильтры --- => мы НЕ показываем плитку, а просим выбрать значения
@@ -934,4 +946,5 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
