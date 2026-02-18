@@ -631,8 +631,6 @@
 
           // применяем фильтры
           applyFiltersAndRenderTiles();
-
-          // Если пользователь сбросил всё в --- — левый блок возвращаем к подсказке
           
         });
 
@@ -940,7 +938,6 @@ function tileMatchesFilters(tile) {
 
       renderSelects();
       applyFiltersAndRenderTiles();
-      renderRenderBlock();
 
       // нижняя кнопка
       initBottomCTA();
