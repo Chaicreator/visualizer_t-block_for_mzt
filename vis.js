@@ -631,34 +631,7 @@
 
           // применяем фильтры
           applyFiltersAndRenderTiles();
-
-          // Если пользователь сбросил всё в --- — левый блок возвращаем к подсказке
-          if (allFiltersAreBlank()) {
-  const initial = state.db.initial_state;
-
-  // Левый блок — рендер по умолчанию
-  if (initial?.render_set_id) {
-    state.activeRenderSetId = initial.render_set_id;
-    const set = getRenderSetById(initial.render_set_id);
-    state.activeRenderImages = set ? set.images.map(x => x.image) : [];
-  }
-
-  // Правый блок — популярные плитки
-  if (initial?.popular_tiles?.length) {
-    state.filteredTiles = state.db.tiles.filter(t =>
-      initial.popular_tiles.includes(t.id)
-    );
-  } else {
-    state.filteredTiles = [];
-  }
-
-  state.page = 1;
-
-  renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
-  renderPagination();
-  renderRenderBlock();
-  return;
-}
+           
         });
 
         list.appendChild(item);
@@ -857,10 +830,10 @@ function tileMatchesFilters(tile) {
     thumbs.innerHTML = "";
 
     // Если пользователь ничего не выбрал и фильтры пустые — подсказка
-    if (!state.selectedTileId && allFiltersAreBlank()) {
-      main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
-      return;
-    }
+    if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenderImages.length === 0)) {
+  main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
+  return;
+}
 
     if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
       // Текст заменён по вашему требованию
@@ -966,6 +939,7 @@ function tileMatchesFilters(tile) {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
