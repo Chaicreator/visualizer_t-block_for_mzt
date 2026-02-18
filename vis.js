@@ -149,6 +149,9 @@
   box-shadow: 0 10px 30px rgba(0,0,0,.12);
   overflow:hidden;
 }
+#${CONFIG.ROOT_ID} #vispanel { overflow: visible; }
+#${CONFIG.ROOT_ID} #vispanel-top { overflow: visible; position: relative; z-index: 20; }
+#${CONFIG.ROOT_ID} .mzt-select-list { z-index: 50; }
 
 /* ===================== LEFT: RENDER ===================== */
 #${CONFIG.ROOT_ID} #visrender{
@@ -477,14 +480,13 @@
   #${CONFIG.ROOT_ID} #visrender{ padding:12px; }
   #${CONFIG.ROOT_ID} #vispanel{ padding:12px; }
   #${CONFIG.ROOT_ID} #vispanel-top{
-    display:flex;
-    gap:10px;
-    overflow:auto;
+    display:block;
+    overflow: visible;
     padding:6px 6px 2px;
   }
   #${CONFIG.ROOT_ID} .mzt-field{
-    min-width: 220px;
-    margin-bottom:0;
+    min-width: auto;
+    margin-bottom:12px;
   }
 }
 `;
@@ -960,3 +962,4 @@ function tileMatchesFilters(tile) {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
