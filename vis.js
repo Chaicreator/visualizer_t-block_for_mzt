@@ -142,6 +142,62 @@
   align-items:stretch;
 }
 
+/* ===================== FULLSCREEN RENDER VIEW ===================== */
+#${CONFIG.ROOT_ID} .mzt-fs{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(2px);
+  z-index: 1000000;
+  display: none;
+}
+#${CONFIG.ROOT_ID} .mzt-fs.is-open{ display:block; }
+
+#${CONFIG.ROOT_ID} .mzt-fs-inner{
+  position:absolute;
+  inset:0;
+  padding: 3vw 3vw;            /* 3% примерно */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#${CONFIG.ROOT_ID} .mzt-fs-img{
+  max-width: 94vw;             /* 100 - 3% - 3% */
+  max-height: 94vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;         /* ВАЖНО: без обрезания */
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+#${CONFIG.ROOT_ID} .mzt-fs-close{
+  position:absolute;
+  top: 14px;
+  right: 14px;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  cursor: pointer;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-weight:600;
+}
+#${CONFIG.ROOT_ID} .mzt-fs-close:hover{
+  background: rgba(0,0,0,.55);
+}
+#${CONFIG.ROOT_ID} .mzt-fs-close svg{
+  width:18px; height:18px;
+}
+
+
 /* ===================== CARD ===================== */
 #${CONFIG.ROOT_ID} .mzt-card{
   background:#ffffff;
@@ -494,61 +550,6 @@
     style.textContent = css;
     document.head.appendChild(style);
   }
-   
-   /* ===================== FULLSCREEN RENDER VIEW ===================== */
-#${CONFIG.ROOT_ID} .mzt-fs{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.78);
-  backdrop-filter: blur(2px);
-  z-index: 1000000;
-  display: none;
-}
-#${CONFIG.ROOT_ID} .mzt-fs.is-open{ display:block; }
-
-#${CONFIG.ROOT_ID} .mzt-fs-inner{
-  position:absolute;
-  inset:0;
-  padding: 3vw 3vw;            /* 3% примерно */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-#${CONFIG.ROOT_ID} .mzt-fs-img{
-  max-width: 94vw;             /* 100 - 3% - 3% */
-  max-height: 94vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;         /* ВАЖНО: без обрезания */
-  border-radius: 14px;
-  box-shadow: 0 18px 60px rgba(0,0,0,.45);
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-#${CONFIG.ROOT_ID} .mzt-fs-close{
-  position:absolute;
-  top: 14px;
-  right: 14px;
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(0,0,0,.35);
-  color: #fff;
-  cursor: pointer;
-  display:flex;
-  gap:8px;
-  align-items:center;
-  font-weight:600;
-}
-#${CONFIG.ROOT_ID} .mzt-fs-close:hover{
-  background: rgba(0,0,0,.55);
-}
-#${CONFIG.ROOT_ID} .mzt-fs-close svg{
-  width:18px; height:18px;
-}
 
   /* ==========================================================================
      [6] Разметка (создаём внутри #cusvis)
@@ -1088,5 +1089,6 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
