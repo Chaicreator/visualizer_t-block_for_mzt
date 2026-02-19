@@ -974,6 +974,14 @@ function ensureFullscreenRenderModal() {
   `;
 
   modal = el("div", { class: "mzt-fs", id: "mztFs" });
+   
+   // Закрытие по клику на затемнение
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeFullscreenRenderModal();
+  }
+});
+
   const inner = el("div", { class: "mzt-fs-inner" });
   const img = el("img", { class: "mzt-fs-img", alt: "fullscreen render" });
 
@@ -1089,6 +1097,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
