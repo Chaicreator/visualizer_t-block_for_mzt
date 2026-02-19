@@ -964,7 +964,7 @@ function ensureFullscreenRenderModal() {
   const root = qs(`#${CONFIG.ROOT_ID}`);
   if (!root) return null;
 
-  let modal = qs(`#${CONFIG.ROOT_ID} .mzt-fs`);
+  let modal = qs(".mzt-fs", root);
   if (modal) return modal;
 
   const closeSvg = `
@@ -973,7 +973,8 @@ function ensureFullscreenRenderModal() {
     </svg>
   `;
 
-  modal = el("div", { class: "mzt-fs", id: "mztFs" });
+  modal = el("div", { class: "mzt-fs" });
+
   const inner = el("div", { class: "mzt-fs-inner" });
   const img = el("img", { class: "mzt-fs-img", alt: "fullscreen render" });
 
@@ -983,51 +984,36 @@ function ensureFullscreenRenderModal() {
     html: `${closeSvg}<span>Закрыть</span>`
   });
 
-  btn.addEventListener("click", () => closeFullscreenRenderModal());
+  // Закрытие по кнопке
+  btn.addEventListener("click", () => {
+    closeFullscreenRenderModal();
+  });
+
+  // Закрытие по клику вне картинки и кнопки
+  modal.addEventListener("click", (e) => {
+    const clickedOnImage = e.target.closest(".mzt-fs-img");
+    const clickedOnClose = e.target.closest(".mzt-fs-close");
+
+    if (!clickedOnImage && !clickedOnClose) {
+      closeFullscreenRenderModal();
+    }
+  });
+
+  // Закрытие по ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeFullscreenRenderModal();
+    }
+  });
 
   inner.appendChild(img);
   modal.appendChild(inner);
   modal.appendChild(btn);
-
-  // ESC закрывает
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeFullscreenRenderModal();
-  });
-
-  // блокируем скролл страницы во время открытия
-  modal.addEventListener("transitionend", () => {});
-   
-// Закрытие по клику на затемнение
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeFullscreenRenderModal();
-  }
-});
-
   root.appendChild(modal);
+
   return modal;
 }
 
-function openFullscreenRenderModal(src) {
-  const modal = ensureFullscreenRenderModal();
-  if (!modal) return;
-  const img = qs(".mzt-fs-img", modal);
-  img.src = src;
-
-  modal.classList.add("is-open");
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
-}
-
-function closeFullscreenRenderModal() {
-  const root = qs(`#${CONFIG.ROOT_ID}`);
-  const modal = root ? qs(".mzt-fs", root) : null;
-  if (!modal) return;
-
-  modal.classList.remove("is-open");
-  document.documentElement.style.overflow = "";
-  document.body.style.overflow = "";
-}
 
   /* ==========================================================================
      [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
@@ -1096,6 +1082,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
