@@ -149,25 +149,42 @@
   background: rgba(0,0,0,.78);
   backdrop-filter: blur(2px);
   z-index: 1000000;
-  display: none;
+
+  /* анимация появления */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease, visibility 0s linear .18s;
 }
-#${CONFIG.ROOT_ID} .mzt-fs.is-open{ display:block; }
+
+#${CONFIG.ROOT_ID} .mzt-fs.is-open{
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .18s ease, visibility 0s;
+}
 
 #${CONFIG.ROOT_ID} .mzt-fs-inner{
   position:absolute;
   inset:0;
-  padding: 3vw 3vw;            /* 3% примерно */
+  padding: 3vw;
   display:flex;
   align-items:center;
   justify-content:center;
+
+  /* лёгкий zoom */
+  transform: scale(.985);
+  transition: transform .18s ease;
+}
+
+#${CONFIG.ROOT_ID} .mzt-fs.is-open .mzt-fs-inner{
+  transform: scale(1);
 }
 
 #${CONFIG.ROOT_ID} .mzt-fs-img{
-  max-width: 94vw;             /* 100 - 3% - 3% */
+  max-width: 94vw;
   max-height: 94vh;
   width: auto;
   height: auto;
-  object-fit: contain;         /* ВАЖНО: без обрезания */
+  object-fit: contain;
   border-radius: 14px;
   box-shadow: 0 18px 60px rgba(0,0,0,.45);
   user-select:none;
@@ -190,13 +207,38 @@
   align-items:center;
   font-weight:600;
 }
-#${CONFIG.ROOT_ID} .mzt-fs-close:hover{
-  background: rgba(0,0,0,.55);
-}
-#${CONFIG.ROOT_ID} .mzt-fs-close svg{
-  width:18px; height:18px;
+#${CONFIG.ROOT_ID} .mzt-fs-close:hover{ background: rgba(0,0,0,.55); }
+#${CONFIG.ROOT_ID} .mzt-fs-close svg{ width:18px; height:18px; }
+
+/* ===== info panel (появляется через 0.2s, растягивается к центру) ===== */
+#${CONFIG.ROOT_ID} .mzt-fs-info{
+  position:absolute;
+  top: 14px;
+  left: 14px;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.40);
+  color:#fff;
+  font-size:14px;
+  line-height:1.25;
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+
+  transform-origin: top left;
+  opacity: 0;
+  transform: translateX(0) scaleX(.15);
+  transition: opacity .22s ease, transform .34s cubic-bezier(.2,.9,.2,1);
+
+  max-width: min(560px, 82vw);
+  pointer-events: none;
 }
 
+#${CONFIG.ROOT_ID} .mzt-fs-info.is-show{
+  opacity: 1;
+  /* “тянем” к центру */
+  transform: translateX(clamp(0px, 12vw, 240px)) scaleX(1);
+}
 
 /* ===================== CARD ===================== */
 #${CONFIG.ROOT_ID} .mzt-card{
@@ -928,12 +970,20 @@ function tileMatchesFilters(tile) {
       return;
     }
 
-    // main = first
-    const mainImg = el("img", { src: state.activeRenderImages[0], alt: "render main", loading: "eager" });
-    main.appendChild(mainImg);
-   mainImg.style.cursor = "zoom-in";
-   mainImg.addEventListener("click", () => {
-  openFullscreenRenderModal(state.activeRenderImages[0]);
+// main = first
+const mainImg = el("img", {
+  src: state.activeRenderImages[0],
+  alt: "render main",
+  loading: "eager"
+});
+
+main.appendChild(mainImg);
+
+mainImg.style.cursor = "zoom-in";
+
+mainImg.addEventListener("click", () => {
+  const tileName = getSelectedTileName();
+  openFullscreenRenderModal(state.activeRenderImages[0], tileName);
 });
 
     // thumbs
@@ -984,6 +1034,8 @@ function ensureFullscreenRenderModal() {
     html: `${closeSvg}<span>Закрыть</span>`
   });
 
+  const info = el("div", { class: "mzt-fs-info", id: "mztFsInfo", text: "" });
+   
   // Закрытие по кнопке
   btn.addEventListener("click", () => {
     closeFullscreenRenderModal();
@@ -1006,6 +1058,7 @@ function ensureFullscreenRenderModal() {
     }
   });
 
+   modal.appendChild(info);
   inner.appendChild(img);
   modal.appendChild(inner);
   modal.appendChild(btn);
@@ -1013,18 +1066,38 @@ function ensureFullscreenRenderModal() {
 
   return modal;
 }
-function openFullscreenRenderModal(src) {
+
+   function openFullscreenRenderModal(src, tileName) {
   const modal = ensureFullscreenRenderModal();
   if (!modal) return;
 
   const img = qs(".mzt-fs-img", modal);
+  const info = qs(".mzt-fs-info", modal);
+
   img.src = src;
+
+  // текст инфо-плашки
+  if (info) {
+    const safeName = tileName || "—";
+    info.textContent = `Наименование плитки: ${safeName}`;
+    info.classList.remove("is-show");
+  }
 
   modal.classList.add("is-open");
 
-  // блокируем скролл страницы
   document.documentElement.style.overflow = "hidden";
   document.body.style.overflow = "hidden";
+
+  // показать плашку через 0.2 сек
+  if (info) {
+    void info.offsetWidth;
+
+    setTimeout(() => {
+      if (modal.classList.contains("is-open")) {
+        info.classList.add("is-show");
+      }
+    }, 200);
+  }
 }
 
 function closeFullscreenRenderModal() {
@@ -1034,13 +1107,21 @@ function closeFullscreenRenderModal() {
   const modal = qs(".mzt-fs", root);
   if (!modal) return;
 
+  const info = qs(".mzt-fs-info", modal);
+  if (info) info.classList.remove("is-show");
+
   modal.classList.remove("is-open");
 
-  // возвращаем скролл
   document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
 }
    
+   function getSelectedTileName() {
+  const id = state.selectedTileId;
+  if (!id || !state.db?.tiles) return null;
+  const t = state.db.tiles.find(x => x.id === id);
+  return t?.name ?? null;
+}
 
   /* ==========================================================================
      [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
@@ -1109,6 +1190,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
