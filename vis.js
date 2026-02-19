@@ -494,6 +494,61 @@
     style.textContent = css;
     document.head.appendChild(style);
   }
+   
+   /* ===================== FULLSCREEN RENDER VIEW ===================== */
+#${CONFIG.ROOT_ID} .mzt-fs{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(2px);
+  z-index: 1000000;
+  display: none;
+}
+#${CONFIG.ROOT_ID} .mzt-fs.is-open{ display:block; }
+
+#${CONFIG.ROOT_ID} .mzt-fs-inner{
+  position:absolute;
+  inset:0;
+  padding: 3vw 3vw;            /* 3% примерно */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#${CONFIG.ROOT_ID} .mzt-fs-img{
+  max-width: 94vw;             /* 100 - 3% - 3% */
+  max-height: 94vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;         /* ВАЖНО: без обрезания */
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+#${CONFIG.ROOT_ID} .mzt-fs-close{
+  position:absolute;
+  top: 14px;
+  right: 14px;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  cursor: pointer;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-weight:600;
+}
+#${CONFIG.ROOT_ID} .mzt-fs-close:hover{
+  background: rgba(0,0,0,.55);
+}
+#${CONFIG.ROOT_ID} .mzt-fs-close svg{
+  width:18px; height:18px;
+}
 
   /* ==========================================================================
      [6] Разметка (создаём внутри #cusvis)
@@ -875,6 +930,10 @@ function tileMatchesFilters(tile) {
     // main = first
     const mainImg = el("img", { src: state.activeRenderImages[0], alt: "render main", loading: "eager" });
     main.appendChild(mainImg);
+   mainImg.style.cursor = "zoom-in";
+   mainImg.addEventListener("click", () => {
+  openFullscreenRenderModal(state.activeRenderImages[0]);
+});
 
     // thumbs
     state.activeRenderImages.forEach((src, idx) => {
@@ -894,6 +953,73 @@ function tileMatchesFilters(tile) {
       thumbs.appendChild(t);
     });
   }
+
+  /* ==========================================================================
+     [12.5] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
+     --------------------------------------------------------------------------
+     ========================================================================== */
+
+function ensureFullscreenRenderModal() {
+  const root = qs(`#${CONFIG.ROOT_ID}`);
+  if (!root) return null;
+
+  let modal = qs(`#${CONFIG.ROOT_ID} .mzt-fs`);
+  if (modal) return modal;
+
+  const closeSvg = `
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  `;
+
+  modal = el("div", { class: "mzt-fs", id: "mztFs" });
+  const inner = el("div", { class: "mzt-fs-inner" });
+  const img = el("img", { class: "mzt-fs-img", alt: "fullscreen render" });
+
+  const btn = el("button", {
+    class: "mzt-fs-close",
+    type: "button",
+    html: `${closeSvg}<span>Закрыть</span>`
+  });
+
+  btn.addEventListener("click", () => closeFullscreenRenderModal());
+
+  inner.appendChild(img);
+  modal.appendChild(inner);
+  modal.appendChild(btn);
+
+  // ESC закрывает
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeFullscreenRenderModal();
+  });
+
+  // блокируем скролл страницы во время открытия
+  modal.addEventListener("transitionend", () => {});
+
+  root.appendChild(modal);
+  return modal;
+}
+
+function openFullscreenRenderModal(src) {
+  const modal = ensureFullscreenRenderModal();
+  if (!modal) return;
+  const img = qs(".mzt-fs-img", modal);
+  img.src = src;
+
+  modal.classList.add("is-open");
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+}
+
+function closeFullscreenRenderModal() {
+  const root = qs(`#${CONFIG.ROOT_ID}`);
+  const modal = root ? qs(".mzt-fs", root) : null;
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+}
 
   /* ==========================================================================
      [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
@@ -962,4 +1088,5 @@ function tileMatchesFilters(tile) {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
