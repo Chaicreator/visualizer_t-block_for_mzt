@@ -916,7 +916,7 @@ function tileMatchesFilters(tile) {
 }
 
     if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
-      // Текст заменён по вашему требованию
+      // Текст заменён по требованию
       main.appendChild(
         el("div", {
           class: "mzt-empty",
@@ -974,14 +974,6 @@ function ensureFullscreenRenderModal() {
   `;
 
   modal = el("div", { class: "mzt-fs", id: "mztFs" });
-   
-   // Закрытие по клику на затемнение
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeFullscreenRenderModal();
-  }
-});
-
   const inner = el("div", { class: "mzt-fs-inner" });
   const img = el("img", { class: "mzt-fs-img", alt: "fullscreen render" });
 
@@ -1004,6 +996,13 @@ modal.addEventListener("click", (e) => {
 
   // блокируем скролл страницы во время открытия
   modal.addEventListener("transitionend", () => {});
+   
+// Закрытие по клику на затемнение
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeFullscreenRenderModal();
+  }
+});
 
   root.appendChild(modal);
   return modal;
@@ -1097,6 +1096,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
