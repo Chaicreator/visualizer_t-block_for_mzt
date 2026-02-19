@@ -215,29 +215,39 @@
   position:absolute;
   top: 14px;
   left: 14px;
+  z-index: 1000002; /* ВЫШЕ картинки и inner */
 
   padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.40);
+  background: rgba(0,0,0,.55);
   color:#fff;
   font-size:14px;
   line-height:1.25;
   box-shadow: 0 10px 26px rgba(0,0,0,.35);
 
+  /* можно выделять/копировать */
+  pointer-events: auto;
+  user-select: text;
+
   transform-origin: top left;
   opacity: 0;
-  transform: translateX(0) scaleX(.15);
-  transition: opacity .22s ease, transform .34s cubic-bezier(.2,.9,.2,1);
+
+  /* старт: маленькая и чуть “внутрь” */
+  transform: translateX(0) translateY(-6px) scaleX(.10);
+
+  /* МЕДЛЕННЕЕ и мягче */
+  transition:
+    opacity .32s ease,
+    transform .60s cubic-bezier(.18,.9,.2,1);
 
   max-width: min(560px, 82vw);
-  pointer-events: none;
 }
 
 #${CONFIG.ROOT_ID} .mzt-fs-info.is-show{
   opacity: 1;
-  /* “тянем” к центру */
-  transform: translateX(clamp(0px, 12vw, 240px)) scaleX(1);
+  /* тянем к центру */
+  transform: translateX(clamp(0px, 12vw, 240px)) translateY(0) scaleX(1);
 }
 
 /* ===================== CARD ===================== */
@@ -1190,6 +1200,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
