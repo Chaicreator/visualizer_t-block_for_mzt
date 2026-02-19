@@ -1013,7 +1013,34 @@ function ensureFullscreenRenderModal() {
 
   return modal;
 }
+function openFullscreenRenderModal(src) {
+  const modal = ensureFullscreenRenderModal();
+  if (!modal) return;
 
+  const img = qs(".mzt-fs-img", modal);
+  img.src = src;
+
+  modal.classList.add("is-open");
+
+  // блокируем скролл страницы
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+}
+
+function closeFullscreenRenderModal() {
+  const root = qs(`#${CONFIG.ROOT_ID}`);
+  if (!root) return;
+
+  const modal = qs(".mzt-fs", root);
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+
+  // возвращаем скролл
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+}
+   
 
   /* ==========================================================================
      [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
@@ -1082,6 +1109,7 @@ function ensureFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
