@@ -461,28 +461,26 @@
   flex:1;
 }
 #${CONFIG.ROOT_ID} .mzt-tiles-grid{
-  height:100%;
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, var(--mzt-tile-size, 120px));
+  grid-auto-rows: var(--mzt-tile-size, 120px);
+  gap: var(--mzt-tile-gap, 10px);
 
-  /* 3 строки, которые реально УЖИМАЮТСЯ по высоте контейнера */
-  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;   /* если остаётся свободное место */
+  align-content: start;
 
-  /* gap тоже адаптивный, но с минимальным отступом */
-  gap: clamp(6px, 1.2vh, 10px);
+  overflow: hidden;          /* никаких вылезаний */
 }
 
 #${CONFIG.ROOT_ID} .mzt-tile{
-  width:100%;
-  height:100%;                /* важно: пусть клетка диктует высоту */
+  width: 100%;
+  height: 100%;
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
   cursor:pointer;
   border:2px solid transparent;
   position:relative;
-
-  min-height: 0;              /* разрешаем сжиматься во flex/grid */
 }
 #${CONFIG.ROOT_ID} .mzt-tile img{
   width:100%;
@@ -685,7 +683,51 @@
 
     // CTA (нижняя кнопка будет добавляться отдельным разделом)
   }
+   
+function setupTilesGridSizer() {
+  const root = qs(`#${CONFIG.ROOT_ID}`);
+  if (!root) return;
 
+  const wrap = qs("#vispanel-bot", root);       // область, где живут плитки + пагинация
+  const grid = qs(".mzt-tiles-grid", root);
+  const pag  = qs(".mzt-pagination", root);
+
+  if (!wrap || !grid) return;
+
+  const GAP = 10; // держим как в дизайне
+  root.style.setProperty("--mzt-tile-gap", `${GAP}px`);
+
+  function recalc() {
+    // ширина под 3 колонки
+    const w = grid.clientWidth || wrap.clientWidth;
+    // высота под 3 ряда: берём высоту wrap и вычитаем пагинацию + небольшой зазор
+    const pagH = pag ? pag.getBoundingClientRect().height : 0;
+    const h = wrap.clientHeight - pagH - 8;
+
+    if (w <= 0 || h <= 0) return;
+
+    const sizeByW = Math.floor((w - GAP * 2) / 3);
+    const sizeByH = Math.floor((h - GAP * 2) / 3);
+
+    // минимальный размер чтобы не превращалось в кашу
+    const tileSize = Math.max(64, Math.min(sizeByW, sizeByH));
+
+    root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
+  }
+
+  // первичный расчёт (после текущего рендера)
+  requestAnimationFrame(recalc);
+
+  // пересчёт при любых изменениях размеров
+  const ro = new ResizeObserver(() => recalc());
+  ro.observe(wrap);
+  ro.observe(grid);
+  if (pag) ro.observe(pag);
+
+  // на всякий случай
+  window.addEventListener("resize", recalc);
+}
+   
   /* ==========================================================================
      [7] Loader
      ========================================================================== */
@@ -1046,7 +1088,7 @@ state.activeRenderImages.slice(1).forEach((item, localIdx) => {
 });
 }
   /* ==========================================================================
-     [12.5] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
+     [13] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
      --------------------------------------------------------------------------
      ========================================================================== */
 
@@ -1163,36 +1205,7 @@ function closeFullscreenRenderModal() {
   const t = state.db.tiles.find(x => x.id === id);
   return t?.name ?? null;
 }
-
-  /* ==========================================================================
-     [13] РАЗДЕЛ ПОД КНОПКУ ВНИЗУ (можно целиком закомментировать)
-     --------------------------------------------------------------------------
-     Кнопка пока без экшена. В перспективе сюда добавите свой обработчик.
-     Чтобы полностью убрать кнопку без вреда для скрипта:
-     - закомментируйте вызов initBottomCTA() в init()
-     - либо закомментируйте весь этот раздел
-     ========================================================================== */
- /* 
- function initBottomCTA() {
-    const root = qs(`#${CONFIG.ROOT_ID}`);
-    if (!root) return;
-
-    const ctaWrap = el("div", { class: "mzt-cta-wrap" });
-    const btn = el("button", {
-      class: "mzt-cta",
-      type: "button",
-      text: "ПОЛУЧИТЬ РАСЧЁТ СТОИМОСТИ"
-    });
-
-    // TODO: будущий экшен кнопки:
-    // btn.addEventListener("click", () => {
-    //   // сюда вставите ваш скрипт
-    // });
-
-    ctaWrap.appendChild(btn);
-    root.appendChild(ctaWrap);
-  }
-  */
+   
   /* ==========================================================================
      [14] Init
      ========================================================================== */
@@ -1210,6 +1223,7 @@ function closeFullscreenRenderModal() {
 
       renderSelects();
       applyFiltersAndRenderTiles();
+       setupTilesGridSizer();
 
       // нижняя кнопка
       // initBottomCTA();
@@ -1232,26 +1246,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
