@@ -814,7 +814,7 @@ function tileMatchesFilters(tile) {
   if (initial?.render_set_id) {
     state.activeRenderSetId = initial.render_set_id;
     const set = getRenderSetById(initial.render_set_id);
-    state.activeRenderImages = set ? set.images.map(x => x.image) : [];
+    state.activeRenderImages = set ? (set.images || []) : [];
   } else {
     state.activeRenderSetId = null;
     state.activeRenderImages = [];
@@ -947,7 +947,7 @@ function tileMatchesFilters(tile) {
     await preloadImages(set.images.map((x) => x.image));
     hideLoader();
 
-    state.activeRenderImages = set.images.map((x) => x.image);
+    state.activeRenderImages = set.images || [];
     renderRenderBlock();
   }
 
@@ -982,7 +982,7 @@ function tileMatchesFilters(tile) {
 
 // main = first
 const mainImg = el("img", {
-  src: state.activeRenderImages[0],
+  src: state.activeRenderImages[0].image,
   alt: "render main",
   loading: "eager"
 });
@@ -993,14 +993,15 @@ mainImg.style.cursor = "zoom-in";
 
 mainImg.addEventListener("click", () => {
   const tileName = getSelectedTileName();
-  openFullscreenRenderModal(state.activeRenderImages[0], tileName);
+  const label = tileName || state.activeRenderImages[0].description || "—";
+  openFullscreenRenderModal(state.activeRenderImages[0].image, label);
 });
 
-    // thumbs
-    state.activeRenderImages.forEach((src, idx) => {
-      const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
-      const img = el("img", { src, alt: `thumb ${idx + 1}`, loading: "lazy" });
-      t.appendChild(img);
+// thumbs
+state.activeRenderImages.forEach((item, idx) => {
+  const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
+  const img = el("img", { src: item.image, alt: `thumb ${idx + 1}`, loading: "lazy" });
+  t.appendChild(img);
 
       t.addEventListener("click", () => {
         if (idx === 0) return;
@@ -1200,6 +1201,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
