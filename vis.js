@@ -1154,7 +1154,8 @@ function closeFullscreenRenderModal() {
      - закомментируйте вызов initBottomCTA() в init()
      - либо закомментируйте весь этот раздел
      ========================================================================== */
-  function initBottomCTA() {
+ /* 
+ function initBottomCTA() {
     const root = qs(`#${CONFIG.ROOT_ID}`);
     if (!root) return;
 
@@ -1173,7 +1174,7 @@ function closeFullscreenRenderModal() {
     ctaWrap.appendChild(btn);
     root.appendChild(ctaWrap);
   }
-
+  */
   /* ==========================================================================
      [14] Init
      ========================================================================== */
@@ -1213,6 +1214,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
