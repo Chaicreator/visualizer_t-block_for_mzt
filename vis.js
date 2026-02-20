@@ -1063,15 +1063,16 @@ function ensureFullscreenRenderModal() {
     closeFullscreenRenderModal();
   });
 
-  // Закрытие по клику вне картинки и кнопки
-  modal.addEventListener("click", (e) => {
-    const clickedOnImage = e.target.closest(".mzt-fs-img");
-    const clickedOnClose = e.target.closest(".mzt-fs-close");
+// Закрытие по клику вне картинки, кнопки и инфо-плашки
+modal.addEventListener("click", (e) => {
+  const clickedOnImage = e.target.closest(".mzt-fs-img");
+  const clickedOnClose = e.target.closest(".mzt-fs-close");
+  const clickedOnInfo  = e.target.closest(".mzt-fs-info");
 
-    if (!clickedOnImage && !clickedOnClose) {
-      closeFullscreenRenderModal();
-    }
-  });
+  if (!clickedOnImage && !clickedOnClose && !clickedOnInfo) {
+    closeFullscreenRenderModal();
+  }
+});
 
   // Закрытие по ESC
   document.addEventListener("keydown", (e) => {
@@ -1212,6 +1213,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
