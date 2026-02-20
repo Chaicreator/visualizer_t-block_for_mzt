@@ -268,9 +268,18 @@
   box-shadow: 0 10px 30px rgba(0,0,0,.12);
   overflow:hidden;
 }
-#${CONFIG.ROOT_ID} #vispanel { overflow: visible; }
-#${CONFIG.ROOT_ID} #vispanel-top { overflow: visible; position: relative; z-index: 20; }
-#${CONFIG.ROOT_ID} .mzt-select-list { z-index: 50; }
+/* правая карточка НЕ должна выпускать контент наружу */
+#${CONFIG.ROOT_ID} #vispanel{ overflow:hidden; }
+
+/* но выпадающие списки должны быть поверх плиток внутри карточки */
+#${CONFIG.ROOT_ID} #vispanel-top{ overflow: visible; position: relative; z-index: 20; }
+#${CONFIG.ROOT_ID} .mzt-select-list{ z-index: 50; }
+
+/* важное: разрешаем flex-детям сжиматься по высоте, иначе grid/пагинация "выталкивают" контент */
+#${CONFIG.ROOT_ID} #vispanel-bot{ min-height: 0; overflow:hidden; }
+#${CONFIG.ROOT_ID} .mzt-tiles-wrap{ min-height: 0; overflow:hidden; }
+#${CONFIG.ROOT_ID} .mzt-tiles-grid{ min-height: 0; }
+#${CONFIG.ROOT_ID} .mzt-pagination{ flex: 0 0 auto; padding: 0 6px; }
 
 /* ===================== LEFT: RENDER ===================== */
 #${CONFIG.ROOT_ID} #visrender{
@@ -1216,6 +1225,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
