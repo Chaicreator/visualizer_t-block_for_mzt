@@ -1028,7 +1028,7 @@ state.activeRenderImages.slice(1).forEach((item, localIdx) => {
 
   thumbs.appendChild(t);
 });
-
+}
   /* ==========================================================================
      [12.5] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
      --------------------------------------------------------------------------
@@ -1216,6 +1216,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
