@@ -133,7 +133,7 @@
   height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
 
   /* расширяем примерно на 10% */
-  width: min(100%, calc(${CONFIG.TARGET_DESKTOP_HEIGHT}px * 16 / 9 * 1.02));
+  width: min(100%, calc(${CONFIG.TARGET_DESKTOP_HEIGHT}px * 16 / 9 * 1.045));
 
   max-width: ${CONFIG.MAX_WIDTH}px;
 
@@ -1213,6 +1213,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
