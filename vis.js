@@ -242,7 +242,7 @@
   user-select:text;
 
   width: max-content;
-  max-width: 360px;   /* ОГРАНИЧЕНИЕ */
+  max-width: 340px;   /* ОГРАНИЧЕНИЕ */
 
   white-space: normal;
   overflow-wrap: anywhere;
@@ -1253,4 +1253,5 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
