@@ -295,14 +295,14 @@
   transform: translateZ(0);
 }
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
-  display:flex;
+  display:grid;
+  grid-template-columns: repeat(6, 1fr); /* 7 рендеров: 1 главный + 6 миниатюр */
   gap:10px;
-  overflow:auto;
+  overflow:hidden;   /* НИКАКОЙ прокрутки */
   padding-bottom:2px;
 }
 #${CONFIG.ROOT_ID} .mzt-thumb{
-  flex:0 0 auto;
-  width: 150px;
+  width: 100%;
   aspect-ratio: 16/10;
   border-radius:12px;
   overflow:hidden;
@@ -513,9 +513,12 @@
 #${CONFIG.ROOT_ID} .mzt-pagination{
   display:flex;
   gap:8px;
+  row-gap:8px;
+  flex-wrap:wrap;          /* ✅ перенос, не вылезает */
   justify-content:center;
   align-items:center;
   padding-top:2px;
+  max-width:100%;
 }
 #${CONFIG.ROOT_ID} .mzt-pagebtn{
   min-width:34px;
@@ -592,7 +595,7 @@
   }
   #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 420px; }
   #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
-  #${CONFIG.ROOT_ID} .mzt-thumb{ width: 140px; }
+  #${CONFIG.ROOT_ID} .mzt-thumb{ width: 100%; }
 }
 @media (max-width: 520px){
   #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px 12px; }
@@ -1008,24 +1011,23 @@ mainImg.addEventListener("click", () => {
   openFullscreenRenderModal(state.activeRenderImages[0].image, label);
 });
 
-// thumbs
-state.activeRenderImages.forEach((item, idx) => {
-  const t = el("div", { class: "mzt-thumb" + (idx === 0 ? " is-active" : "") });
-  const img = el("img", { src: item.image, alt: `thumb ${idx + 1}`, loading: "lazy" });
+// thumbs (без главного кадра)
+state.activeRenderImages.slice(1).forEach((item, localIdx) => {
+  const t = el("div", { class: "mzt-thumb" });
+  const img = el("img", { src: item.image, alt: `thumb ${localIdx + 2}`, loading: "lazy" });
   t.appendChild(img);
 
-      t.addEventListener("click", () => {
-        if (idx === 0) return;
-        const next = [...state.activeRenderImages];
-        const picked = next.splice(idx, 1)[0];
-        next.unshift(picked);
-        state.activeRenderImages = next;
-        renderRenderBlock();
-      });
+  t.addEventListener("click", () => {
+    const idx = localIdx + 1; // реальный индекс в state.activeRenderImages
+    const next = [...state.activeRenderImages];
+    const picked = next.splice(idx, 1)[0];
+    next.unshift(picked);               // новый главный
+    state.activeRenderImages = next;
+    renderRenderBlock();
+  });
 
-      thumbs.appendChild(t);
-    });
-  }
+  thumbs.appendChild(t);
+});
 
   /* ==========================================================================
      [12.5] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
@@ -1214,6 +1216,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
