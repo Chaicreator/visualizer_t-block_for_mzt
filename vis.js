@@ -274,7 +274,7 @@
 
 /* ===================== LEFT: RENDER ===================== */
 #${CONFIG.ROOT_ID} #visrender{
-  flex: 3;
+  flex: 2.6;
   display:flex;
   flex-direction:column;
   padding:16px;
@@ -336,7 +336,7 @@
 
 /* ===================== RIGHT: PANEL ===================== */
 #${CONFIG.ROOT_ID} #vispanel{
-  flex: 1;
+  flex: 1.4;
   display:flex;
   flex-direction:column;
   padding:16px;
@@ -1213,6 +1213,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
