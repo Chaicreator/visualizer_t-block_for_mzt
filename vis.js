@@ -195,9 +195,10 @@
   position:absolute;
   top: 14px;
   right: 14px;
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 999px;
+  min-height: 42px;
+  padding: 0 16px;
+
+  border-radius: 20px; /* было 999px */
 
   border: 1px solid rgba(255,255,255,.25);
   background: rgba(0,0,0,.35);
@@ -222,13 +223,12 @@
   bottom: 14px;
   z-index: 1000002;
 
-  /* ЯКОРЬ: левый низ (важно для transform) */
   transform-origin: left bottom;
 
-  /* ОДИН СТИЛЬ С КНОПКОЙ */
-  padding: 10px 14px;
+  padding: 10px 16px;
   min-height: 42px;
-  border-radius: 999px;
+
+  border-radius: 20px; /* одинаково с кнопкой */
 
   border: 1px solid rgba(255,255,255,.25);
   background: rgba(0,0,0,.35);
@@ -236,26 +236,21 @@
 
   font-weight:600;
   font-size:14px;
-  line-height:1.25;
+  line-height:1.3;
 
-  /* можно выделять/копировать */
   pointer-events:auto;
   user-select:text;
 
-  /* ширина “по содержимому”, но с ограничением — дальше перенос */
   width: max-content;
-  max-width: min(560px, 78vw);
+  max-width: 360px;   /* ОГРАНИЧЕНИЕ */
 
-  /* многострочный перенос */
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
 
-  /* старт: вылет справа */
   opacity: 0;
   transform: translateX(60vw);
 
-  /* анимация вылета: +1 сек */
   transition:
     opacity .35s ease,
     transform 1.60s cubic-bezier(.18,.9,.2,1);
@@ -1217,6 +1212,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
