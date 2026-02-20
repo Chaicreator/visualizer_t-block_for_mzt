@@ -514,7 +514,7 @@
   display:flex;
   gap:8px;
   row-gap:8px;
-  flex-wrap:wrap;          /* ✅ перенос, не вылезает */
+  flex-wrap:wrap;        /* чтобы НЕ вылезала */
   justify-content:center;
   align-items:center;
   padding-top:2px;
@@ -1196,7 +1196,7 @@ function closeFullscreenRenderModal() {
       applyFiltersAndRenderTiles();
 
       // нижняя кнопка
-      initBottomCTA();
+      // initBottomCTA();
     } catch (e) {
       console.error(e);
       const main = qs("#mztRenderMain");
@@ -1216,6 +1216,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
