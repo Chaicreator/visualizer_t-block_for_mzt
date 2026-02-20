@@ -198,14 +198,19 @@
   height: 42px;
   padding: 0 14px;
   border-radius: 999px;
+
   border: 1px solid rgba(255,255,255,.25);
   background: rgba(0,0,0,.35);
   color: #fff;
+
   cursor: pointer;
   display:flex;
   gap:8px;
   align-items:center;
+
   font-weight:600;
+  font-size:14px;
+  line-height:1;
 }
 #${CONFIG.ROOT_ID} .mzt-fs-close:hover{ background: rgba(0,0,0,.55); }
 #${CONFIG.ROOT_ID} .mzt-fs-close svg{ width:18px; height:18px; }
@@ -213,41 +218,46 @@
 /* ===== info panel (появляется через 0.2s, растягивается к центру) ===== */
 #${CONFIG.ROOT_ID} .mzt-fs-info{
   position:absolute;
-  top: 14px;
   left: 14px;
-  z-index: 1000002; /* ВЫШЕ картинки и inner */
+  bottom: 14px;
+  z-index: 1000002;
 
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.55);
+  /* ОДИН СТИЛЬ С КНОПКОЙ */
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
   color:#fff;
+
+  display:flex;
+  align-items:center;
+
+  font-weight:600;
   font-size:14px;
-  line-height:1.25;
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  line-height:1;
 
   /* можно выделять/копировать */
-  pointer-events: auto;
-  user-select: text;
+  pointer-events:auto;
+  user-select:text;
 
-  transform-origin: top left;
+  /* чтобы длинный текст не ломал всё */
+  max-width: min(720px, 78vw);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* старт: "прилетает" справа */
   opacity: 0;
-
-  /* старт: маленькая и чуть “внутрь” */
-  transform: translateX(0) translateY(-6px) scaleX(.10);
-
-  /* МЕДЛЕННЕЕ и мягче */
+  transform: translateX(60vw);
   transition:
-    opacity .32s ease,
-    transform .60s cubic-bezier(.18,.9,.2,1);
-
-  max-width: min(560px, 82vw);
+    opacity .35s ease,
+    transform 1.60s cubic-bezier(.18,.9,.2,1);
 }
 
 #${CONFIG.ROOT_ID} .mzt-fs-info.is-show{
   opacity: 1;
-  /* тянем к центру */
-  transform: translateX(clamp(0px, 12vw, 240px)) translateY(0) scaleX(1);
+  transform: translateX(0);
 }
 
 /* ===================== CARD ===================== */
@@ -1201,6 +1211,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
