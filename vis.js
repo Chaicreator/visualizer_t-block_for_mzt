@@ -464,18 +464,25 @@
   height:100%;
   display:grid;
   grid-template-columns: repeat(3, 1fr);
-  gap:10px;
+
+  /* 3 строки, которые реально УЖИМАЮТСЯ по высоте контейнера */
+  grid-template-rows: repeat(3, 1fr);
+
+  /* gap тоже адаптивный, но с минимальным отступом */
+  gap: clamp(6px, 1.2vh, 10px);
 }
 
 #${CONFIG.ROOT_ID} .mzt-tile{
-  aspect-ratio: 1 / 1;   /* ВСЕГДА квадрат */
   width:100%;
+  height:100%;                /* важно: пусть клетка диктует высоту */
   border-radius:14px;
   overflow:hidden;
   background:#eaecef;
   cursor:pointer;
   border:2px solid transparent;
   position:relative;
+
+  min-height: 0;              /* разрешаем сжиматься во flex/grid */
 }
 #${CONFIG.ROOT_ID} .mzt-tile img{
   width:100%;
@@ -1225,6 +1232,7 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
 
