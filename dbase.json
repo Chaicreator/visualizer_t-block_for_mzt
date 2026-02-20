@@ -307,13 +307,13 @@
       "id": "render_house_1",
       "name": "рендер дома один",
       "images": [
-        { "id": "render_house_1_01", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
-        { "id": "render_house_1_02", "image": "https://static.tildacdn.com/tild3464-3765-4661-a365-373637306430/generated.jpg" },
-        { "id": "render_house_1_03", "image": "https://static.tildacdn.com/tild6665-3836-4161-a161-393139636635/generated.jpg" },
-        { "id": "render_house_1_04", "image": "https://static.tildacdn.com/tild3066-6136-4764-a139-393265363464/generated.jpg" },
-        { "id": "render_house_1_05", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
-        { "id": "render_house_1_06", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
-        { "id": "render_house_1_07", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
+        { "id": "render_house_1_01", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3462-6263-4232-b966-343362383936/3.jpg" },
+        { "id": "render_house_1_02", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3464-3765-4661-a365-373637306430/generated.jpg" },
+        { "id": "render_house_1_03", "description": "плитка 123", "image": "https://static.tildacdn.com/tild6665-3836-4161-a161-393139636635/generated.jpg" },
+        { "id": "render_house_1_04", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3066-6136-4764-a139-393265363464/generated.jpg" },
+        { "id": "render_house_1_05", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
+        { "id": "render_house_1_06", "description": "плитка 123", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
+        { "id": "render_house_1_07", "description": "плитка 123", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
       ]
     },
     {
@@ -364,6 +364,7 @@
     }
   ]
 }
+
 
 
 
