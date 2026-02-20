@@ -698,21 +698,28 @@ function setupTilesGridSizer() {
   root.style.setProperty("--mzt-tile-gap", `${GAP}px`);
 
   function recalc() {
-    // ширина под 3 колонки
-    const w = grid.clientWidth || wrap.clientWidth;
-    // высота под 3 ряда: берём высоту wrap и вычитаем пагинацию + небольшой зазор
-    const pagH = pag ? pag.getBoundingClientRect().height : 0;
-    const h = wrap.clientHeight - pagH - 8;
+// Считаем по РЕАЛЬНО доступной зоне именно под сетку (tilesWrap)
+const tilesWrap = qs("#mztTilesWrap", root);
+if (!tilesWrap) return;
 
-    if (w <= 0 || h <= 0) return;
+const pagH = pag ? pag.getBoundingClientRect().height : 0;
 
-    const sizeByW = Math.floor((w - GAP * 2) / 3);
-    const sizeByH = Math.floor((h - GAP * 2) / 3);
+// доступная ширина/высота под 3×3 (без padding'ов)
+const w = tilesWrap.clientWidth;
+const h = tilesWrap.clientHeight;
 
-    // минимальный размер чтобы не превращалось в кашу
-    const tileSize = Math.max(64, Math.min(sizeByW, sizeByH));
+if (w <= 0 || h <= 0) return;
 
-    root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
+// 3 плитки + 2 промежутка (gap) по каждой оси
+const sizeByW = Math.floor((w - GAP * 2) / 3);
+const sizeByH = Math.floor((h - GAP * 2) / 3);
+
+// страховка от субпикселей/округления, чтобы НИКОГДА не подрезало низ
+const SAFE = 2;
+
+const tileSize = Math.max(64, Math.min(sizeByW, sizeByH) - SAFE);
+
+root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
   }
 
   // первичный расчёт (после текущего рендера)
@@ -1246,3 +1253,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
