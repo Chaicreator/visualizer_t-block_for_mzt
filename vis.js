@@ -1232,7 +1232,7 @@ function closeFullscreenRenderModal() {
        setupTilesGridSizer();
 
   // сигнал внешнему loader.js: визуализатор готов
-  qs(`#${CONFIG.ROOT_ID}`)?.setAttribute("data-ready", "1");
+  // qs(`#${CONFIG.ROOT_ID}`)?.setAttribute("data-ready", "1");
        
     } catch (e) {
       console.error(e);
