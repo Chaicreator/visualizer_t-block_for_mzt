@@ -88,42 +88,42 @@
       }
 
       /* Спиннер */
-      .mzt-loader{
-        width:48px;
-        height:48px;
-        border-radius:50%;
-        position:relative;
-        box-sizing:border-box;
+  .mzt-loader{
+  width:72px;           /* было 48px */
+  height:72px;
+  border-radius:50%;
+  position:relative;
+  box-sizing:border-box;
 
-        border:3px solid;
-        border-color:#9a5e3a #9a5e3a transparent transparent;
-        animation:mzt-rotation 1s linear infinite;
-      }
+  border:5px solid;     /* толще линия */
+  border-color:#9a5e3a #9a5e3a transparent transparent;
+  animation:mzt-rotation 1s linear infinite;
+}
 
-      .mzt-loader::after,
-      .mzt-loader::before{
-        content:'';
-        position:absolute;
-        inset:0;
-        margin:auto;
-        border:3px solid;
-        border-radius:50%;
-        box-sizing:border-box;
-      }
+.mzt-loader::after,
+.mzt-loader::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  margin:auto;
+  border:5px solid;     /* толще линия */
+  border-radius:50%;
+  box-sizing:border-box;
+}
 
-      .mzt-loader::after{
-        width:40px;
-        height:40px;
-        border-color:transparent transparent #9a5e3a #9a5e3a;
-        animation:mzt-rotation-back 0.6s linear infinite;
-      }
+.mzt-loader::after{
+  width:60px;           /* было 40px */
+  height:60px;
+  border-color:transparent transparent #9a5e3a #9a5e3a;
+  animation:mzt-rotation-back 0.7s linear infinite;
+}
 
-      .mzt-loader::before{
-        width:32px;
-        height:32px;
-        border-color:rgba(154,94,58,0.5) rgba(154,94,58,0.5) transparent transparent;
-        animation:mzt-rotation 1.4s linear infinite;
-      }
+.mzt-loader::before{
+  width:46px;           /* было 32px */
+  height:46px;
+  border-color:rgba(154,94,58,0.55) rgba(154,94,58,0.55) transparent transparent;
+  animation:mzt-rotation 1.4s linear infinite;
+}
 
       @keyframes mzt-rotation{
         from{transform:rotate(0deg)}
