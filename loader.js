@@ -87,11 +87,7 @@
         place-items:center;
         pointer-events:auto;     /* блокируем клики по меню под ним */
 
-        background: radial-gradient(circle at center,
-          #CCCCCC 0%,
-          #CCCCCC 28%,
-          #888888 78%,
-          #888888 100%);
+        background:#efefef;
 
         opacity:1;
         transition: opacity ${FADE_MS}ms ease;
@@ -107,6 +103,9 @@
         position:relative;
         width:76px;
         height:76px;
+      }
+      #${ROOT_ID} > .mzt-loader{
+      background:none;
       }
 
       /* ring base */
