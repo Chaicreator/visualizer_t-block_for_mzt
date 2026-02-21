@@ -28,7 +28,13 @@
 
     wrap = document.createElement("div");
     wrap.className = "mzt-loader-wrap";
-    wrap.innerHTML = `<span class="mzt-loader" role="status"></span>`;
+    wrap.innerHTML = `
+      <div class="mzt-loader" role="status" aria-label="loading">
+        <span class="mzt-ring mzt-ring--outer"></span>
+        <span class="mzt-ring mzt-ring--mid"></span>
+        <span class="mzt-ring mzt-ring--inner"></span>
+      </div>
+    `;
     root.appendChild(wrap);
   }
 
@@ -40,12 +46,13 @@
     if (!wrap) return;
 
     wrap.classList.add("is-hide");
-    setTimeout(() => wrap.remove(), FADE_MS + 60);
+    setTimeout(() => wrap.remove(), FADE_MS + 80);
     observer.disconnect();
   }
 
   ensureLoader();
 
+  // если buildLayout() перезатрёт детей — восстановим оверлей
   const observer = new MutationObserver(() => {
     if (isReady()) removeLoader();
     else ensureLoader();
@@ -54,86 +61,98 @@
   observer.observe(root, {
     childList: true,
     attributes: true,
-    attributeFilter: [READY_ATTR]
+    attributeFilter: [READY_ATTR],
   });
 
   function injectStyles() {
-    if (document.getElementById("mzt-loader-style")) return;
+    // Важно: меняем id, чтобы стили не "залипали" из старой версии
+    const STYLE_ID = "mzt-loader-style-v3";
+    if (document.getElementById(STYLE_ID)) return;
+
+    // (не обязательно, но полезно) удалить старые версии, если были
+    ["mzt-loader-style", "mzt-loader-style-v2"].forEach((id) => {
+      const old = document.getElementById(id);
+      if (old) old.remove();
+    });
 
     const style = document.createElement("style");
-    style.id = "mzt-loader-style";
+    style.id = STYLE_ID;
     style.textContent = `
-      /* Оверлей — минимальный слой */
-/* Оверлей — над всем содержимым визуализатора */
-#cusvis > .mzt-loader-wrap{
-  position:absolute;
-  inset:0;
-  z-index:50;              /* достаточно, чтобы перекрыть выпадашки */
-  display:grid !important;
-  place-items:center !important;
-  pointer-events:auto;     /* блокируем клики по UI под ним */
+      /* overlay */
+      #${ROOT_ID} > .mzt-loader-wrap{
+        position:absolute;
+        inset:0;
+        z-index:50;              /* умеренно: только перекрыть UI внутри */
+        display:grid;
+        place-items:center;
+        pointer-events:auto;     /* блокируем клики по меню под ним */
 
-  background: radial-gradient(circle at center,
-    #CCCCCC 0%,
-    #CCCCCC 25%,
-    #888888 75%,
-    #888888 100%);
+        background: radial-gradient(circle at center,
+          #CCCCCC 0%,
+          #CCCCCC 28%,
+          #888888 78%,
+          #888888 100%);
 
-  opacity:1;
-  transition:opacity 200ms ease;
-}
+        opacity:1;
+        transition: opacity ${FADE_MS}ms ease;
+      }
 
-#cusvis > .mzt-loader-wrap.is-hide{
-  opacity:0;
-  pointer-events:none;
-}
+      #${ROOT_ID} > .mzt-loader-wrap.is-hide{
+        opacity:0;
+        pointer-events:none;
+      }
 
-/* Спиннер: высокая специфичность, чтобы не затирали */
-#cusvis > .mzt-loader-wrap .mzt-loader{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  display:block;
-  position:relative;
-  z-index:1;              /* поверх фона */
-  background:transparent; /* на всякий */
-  box-sizing:border-box;
+      /* spinner container */
+      #${ROOT_ID} > .mzt-loader-wrap .mzt-loader{
+        position:relative;
+        width:76px;
+        height:76px;
+      }
 
-  border:5px solid;
-  border-color:#9a5e3a #9a5e3a transparent transparent;
-  animation:mzt-rotation 1s linear infinite;
-}
+      /* ring base */
+      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring{
+        position:absolute;
+        inset:0;
+        margin:auto;
+        border-radius:50%;
+        box-sizing:border-box;
+        background: transparent;
+      }
 
-#cusvis > .mzt-loader-wrap .mzt-loader::after,
-#cusvis > .mzt-loader-wrap .mzt-loader::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  margin:auto;
-  border:5px solid;
-  border-radius:50%;
-  box-sizing:border-box;
-}
+      /* outer ring */
+      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--outer{
+        width:76px;
+        height:76px;
+        border:5px solid transparent;
+        border-top-color:#9a5e3a;
+        border-right-color:#9a5e3a;
+        animation: mzt-rot 0.95s linear infinite;
+      }
 
-#cusvis > .mzt-loader-wrap .mzt-loader::after{
-  width:60px;
-  height:60px;
-  border-color:transparent transparent #9a5e3a #9a5e3a;
-  animation:mzt-rotation-back 0.7s linear infinite;
-}
+      /* middle ring (вращается в обратку) */
+      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--mid{
+        width:62px;
+        height:62px;
+        border:5px solid transparent;
+        border-bottom-color:#9a5e3a;
+        border-left-color:#9a5e3a;
+        opacity:0.95;
+        animation: mzt-rot-back 0.65s linear infinite;
+      }
 
-#cusvis > .mzt-loader-wrap .mzt-loader::before{
-  width:46px;
-  height:46px;
-  border-color:rgba(154,94,58,0.55) rgba(154,94,58,0.55) transparent transparent;
-  animation:mzt-rotation 1.4s linear infinite;
-}
+      /* inner ring (более мягкий) */
+      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--inner{
+        width:46px;
+        height:46px;
+        border:5px solid transparent;
+        border-top-color: rgba(154,94,58,0.55);
+        border-right-color: rgba(154,94,58,0.55);
+        animation: mzt-rot 1.35s linear infinite;
+      }
 
-@keyframes mzt-rotation{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(360deg)}
-}
-@keyframes mzt-rotation-back{
-  from{transform:rotate(0deg)}
-  to{transform:rotate(-360deg)}
-}
+      @keyframes mzt-rot{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+      @keyframes mzt-rot-back{ from{transform:rotate(0)} to{transform:rotate(-360deg)} }
+    `;
+    document.head.appendChild(style);
+  }
+})();
