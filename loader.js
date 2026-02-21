@@ -1,4 +1,4 @@
-/* loader.js — оверлей загрузки для #cusvis (устойчив к buildLayout) */
+/* loader.js — оверлей загрузки */
 (() => {
   const ROOT_ID = "cusvis";
 
