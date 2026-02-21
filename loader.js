@@ -23,35 +23,32 @@
   function ensureLoader() {
     if (removed || isReady()) return;
 
-    let el = root.querySelector(":scope > .mzt-loader-wrap");
-    if (el) return;
+    let wrap = root.querySelector(":scope > .mzt-loader-wrap");
+    if (wrap) return;
 
-    el = document.createElement("div");
-    el.className = "mzt-loader-wrap";
-    el.innerHTML = `<span class="mzt-loader"></span>`;
-    root.appendChild(el);
+    wrap = document.createElement("div");
+    wrap.className = "mzt-loader-wrap";
+    wrap.innerHTML = `<span class="mzt-loader" role="status"></span>`;
+    root.appendChild(wrap);
   }
 
   function removeLoader() {
     if (removed) return;
     removed = true;
 
-    const el = root.querySelector(":scope > .mzt-loader-wrap");
-    if (!el) return;
+    const wrap = root.querySelector(":scope > .mzt-loader-wrap");
+    if (!wrap) return;
 
-    el.classList.add("is-hide");
-    setTimeout(() => el.remove(), FADE_MS + 60);
+    wrap.classList.add("is-hide");
+    setTimeout(() => wrap.remove(), FADE_MS + 60);
     observer.disconnect();
   }
 
   ensureLoader();
 
   const observer = new MutationObserver(() => {
-    if (isReady()) {
-      removeLoader();
-    } else {
-      ensureLoader(); // если buildLayout его удалил
-    }
+    if (isReady()) removeLoader();
+    else ensureLoader();
   });
 
   observer.observe(root, {
@@ -66,16 +63,23 @@
     const style = document.createElement("style");
     style.id = "mzt-loader-style";
     style.textContent = `
+      /* Оверлей — минимальный слой */
       #${ROOT_ID} > .mzt-loader-wrap{
         position:absolute;
         inset:0;
-        z-index:99999;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:#888888;
-        transition:opacity ${FADE_MS}ms ease;
+        z-index:2; /* только над содержимым визуализатора */
+
+        display:grid;
+        place-items:center;
+
+        background: radial-gradient(circle at center,
+          #CCCCCC 0%,
+          #CCCCCC 25%,
+          #888888 75%,
+          #888888 100%);
+
         opacity:1;
+        transition:opacity ${FADE_MS}ms ease;
       }
 
       #${ROOT_ID} > .mzt-loader-wrap.is-hide{
@@ -83,52 +87,52 @@
         pointer-events:none;
       }
 
-      .mzt-loader {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        display: inline-block;
-        position: relative;
-        border: 3px solid;
-        border-color: #ffffff #ffffff transparent transparent;
-        box-sizing: border-box;
-        animation: mzt-rotation 1s linear infinite;
+      /* Спиннер */
+      .mzt-loader{
+        width:48px;
+        height:48px;
+        border-radius:50%;
+        position:relative;
+        box-sizing:border-box;
+
+        border:3px solid;
+        border-color:#9a5e3a #9a5e3a transparent transparent;
+        animation:mzt-rotation 1s linear infinite;
       }
 
       .mzt-loader::after,
-      .mzt-loader::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        border: 3px solid;
-        border-radius: 50%;
-        box-sizing: border-box;
-        transform-origin: center;
+      .mzt-loader::before{
+        content:'';
+        position:absolute;
+        inset:0;
+        margin:auto;
+        border:3px solid;
+        border-radius:50%;
+        box-sizing:border-box;
       }
 
-      .mzt-loader::after {
-        width: 40px;
-        height: 40px;
-        border-color: transparent transparent #9a5e3a #9a5e3a;
-        animation: mzt-rotation-back 0.5s linear infinite;
+      .mzt-loader::after{
+        width:40px;
+        height:40px;
+        border-color:transparent transparent #9a5e3a #9a5e3a;
+        animation:mzt-rotation-back 0.6s linear infinite;
       }
 
-      .mzt-loader::before {
-        width: 32px;
-        height: 32px;
-        border-color: #ffffff #ffffff transparent transparent;
-        animation: mzt-rotation 1.6s linear infinite;
+      .mzt-loader::before{
+        width:32px;
+        height:32px;
+        border-color:rgba(154,94,58,0.5) rgba(154,94,58,0.5) transparent transparent;
+        animation:mzt-rotation 1.4s linear infinite;
       }
 
-      @keyframes mzt-rotation {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+      @keyframes mzt-rotation{
+        from{transform:rotate(0deg)}
+        to{transform:rotate(360deg)}
       }
 
-      @keyframes mzt-rotation-back {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(-360deg); }
+      @keyframes mzt-rotation-back{
+        from{transform:rotate(0deg)}
+        to{transform:rotate(-360deg)}
       }
     `;
     document.head.appendChild(style);
