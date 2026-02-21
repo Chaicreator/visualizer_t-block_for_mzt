@@ -1,141 +1,136 @@
 /* loader.js — оверлей загрузки поверх */
 (() => {
   const ROOT_ID = "cusvis";
-
-  const CFG = {
-    readyAttr: "data-ready",
-    readyAttrValue: "1",
-    fadeMs: 220,
-    // зададим минимум, чтобы было видно
-    minHeightPx: 900,
-  };
+  const READY_ATTR = "data-ready";
+  const READY_VAL = "1";
+  const FADE_MS = 200;
 
   const root = document.getElementById(ROOT_ID);
   if (!root) return;
 
   injectStyles();
 
-  // root должен быть якорем для absolute
-  const cs = getComputedStyle(root);
-  if (cs.position === "static") root.style.position = "relative";
-  if (!root.style.minHeight) root.style.minHeight = CFG.minHeightPx + "px";
+  if (getComputedStyle(root).position === "static") {
+    root.style.position = "relative";
+  }
 
   let removed = false;
 
   function isReady() {
-    return root.getAttribute(CFG.readyAttr) === CFG.readyAttrValue;
+    return root.getAttribute(READY_ATTR) === READY_VAL;
   }
 
-  function ensureOverlay() {
+  function ensureLoader() {
     if (removed || isReady()) return;
 
-    let overlay = root.querySelector(":scope > .mzt-loader");
-    if (overlay) return;
+    let el = root.querySelector(":scope > .mzt-loader-wrap");
+    if (el) return;
 
-    overlay = document.createElement("div");
-    overlay.className = "mzt-loader";
-    overlay.innerHTML = `
-      <div class="mzt-loader__bg">
-        <div class="mzt-loader__spinner" role="status" aria-label="loading">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-      </div>
-    `;
-    root.appendChild(overlay);
+    el = document.createElement("div");
+    el.className = "mzt-loader-wrap";
+    el.innerHTML = `<span class="mzt-loader"></span>`;
+    root.appendChild(el);
   }
 
-  function removeOverlay() {
+  function removeLoader() {
     if (removed) return;
     removed = true;
 
-    const overlay = root.querySelector(":scope > .mzt-loader");
-    if (!overlay) return;
+    const el = root.querySelector(":scope > .mzt-loader-wrap");
+    if (!el) return;
 
-    overlay.classList.add("is-hide");
-    setTimeout(() => overlay.remove(), CFG.fadeMs + 80);
-
-    mo.disconnect();
+    el.classList.add("is-hide");
+    setTimeout(() => el.remove(), FADE_MS + 60);
+    observer.disconnect();
   }
 
-  // Вставляем сразу (если buildLayout потом снесёт — восстановим)
-  ensureOverlay();
+  ensureLoader();
 
-  // Следим: если buildLayout/рендеры перетёрли DOM — вставим снова.
-  const mo = new MutationObserver(() => {
+  const observer = new MutationObserver(() => {
     if (isReady()) {
-      removeOverlay();
-      return;
+      removeLoader();
+    } else {
+      ensureLoader(); // если buildLayout его удалил
     }
-    // если оверлей пропал — восстановить
-    ensureOverlay();
   });
 
-  mo.observe(root, { childList: true, subtree: false, attributes: true, attributeFilter: [CFG.readyAttr] });
+  observer.observe(root, {
+    childList: true,
+    attributes: true,
+    attributeFilter: [READY_ATTR]
+  });
 
   function injectStyles() {
     if (document.getElementById("mzt-loader-style")) return;
 
-    const st = document.createElement("style");
-    st.id = "mzt-loader-style";
-    st.textContent = `
-      #${ROOT_ID} > .mzt-loader{
+    const style = document.createElement("style");
+    style.id = "mzt-loader-style";
+    style.textContent = `
+      #${ROOT_ID} > .mzt-loader-wrap{
         position:absolute;
         inset:0;
         z-index:99999;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#888888;
+        transition:opacity ${FADE_MS}ms ease;
         opacity:1;
-        transition: opacity ${CFG.fadeMs}ms ease;
-        pointer-events:auto;
       }
-      #${ROOT_ID} > .mzt-loader.is-hide{
+
+      #${ROOT_ID} > .mzt-loader-wrap.is-hide{
         opacity:0;
         pointer-events:none;
       }
 
-      /* фон: снаружи #efefef, в центре мягкое белое пятно */
-      #${ROOT_ID} .mzt-loader__bg{
-        width:100%;
-        height:100%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:
-          radial-gradient(circle at center,
-            rgba(255,255,255,1) 0%,
-            rgba(255,255,255,1) 22%,
-            rgba(255,255,255,0.92) 32%,
-            rgba(239,239,239,1) 70%,
-            rgba(239,239,239,1) 100%);
+      .mzt-loader {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        border: 3px solid;
+        border-color: #ffffff #ffffff transparent transparent;
+        box-sizing: border-box;
+        animation: mzt-rotation 1s linear infinite;
       }
 
-      /* классическая крутилка 8 прямоугольников */
-      #${ROOT_ID} .mzt-loader__spinner{
-        position:relative;
-        width:64px;
-        height:64px;
-        animation:mztSpin 0.9s linear infinite;
-      }
-      #${ROOT_ID} .mzt-loader__spinner i{
-        position:absolute;
-        left:50%;
-        top:50%;
-        width:10px;
-        height:18px;
-        border-radius:4px;
-        background: rgba(40,40,40,0.55);
-        transform-origin: 50% calc(100% + 14px);
+      .mzt-loader::after,
+      .mzt-loader::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        border: 3px solid;
+        border-radius: 50%;
+        box-sizing: border-box;
+        transform-origin: center;
       }
 
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(1){ transform: translate(-50%,-50%) rotate(0deg)   translateY(-21px); opacity:.20; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(2){ transform: translate(-50%,-50%) rotate(45deg)  translateY(-21px); opacity:.28; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(3){ transform: translate(-50%,-50%) rotate(90deg)  translateY(-21px); opacity:.36; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(4){ transform: translate(-50%,-50%) rotate(135deg) translateY(-21px); opacity:.48; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(5){ transform: translate(-50%,-50%) rotate(180deg) translateY(-21px); opacity:.62; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(6){ transform: translate(-50%,-50%) rotate(225deg) translateY(-21px); opacity:.76; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(7){ transform: translate(-50%,-50%) rotate(270deg) translateY(-21px); opacity:.88; }
-      #${ROOT_ID} .mzt-loader__spinner i:nth-child(8){ transform: translate(-50%,-50%) rotate(315deg) translateY(-21px); opacity:1; }
+      .mzt-loader::after {
+        width: 40px;
+        height: 40px;
+        border-color: transparent transparent #9a5e3a #9a5e3a;
+        animation: mzt-rotation-back 0.5s linear infinite;
+      }
 
-      @keyframes mztSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+      .mzt-loader::before {
+        width: 32px;
+        height: 32px;
+        border-color: #ffffff #ffffff transparent transparent;
+        animation: mzt-rotation 1.6s linear infinite;
+      }
+
+      @keyframes mzt-rotation {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes mzt-rotation-back {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(-360deg); }
+      }
     `;
-    document.head.appendChild(st);
+    document.head.appendChild(style);
   }
 })();
