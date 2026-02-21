@@ -1096,7 +1096,6 @@ state.activeRenderImages.slice(1).forEach((item, localIdx) => {
 }
   /* ==========================================================================
      [13] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
-     --------------------------------------------------------------------------
      ========================================================================== */
 
 function ensureFullscreenRenderModal() {
@@ -1232,8 +1231,9 @@ function closeFullscreenRenderModal() {
       applyFiltersAndRenderTiles();
        setupTilesGridSizer();
 
-      // нижняя кнопка
-      // initBottomCTA();
+  // сигнал внешнему loader.js: визуализатор готов
+  qs(`#${CONFIG.ROOT_ID}`)?.setAttribute("data-ready", "1");
+       
     } catch (e) {
       console.error(e);
       const main = qs("#mztRenderMain");
@@ -1253,5 +1253,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
-
