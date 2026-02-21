@@ -64,77 +64,76 @@
     style.id = "mzt-loader-style";
     style.textContent = `
       /* Оверлей — минимальный слой */
-      #${ROOT_ID} > .mzt-loader-wrap{
-        position:absolute;
-        inset:0;
-        z-index:2; /* только над содержимым визуализатора */
+/* Оверлей — над всем содержимым визуализатора */
+#cusvis > .mzt-loader-wrap{
+  position:absolute;
+  inset:0;
+  z-index:50;              /* достаточно, чтобы перекрыть выпадашки */
+  display:grid !important;
+  place-items:center !important;
+  pointer-events:auto;     /* блокируем клики по UI под ним */
 
-        display:grid;
-        place-items:center;
+  background: radial-gradient(circle at center,
+    #CCCCCC 0%,
+    #CCCCCC 25%,
+    #888888 75%,
+    #888888 100%);
 
-        background: radial-gradient(circle at center,
-          #CCCCCC 0%,
-          #CCCCCC 25%,
-          #888888 75%,
-          #888888 100%);
+  opacity:1;
+  transition:opacity 200ms ease;
+}
 
-        opacity:1;
-        transition:opacity ${FADE_MS}ms ease;
-      }
+#cusvis > .mzt-loader-wrap.is-hide{
+  opacity:0;
+  pointer-events:none;
+}
 
-      #${ROOT_ID} > .mzt-loader-wrap.is-hide{
-        opacity:0;
-        pointer-events:none;
-      }
-
-      /* Спиннер */
-  .mzt-loader{
-  width:72px;           /* было 48px */
+/* Спиннер: высокая специфичность, чтобы не затирали */
+#cusvis > .mzt-loader-wrap .mzt-loader{
+  width:72px;
   height:72px;
   border-radius:50%;
+  display:block;
   position:relative;
+  z-index:1;              /* поверх фона */
+  background:transparent; /* на всякий */
   box-sizing:border-box;
 
-  border:5px solid;     /* толще линия */
+  border:5px solid;
   border-color:#9a5e3a #9a5e3a transparent transparent;
   animation:mzt-rotation 1s linear infinite;
 }
 
-.mzt-loader::after,
-.mzt-loader::before{
+#cusvis > .mzt-loader-wrap .mzt-loader::after,
+#cusvis > .mzt-loader-wrap .mzt-loader::before{
   content:'';
   position:absolute;
   inset:0;
   margin:auto;
-  border:5px solid;     /* толще линия */
+  border:5px solid;
   border-radius:50%;
   box-sizing:border-box;
 }
 
-.mzt-loader::after{
-  width:60px;           /* было 40px */
+#cusvis > .mzt-loader-wrap .mzt-loader::after{
+  width:60px;
   height:60px;
   border-color:transparent transparent #9a5e3a #9a5e3a;
   animation:mzt-rotation-back 0.7s linear infinite;
 }
 
-.mzt-loader::before{
-  width:46px;           /* было 32px */
+#cusvis > .mzt-loader-wrap .mzt-loader::before{
+  width:46px;
   height:46px;
   border-color:rgba(154,94,58,0.55) rgba(154,94,58,0.55) transparent transparent;
   animation:mzt-rotation 1.4s linear infinite;
 }
 
-      @keyframes mzt-rotation{
-        from{transform:rotate(0deg)}
-        to{transform:rotate(360deg)}
-      }
-
-      @keyframes mzt-rotation-back{
-        from{transform:rotate(0deg)}
-        to{transform:rotate(-360deg)}
-      }
-    `;
-    document.head.appendChild(style);
-  }
-})();
+@keyframes mzt-rotation{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+@keyframes mzt-rotation-back{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(-360deg)}
+}
