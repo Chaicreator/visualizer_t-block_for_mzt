@@ -1,15 +1,25 @@
-/* loader.js — оверлей загрузки поверх */
+/* loader.js (clean, isolated) */
 (() => {
   const ROOT_ID = "cusvis";
   const READY_ATTR = "data-ready";
   const READY_VAL = "1";
-  const FADE_MS = 200;
+
+  const CFG = {
+    zIndex: 30,          // minimal but reliably above inner UI
+    fadeMs: 180,
+    bgEdge: "#888888",
+    bgCenter: "#CCCCCC",
+    accent: "#9a5e3a",
+    size: 72,            // spinner outer size
+    stroke: 6            // ring thickness
+  };
 
   const root = document.getElementById(ROOT_ID);
   if (!root) return;
 
   injectStyles();
 
+  // Make #cusvis the positioning context
   if (getComputedStyle(root).position === "static") {
     root.style.position = "relative";
   }
@@ -20,137 +30,91 @@
     return root.getAttribute(READY_ATTR) === READY_VAL;
   }
 
-  function ensureLoader() {
+  function ensureOverlay() {
     if (removed || isReady()) return;
 
-    let wrap = root.querySelector(":scope > .mzt-loader-wrap");
-    if (wrap) return;
+    let overlay = root.querySelector(":scope > .mztvld-overlay");
+    if (overlay) return;
 
-    wrap = document.createElement("div");
-    wrap.className = "mzt-loader-wrap";
-    wrap.innerHTML = `
-      <div class="mzt-loader" role="status" aria-label="loading">
-        <span class="mzt-ring mzt-ring--outer"></span>
-        <span class="mzt-ring mzt-ring--mid"></span>
-        <span class="mzt-ring mzt-ring--inner"></span>
-      </div>
-    `;
-    root.appendChild(wrap);
+    overlay = document.createElement("div");
+    overlay.className = "mztvld-overlay";
+    overlay.innerHTML = `<span class="mztvld-spinner" role="status" aria-label="loading"></span>`;
+    root.appendChild(overlay);
   }
 
-  function removeLoader() {
+  function removeOverlay() {
     if (removed) return;
     removed = true;
 
-    const wrap = root.querySelector(":scope > .mzt-loader-wrap");
-    if (!wrap) return;
+    const overlay = root.querySelector(":scope > .mztvld-overlay");
+    if (!overlay) return;
 
-    wrap.classList.add("is-hide");
-    setTimeout(() => wrap.remove(), FADE_MS + 80);
-    observer.disconnect();
+    overlay.classList.add("is-hide");
+    setTimeout(() => overlay.remove(), CFG.fadeMs + 80);
+    mo.disconnect();
   }
 
-  ensureLoader();
+  // Initial insert
+  ensureOverlay();
 
-  // если buildLayout() перезатрёт детей — восстановим оверлей
-  const observer = new MutationObserver(() => {
-    if (isReady()) removeLoader();
-    else ensureLoader();
+  // If buildLayout() wipes #cusvis, re-insert; if ready, remove
+  const mo = new MutationObserver(() => {
+    if (isReady()) removeOverlay();
+    else ensureOverlay();
   });
 
-  observer.observe(root, {
+  mo.observe(root, {
     childList: true,
     attributes: true,
-    attributeFilter: [READY_ATTR],
+    attributeFilter: [READY_ATTR]
   });
 
   function injectStyles() {
-    // Важно: меняем id, чтобы стили не "залипали" из старой версии
-    const STYLE_ID = "mzt-loader-style-v3";
-    if (document.getElementById(STYLE_ID)) return;
+    if (document.getElementById("mztvld-style")) return;
 
-    // (не обязательно, но полезно) удалить старые версии, если были
-    ["mzt-loader-style", "mzt-loader-style-v2"].forEach((id) => {
-      const old = document.getElementById(id);
-      if (old) old.remove();
-    });
+    const st = document.createElement("style");
+    st.id = "mztvld-style";
+    st.textContent = `
+      /* Overlay */
+      #${ROOT_ID} > .mztvld-overlay{
+        position:absolute;
+        inset:0;
+        z-index:${CFG.zIndex};
+        display:grid;
+        place-items:center;
+        pointer-events:auto;
+        opacity:1;
+        transition: opacity ${CFG.fadeMs}ms ease;
 
-    const style = document.createElement("style");
-    style.id = STYLE_ID;
-    style.textContent = `
-/* ===== MZT VIS LOADER (no conflicts) ===== */
-#cusvis > .mztVisLoaderWrap{
-  position:absolute;
-  inset:0;
-  z-index:30; /* умеренно, чтобы перекрыть UI внутри cusvis */
-  display:grid;
-  place-items:center;
-  pointer-events:auto;
+        background:#efefef
+      }
 
-  /* фон: радиальный, центр #CCCCCC, края #888888 */
-  background: radial-gradient(circle at center,
-    #CCCCCC 0%,
-    #CCCCCC 25%,
-    #888888 75%,
-    #888888 100%);
+      #${ROOT_ID} > .mztvld-overlay.is-hide{
+        opacity:0;
+        pointer-events:none;
+      }
 
-  opacity:1;
-  transition: opacity 200ms ease;
-}
+      /* Spinner (single ring, no light/white segments) */
+      #${ROOT_ID} .mztvld-spinner{
+        width:${CFG.size}px;
+        height:${CFG.size}px;
+        border-radius:50%;
+        box-sizing:border-box;
 
-#cusvis > .mztVisLoaderWrap.is-hide{
-  opacity:0;
-  pointer-events:none;
-}
+        border:${CFG.stroke}px solid rgba(154,94,58,0.22);
+        border-top-color:${CFG.accent};
+        border-right-color:${CFG.accent};
 
-/* Спиннер: твой 3-кольцевой вариант, без белых сегментов */
-#cusvis > .mztVisLoaderWrap .mztVisSpin{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  display:block;
-  position:relative;
-  box-sizing:border-box;
+        background:none;
+        display:block;
+        animation:mztvld-spin 0.85s linear infinite;
+      }
 
-  border:5px solid;
-  border-color:#9a5e3a #9a5e3a transparent transparent;
-  animation:mztVisRot 1s linear infinite;
-}
-
-#cusvis > .mztVisLoaderWrap .mztVisSpin::after,
-#cusvis > .mztVisLoaderWrap .mztVisSpin::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  margin:auto;
-  border:5px solid;
-  border-radius:50%;
-  box-sizing:border-box;
-}
-
-#cusvis > .mztVisLoaderWrap .mztVisSpin::after{
-  width:60px;
-  height:60px;
-  border-color:transparent transparent #9a5e3a #9a5e3a;
-  animation:mztVisRotBack 0.7s linear infinite;
-  opacity:0.95;
-}
-
-#cusvis > .mztVisLoaderWrap .mztVisSpin::before{
-  width:46px;
-  height:46px;
-  border-color:rgba(154,94,58,0.55) rgba(154,94,58,0.55) transparent transparent;
-  animation:mztVisRot 1.4s linear infinite;
-  opacity:0.9;
-}
-
-@keyframes mztVisRot{
-  from{ transform: rotate(0deg); }
-  to  { transform: rotate(360deg); }
-}
-
-@keyframes mztVisRotBack{
-  from{ transform: rotate(0deg); }
-  to  { transform: rotate(-360deg); }
-}
+      @keyframes mztvld-spin{
+        from{ transform: rotate(0deg); }
+        to  { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(st);
+  }
 })();
