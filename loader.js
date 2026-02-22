@@ -78,80 +78,79 @@
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      /* overlay */
-      #${ROOT_ID} > .mzt-loader-wrap{
-        position:absolute;
-        inset:0;
-        z-index:50;              /* умеренно: только перекрыть UI внутри */
-        display:grid;
-        place-items:center;
-        pointer-events:auto;     /* блокируем клики по меню под ним */
+/* ===== MZT VIS LOADER (no conflicts) ===== */
+#cusvis > .mztVisLoaderWrap{
+  position:absolute;
+  inset:0;
+  z-index:30; /* умеренно, чтобы перекрыть UI внутри cusvis */
+  display:grid;
+  place-items:center;
+  pointer-events:auto;
 
-        background:#efefef;
+  /* фон: радиальный, центр #CCCCCC, края #888888 */
+  background: radial-gradient(circle at center,
+    #CCCCCC 0%,
+    #CCCCCC 25%,
+    #888888 75%,
+    #888888 100%);
 
-        opacity:1;
-        transition: opacity ${FADE_MS}ms ease;
-      }
+  opacity:1;
+  transition: opacity 200ms ease;
+}
 
-      #${ROOT_ID} > .mzt-loader-wrap.is-hide{
-        opacity:0;
-        pointer-events:none;
-      }
+#cusvis > .mztVisLoaderWrap.is-hide{
+  opacity:0;
+  pointer-events:none;
+}
 
-      /* spinner container */
-      #${ROOT_ID} > .mzt-loader-wrap .mzt-loader{
-        position:relative;
-        width:76px;
-        height:76px;
-      }
-      #${ROOT_ID} > .mzt-loader{
-      background:none;
-      }
+/* Спиннер: твой 3-кольцевой вариант, без белых сегментов */
+#cusvis > .mztVisLoaderWrap .mztVisSpin{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  display:block;
+  position:relative;
+  box-sizing:border-box;
 
-      /* ring base */
-      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring{
-        position:absolute;
-        inset:0;
-        margin:auto;
-        border-radius:50%;
-        box-sizing:border-box;
-        background: transparent;
-      }
+  border:5px solid;
+  border-color:#9a5e3a #9a5e3a transparent transparent;
+  animation:mztVisRot 1s linear infinite;
+}
 
-      /* outer ring */
-      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--outer{
-        width:76px;
-        height:76px;
-        border:5px solid transparent;
-        border-top-color:#9a5e3a;
-        border-right-color:#9a5e3a;
-        animation: mzt-rot 0.95s linear infinite;
-      }
+#cusvis > .mztVisLoaderWrap .mztVisSpin::after,
+#cusvis > .mztVisLoaderWrap .mztVisSpin::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  margin:auto;
+  border:5px solid;
+  border-radius:50%;
+  box-sizing:border-box;
+}
 
-      /* middle ring (вращается в обратку) */
-      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--mid{
-        width:62px;
-        height:62px;
-        border:5px solid transparent;
-        border-bottom-color:#9a5e3a;
-        border-left-color:#9a5e3a;
-        opacity:0.95;
-        animation: mzt-rot-back 0.65s linear infinite;
-      }
+#cusvis > .mztVisLoaderWrap .mztVisSpin::after{
+  width:60px;
+  height:60px;
+  border-color:transparent transparent #9a5e3a #9a5e3a;
+  animation:mztVisRotBack 0.7s linear infinite;
+  opacity:0.95;
+}
 
-      /* inner ring (более мягкий) */
-      #${ROOT_ID} > .mzt-loader-wrap .mzt-ring--inner{
-        width:46px;
-        height:46px;
-        border:5px solid transparent;
-        border-top-color: rgba(154,94,58,0.55);
-        border-right-color: rgba(154,94,58,0.55);
-        animation: mzt-rot 1.35s linear infinite;
-      }
+#cusvis > .mztVisLoaderWrap .mztVisSpin::before{
+  width:46px;
+  height:46px;
+  border-color:rgba(154,94,58,0.55) rgba(154,94,58,0.55) transparent transparent;
+  animation:mztVisRot 1.4s linear infinite;
+  opacity:0.9;
+}
 
-      @keyframes mzt-rot{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
-      @keyframes mzt-rot-back{ from{transform:rotate(0)} to{transform:rotate(-360deg)} }
-    `;
-    document.head.appendChild(style);
-  }
+@keyframes mztVisRot{
+  from{ transform: rotate(0deg); }
+  to  { transform: rotate(360deg); }
+}
+
+@keyframes mztVisRotBack{
+  from{ transform: rotate(0deg); }
+  to  { transform: rotate(-360deg); }
+}
 })();
