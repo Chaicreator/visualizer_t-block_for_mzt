@@ -123,7 +123,7 @@
         border:5px solid transparent;
         border-top-color:#9a5e3a;
         border-right-color:#9a5e3a;
-        animation: mztvld-rot 0.95s linear infinite;
+        animation: mztvld-rot 1.8s linear infinite;
       }
 
       /* middle ring (вращается в обратку) */
@@ -134,7 +134,7 @@
         border-bottom-color:#9a5e3a;
         border-left-color:#9a5e3a;
         opacity:0.95;
-        animation: mztvld-rot-back 0.65s linear infinite;
+        animation: mztvld-rot-back 1.4s linear infinite;
       }
 
       /* inner ring (более мягкий) */
@@ -144,7 +144,7 @@
         border:5px solid transparent;
         border-top-color: rgba(154,94,58,0.55);
         border-right-color: rgba(154,94,58,0.55);
-        animation: mztvld-rot 1.35s linear infinite;
+        animation: mztvld-rot 2.4s linear infinite;
       }
 
       @keyframes mztvld-rot{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
