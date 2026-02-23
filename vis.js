@@ -462,7 +462,7 @@
   z-index: 5;
 }
 #${CONFIG.ROOT_ID} .mzt-select.is-open .mzt-select-list{
-  max-height: 260px;
+  max-height: 400px;
   opacity:1;
   transform: translateY(0);
 }
@@ -1292,3 +1292,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
