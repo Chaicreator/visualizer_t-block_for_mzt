@@ -60,6 +60,45 @@
     );
   }
 
+  // мини-лоадер на каждой карточке (плитка / рендер) пока img не прогрузится
+  const CELL_LOADER_HTML = `
+    <div class="mztvld-loader" role="status" aria-label="loading">
+      <span class="mztvld-ring mztvld-ring--outer"></span>
+      <span class="mztvld-ring mztvld-ring--mid"></span>
+      <span class="mztvld-ring mztvld-ring--inner"></span>
+    </div>
+  `;
+
+  function attachCellLoader(container, img) {
+    if (!container || !img) return;
+
+    // если картинка уже в кэше и валидна — не показываем лоадер
+    if (img.complete && img.naturalWidth > 0) return;
+
+    // на всякий: контейнер должен быть позиционируемым
+    const cs = getComputedStyle(container);
+    if (cs.position === "static") container.style.position = "relative";
+
+    // ставим лоадер поверх
+    const loader = el("div", { class: "mztvld-cell-loader", html: CELL_LOADER_HTML });
+    container.appendChild(loader);
+
+    // плавно показываем картинку после загрузки
+    img.style.opacity = "0";
+    img.style.transition = "opacity .14s ease";
+
+    const done = () => {
+      img.style.opacity = "1";
+      loader.classList.add("is-hide");
+      setTimeout(() => loader.remove(), 260);
+      img.removeEventListener("load", done);
+      img.removeEventListener("error", done);
+    };
+
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
+  }
+
   function allFiltersAreBlank() {
     const f = state.filters;
     return f.tile_color === "---" && f.grout_color === "---" && f.price_category === "---";
@@ -951,6 +990,7 @@ function tileMatchesFilters(tile) {
       const card = el("div", { class: "mzt-tile" + (state.selectedTileId === t.id ? " is-selected" : "") });
       const img = el("img", { src: t.image, alt: t.name, loading: "lazy" });
       card.appendChild(img);
+      attachCellLoader(card, img);
       card.addEventListener("click", () => onTileClick(t.id));
       grid.appendChild(card);
     });
@@ -1064,6 +1104,7 @@ const mainImg = el("img", {
 });
 
 main.appendChild(mainImg);
+attachCellLoader(main, mainImg);
 
 mainImg.style.cursor = "zoom-in";
 
@@ -1078,6 +1119,7 @@ state.activeRenderImages.slice(1).forEach((item, localIdx) => {
   const t = el("div", { class: "mzt-thumb" });
   const img = el("img", { src: item.image, alt: `thumb ${localIdx + 2}`, loading: "lazy" });
   t.appendChild(img);
+  attachCellLoader(t, img);
 
   t.addEventListener("click", () => {
     const idx = localIdx + 1; // реальный индекс в state.activeRenderImages
