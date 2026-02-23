@@ -147,6 +147,63 @@
         animation: mztvld-rot 2.4s linear infinite;
       }
 
+
+      /* ===================== reusable cell loader (tiles/renders) ===================== */
+      #${ROOT_ID} .mztvld-cell-loader{
+        position:absolute;
+        inset:0;
+        z-index:5;             /* только внутри карточки */
+        display:grid;
+        place-items:center;
+        pointer-events:none;
+
+        /* лёгкий радиальный фон под спиннером */
+        background: radial-gradient(circle at center, #cccccc 0%, #efefef 68%);
+
+        opacity:1;
+        transition: opacity ${FADE_MS}ms ease;
+      }
+      #${ROOT_ID} .mztvld-cell-loader.is-hide{ opacity:0; }
+
+      #${ROOT_ID} .mztvld-cell-loader .mztvld-loader{
+        width:54px;
+        height:54px;
+      }
+      #${ROOT_ID} .mztvld-cell-loader .mztvld-ring{
+        position:absolute;
+        inset:0;
+        margin:auto;
+        border-radius:50%;
+        box-sizing:border-box;
+        background: transparent;
+      }
+
+      #${ROOT_ID} .mztvld-cell-loader .mztvld-ring--outer{
+        width:54px;
+        height:54px;
+        border:4px solid transparent;
+        border-top-color:#9a5e3a;
+        border-right-color:#9a5e3a;
+        animation: mztvld-rot 1.8s linear infinite;
+      }
+      #${ROOT_ID} .mztvld-cell-loader .mztvld-ring--mid{
+        width:42px;
+        height:42px;
+        border:4px solid transparent;
+        border-bottom-color:#9a5e3a;
+        border-left-color:#9a5e3a;
+        opacity:0.95;
+        animation: mztvld-rot-back 1.4s linear infinite;
+      }
+      #${ROOT_ID} .mztvld-cell-loader .mztvld-ring--inner{
+        width:30px;
+        height:30px;
+        border:4px solid transparent;
+        border-top-color: rgba(154,94,58,0.55);
+        border-right-color: rgba(154,94,58,0.55);
+        animation: mztvld-rot 2.4s linear infinite;
+      }
+
       @keyframes mztvld-rot{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
       @keyframes mztvld-rot-back{ from{transform:rotate(0)} to{transform:rotate(-360deg)} }
     `;
