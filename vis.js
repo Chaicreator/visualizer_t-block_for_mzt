@@ -1,8 +1,5 @@
 /* ==========================================================================
    MZT Visualizer (Tilda custom block)
-   Контейнер: <div id="cusvis"></div>
-   Скрипт:   <script src=".../vis.js" defer></script>
-   Данные:   https://chaicreator.github.io/visualizer_t-block_for_mzt/dbase.json
    ========================================================================== */
 
 (() => {
@@ -1253,6 +1250,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
-
-
