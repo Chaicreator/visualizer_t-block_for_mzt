@@ -1910,12 +1910,12 @@
       "name": "рендер дома один",
       "images": [
         { "id": "render_house_1_01", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild3832-6466-4530-a663-623936383730/43png.jpg" },
-        { "id": "render_house_1_02", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3366-3963-4161-b139-333439336564/169.jpg" },
-        { "id": "render_house_1_03", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg" },
-        { "id": "render_house_1_04", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg" },
-        { "id": "render_house_1_05", "description": "плитка 123", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
-        { "id": "render_house_1_06", "description": "плитка 123", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
-        { "id": "render_house_1_07", "description": "плитка 123", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
+        { "id": "render_house_1_02", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild3366-3963-4161-b139-333439336564/169.jpg" },
+        { "id": "render_house_1_03", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg" },
+        { "id": "render_house_1_04", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg" },
+        { "id": "render_house_1_05", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild3364-6338-4134-b832-313032386362/10.jpg" },
+        { "id": "render_house_1_06", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild6264-3830-4364-b932-613561316161/2_1.jpg" },
+        { "id": "render_house_1_07", "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм", "image": "https://static.tildacdn.com/tild6633-3435-4163-b734-373661636161/1_n.jpg" }
       ]
     },
     {
@@ -1940,15 +1940,15 @@
   "render_set_id": "render_house_1",
 
   "popular_tiles": [
-    "tile_red_01",
-    "tile_red_02",
-    "tile_red_03",
-    "tile_beige_01",
-    "tile_beige_02",
-    "tile_beige_03",
-    "tile_red_04",
-    "tile_beige_04",
-    "tile_red_05"
+    "Beryoza_1",
+    "Beryoza_2",
+    "Beryoza_3",
+    "Beryoza_4",
+    "Beryoza_5",
+    "Beryoza_6",
+    "Beryoza_7",
+    "Beryoza_8",
+    "Beryoza_9"
   ]
 },
   
@@ -1956,16 +1956,17 @@
   "bindings": [
     {
       "_comment": "По заданию: второй объект из массива красной плитки -> render_house_1",
-      "tile_id": "tile_red_03",
+      "tile_id": "Beryoza_1",
       "render_set_id": "render_house_1"
     },
     {
       "_comment": "По заданию: третий объект из массива красной плитки -> render_house_2",
-      "tile_id": "tile_beige_04",
+      "tile_id": "Beryoza_2",
       "render_set_id": "render_house_2"
     }
   ]
 }
+
 
 
 
