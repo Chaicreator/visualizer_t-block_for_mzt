@@ -30,7 +30,8 @@
   },
 
   "_comment_tiles": "==================== ПЛИТКА (правый блок) ====================",
-  "tiles": [{
+  "tiles": [
+    {
   "id": "Beryoza_1",
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
@@ -39,7 +40,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6532-3035-4338-b537-393237323530/62940469.jpg"
+  "image": "https://static.tildacdn.com/stor6532-3035-4338-b537-393237323530/62940469.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/651885063382"
 },
 {
   "id": "Beryoza_2",
@@ -50,7 +52,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1500",
-  "image": "https://static.tildacdn.com/stor6336-3239-4563-b437-326236373063/68336455.jpg"
+  "image": "https://static.tildacdn.com/stor6336-3239-4563-b437-326236373063/68336455.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/754541514912"
 },
 {
   "id": "Beryoza_3",
@@ -61,7 +64,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3738-3030-4531-b231-643631326362/49418161.jpg"
+  "image": "https://static.tildacdn.com/stor3738-3030-4531-b231-643631326362/49418161.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/289400164652"
 },
 {
   "id": "Beryoza_4",
@@ -72,7 +76,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3566-3538-4262-a537-396362653063/61041095.jpg"
+  "image": "https://static.tildacdn.com/stor3566-3538-4262-a537-396362653063/61041095.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/203833627802"
 },
 {
   "id": "Beryoza_5",
@@ -83,7 +88,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3463-3332-4564-a131-326666393936/14445889.jpg"
+  "image": "https://static.tildacdn.com/stor3463-3332-4564-a131-326666393936/14445889.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/798042461732"
 },
 {
   "id": "Beryoza_6",
@@ -94,7 +100,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3433-3032-4764-b264-356434393334/64876869.jpg"
+  "image": "https://static.tildacdn.com/stor3433-3032-4764-b264-356434393334/64876869.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/421922161582"
 },
 {
   "id": "Beryoza_7",
@@ -105,7 +112,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6664-6131-4234-b562-623531393435/30814023.jpg"
+  "image": "https://static.tildacdn.com/stor6664-6131-4234-b562-623531393435/30814023.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/301825905132"
 },
 {
   "id": "Beryoza_8",
@@ -116,18 +124,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3531-3338-4537-a464-383265663239/35789155.jpg"
+  "image": "https://static.tildacdn.com/stor3531-3338-4537-a464-383265663239/35789155.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/809437307472"
 },
 {
   "id": "Beryoza_9",
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Brick House Коричневый 250×75 мм",
-  "tile_color": "Коричневый;Черный",
+  "tile_color": [
+    "Коричневый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3566-6231-4539-b364-393530333834/64706734.jpg"
+  "image": "https://static.tildacdn.com/stor3566-6231-4539-b364-393530333834/64706734.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/635353071252"
 },
 {
   "id": "Beryoza_10",
@@ -138,7 +151,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6433-3730-4530-b962-323766333533/29524183.jpg"
+  "image": "https://static.tildacdn.com/stor6433-3730-4530-b962-323766333533/29524183.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/167268972712"
 },
 {
   "id": "Beryoza_11",
@@ -149,18 +163,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3834-6133-4566-b333-383766343036/14788319.jpg"
+  "image": "https://static.tildacdn.com/stor3834-6133-4566-b333-383766343036/14788319.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/776815408992"
 },
 {
   "id": "Beryoza_12",
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Brick Wall Табачный 250×75 мм",
-  "tile_color": "Серый;Бежевый",
+  "tile_color": [
+    "Серый",
+    "Бежевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3031-3062-4231-b538-363661333930/60139774.jpg"
+  "image": "https://static.tildacdn.com/stor3031-3062-4231-b538-363661333930/60139774.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/516754830052"
 },
 {
   "id": "Beryoza_13",
@@ -171,29 +190,38 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6633-3666-4335-b836-393739323233/13508892.jpg"
+  "image": "https://static.tildacdn.com/stor6633-3666-4335-b836-393739323233/13508892.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/193774391812"
 },
 {
   "id": "Beryoza_14",
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Old Town Графит 246×120 мм",
-  "tile_color": "Серый;Бежевый",
+  "tile_color": [
+    "Серый",
+    "Бежевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3436-3131-4037-b731-653039313461/56959329.jpg"
+  "image": "https://static.tildacdn.com/stor3436-3131-4037-b731-653039313461/56959329.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/390384714962"
 },
 {
   "id": "Beryoza_15",
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Old Town Натурал 246×120 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6638-3030-4834-a137-393761393665/79865798.jpg"
+  "image": "https://static.tildacdn.com/stor6638-3030-4834-a137-393761393665/79865798.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/852505744542"
 },
 {
   "id": "Beryoza_16",
@@ -204,7 +232,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3832-3233-4435-b031-626263383036/43725184.jpg"
+  "image": "https://static.tildacdn.com/stor3832-3233-4435-b031-626263383036/43725184.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/895453275332"
 },
 {
   "id": "Keramin_1",
@@ -215,7 +244,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3661-6464-4331-b361-356232623562/80929894.jpg"
+  "image": "https://static.tildacdn.com/stor3661-6464-4331-b361-356232623562/80929894.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/629178175372"
 },
 {
   "id": "Keramin_2",
@@ -226,7 +256,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6334-3138-4331-b965-616136623631/88083438.jpg"
+  "image": "https://static.tildacdn.com/stor6334-3138-4331-b965-616136623631/88083438.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/839760042312"
 },
 {
   "id": "Keramin_3",
@@ -237,40 +268,53 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3638-6164-4539-b331-306239336465/94411631.jpg"
+  "image": "https://static.tildacdn.com/stor3638-6164-4539-b331-306239336465/94411631.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/222058098402"
 },
 {
   "id": "Keramin_4",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Орегон 4 Коричневый 245×65 мм",
-  "tile_color": "Оранжевый;Коричневый",
+  "tile_color": [
+    "Оранжевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6138-3666-4335-b966-623864333330/76561201.jpg"
+  "image": "https://static.tildacdn.com/stor6138-3666-4335-b966-623864333330/76561201.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/577808404922"
 },
 {
   "id": "Keramin_5",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Орегон 3 Темно-бежевый 245×65 мм",
-  "tile_color": "Бежевый;Желтый",
+  "tile_color": [
+    "Бежевый",
+    "Желтый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3233-6238-4061-b464-623038666561/59855038.jpg"
+  "image": "https://static.tildacdn.com/stor3233-6238-4061-b464-623038666561/59855038.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/433544414632"
 },
 {
   "id": "Keramin_6",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Орегон 2 Серо-бежевый 245×65 мм",
-  "tile_color": "Серый;Бежевый",
+  "tile_color": [
+    "Серый",
+    "Бежевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3436-6137-4435-a638-343163323364/88583857.jpg"
+  "image": "https://static.tildacdn.com/stor3436-6137-4435-a638-343163323364/88583857.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/407835993152"
 },
 {
   "id": "Keramin_7",
@@ -281,7 +325,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3530-3435-4639-a265-333862616266/98969918.jpg"
+  "image": "https://static.tildacdn.com/stor3530-3435-4639-a265-333862616266/98969918.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/539320471332"
 },
 {
   "id": "Keramin_8",
@@ -292,7 +337,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6239-6337-4333-a634-613738326466/34853786.jpg"
+  "image": "https://static.tildacdn.com/stor6239-6337-4333-a634-613738326466/34853786.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/388582155882"
 },
 {
   "id": "Keramin_9",
@@ -303,7 +349,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6637-6332-4537-b939-363063656163/66963484.jpg"
+  "image": "https://static.tildacdn.com/stor6637-6332-4537-b939-363063656163/66963484.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/377958630942"
 },
 {
   "id": "Keramin_10",
@@ -314,18 +361,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6366-6330-4237-b836-316337376334/87552614.jpg"
+  "image": "https://static.tildacdn.com/stor6366-6330-4237-b836-316337376334/87552614.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/238641352782"
 },
 {
   "id": "Keramin_11",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Колорадо 4 Коричневый 245×65 мм",
-  "tile_color": "Коричневый;Серый",
+  "tile_color": [
+    "Коричневый",
+    "Серый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6162-3334-4762-b838-363361636434/24158716.jpg"
+  "image": "https://static.tildacdn.com/stor6162-3334-4762-b838-363361636434/24158716.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/755881302432"
 },
 {
   "id": "Keramin_12",
@@ -336,7 +388,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6261-3363-4231-b530-303036383565/81196656.jpg"
+  "image": "https://static.tildacdn.com/stor6261-3363-4231-b530-303036383565/81196656.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/186050002432"
 },
 {
   "id": "Keramin_13",
@@ -347,18 +400,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3366-3863-4938-a534-663061643533/64976033.jpg"
+  "image": "https://static.tildacdn.com/stor3366-3863-4938-a534-663061643533/64976033.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/147877822852"
 },
 {
   "id": "Keramin_14",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Колорадо 1 Светло-серый 245×65 мм",
-  "tile_color": "Серый;Белый",
+  "tile_color": [
+    "Серый",
+    "Белый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3362-6339-4861-b766-653638316632/10243810.jpg"
+  "image": "https://static.tildacdn.com/stor3362-6339-4861-b766-653638316632/10243810.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/443550625262"
 },
 {
   "id": "Keramin_15",
@@ -369,7 +427,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3637-6134-4364-b137-383638343061/91921904.jpg"
+  "image": "https://static.tildacdn.com/stor3637-6134-4364-b137-383638343061/91921904.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/293571874852"
 },
 {
   "id": "Keramin_16",
@@ -380,7 +439,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3031-3431-4232-b062-396365646537/94031571.jpg"
+  "image": "https://static.tildacdn.com/stor3031-3431-4232-b062-396365646537/94031571.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/935937963982"
 },
 {
   "id": "Keramin_17",
@@ -391,29 +451,38 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3337-6435-4235-a438-343762336330/37372257.jpg"
+  "image": "https://static.tildacdn.com/stor3337-6435-4235-a438-343762336330/37372257.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/270875082392"
 },
 {
   "id": "Keramin_18",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-  "tile_color": "Коричневый;Черный",
+  "tile_color": [
+    "Коричневый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6562-6432-4666-b564-393130343938/71420184.jpg"
+  "image": "https://static.tildacdn.com/stor6562-6432-4666-b564-393130343938/71420184.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/138573667482"
 },
 {
   "id": "Keramin_19",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Юта 1 Светло-серый 245×65 мм",
-  "tile_color": "Белый;Серый",
+  "tile_color": [
+    "Белый",
+    "Серый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3964-6666-4461-a433-373939653637/18078678.jpg"
+  "image": "https://static.tildacdn.com/stor3964-6666-4461-a433-373939653637/18078678.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/284828342892"
 },
 {
   "id": "Keramin_20",
@@ -424,7 +493,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3538-3039-4536-b164-616438643763/12454379.jpg"
+  "image": "https://static.tildacdn.com/stor3538-3039-4536-b164-616438643763/12454379.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/451181356282"
 },
 {
   "id": "Keramin_21",
@@ -435,7 +505,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor6332-3933-4530-b230-353666353437/65588304.jpg"
+  "image": "https://static.tildacdn.com/stor6332-3933-4530-b230-353666353437/65588304.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/255515231442"
 },
 {
   "id": "Keramin_22",
@@ -446,7 +517,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3338-3537-4262-b861-343766613064/52292814.jpg"
+  "image": "https://static.tildacdn.com/stor3338-3537-4262-b861-343766613064/52292814.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/343726353352"
 },
 {
   "id": "Keramin_23",
@@ -457,7 +529,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1400",
-  "image": "https://static.tildacdn.com/stor3139-3864-4332-a432-636263356536/69352323.jpg"
+  "image": "https://static.tildacdn.com/stor3139-3864-4332-a432-636263356536/69352323.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/921736476962"
 },
 {
   "id": "Paradyz_1",
@@ -468,18 +541,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1880",
-  "image": "https://static.tildacdn.com/stor6439-6335-4562-b866-613036383230/76532455.jpg"
+  "image": "https://static.tildacdn.com/stor6439-6335-4562-b866-613036383230/76532455.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/408165325892"
 },
 {
   "id": "Paradyz_2",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Semir Rosa Elewacja 240х65х7 мм",
-  "tile_color": "Коричневый;Черный",
+  "tile_color": [
+    "Коричневый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1880",
-  "image": "https://static.tildacdn.com/stor3535-3364-4633-b461-616462633363/92451924.jpg"
+  "image": "https://static.tildacdn.com/stor3535-3364-4633-b461-616462633363/92451924.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/739684767792"
 },
 {
   "id": "Paradyz_3",
@@ -490,18 +568,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1880",
-  "image": "https://static.tildacdn.com/stor6362-3931-4762-b835-343262373533/84930611.jpg"
+  "image": "https://static.tildacdn.com/stor6362-3931-4762-b835-343262373533/84930611.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/861260737502"
 },
 {
   "id": "Paradyz_4",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Semir Brown Elewacja 240х65х7 мм",
-  "tile_color": "Коричневый;Красный",
+  "tile_color": [
+    "Коричневый",
+    "Красный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1880",
-  "image": "https://static.tildacdn.com/stor3137-3937-4262-b236-336238626362/35908810.jpg"
+  "image": "https://static.tildacdn.com/stor3137-3937-4262-b236-336238626362/35908810.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/451190810412"
 },
 {
   "id": "Paradyz_5",
@@ -512,7 +595,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1868",
-  "image": "https://static.tildacdn.com/stor6534-3265-4030-b463-643263303231/44916755.jpg"
+  "image": "https://static.tildacdn.com/stor6534-3265-4030-b463-643263303231/44916755.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/371459815622"
 },
 {
   "id": "Paradyz_6",
@@ -523,7 +607,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1868",
-  "image": "https://static.tildacdn.com/stor3331-3461-4865-a561-633535623461/16736901.jpg"
+  "image": "https://static.tildacdn.com/stor3331-3461-4865-a561-633535623461/16736901.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/186629610162"
 },
 {
   "id": "Paradyz_7",
@@ -534,7 +619,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1868",
-  "image": "https://static.tildacdn.com/stor3431-3661-4466-a239-336337316132/55646188.jpg"
+  "image": "https://static.tildacdn.com/stor3431-3661-4466-a239-336337316132/55646188.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/404205362942"
 },
 {
   "id": "Paradyz_8",
@@ -545,7 +631,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1868",
-  "image": "https://static.tildacdn.com/stor3862-3866-4133-a134-393938373066/58627466.jpg"
+  "image": "https://static.tildacdn.com/stor3862-3866-4133-a134-393938373066/58627466.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/263299122822"
 },
 {
   "id": "Paradyz_9",
@@ -556,7 +643,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1868",
-  "image": "https://static.tildacdn.com/stor6365-6233-4565-b132-646136313439/22028334.jpg"
+  "image": "https://static.tildacdn.com/stor6365-6233-4565-b132-646136313439/22028334.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/449943623622"
 },
 {
   "id": "Paradyz_10",
@@ -567,18 +655,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2659",
-  "image": "https://static.tildacdn.com/stor3164-3462-4630-b165-343665336639/69235069.jpg"
+  "image": "https://static.tildacdn.com/stor3164-3462-4630-b165-343665336639/69235069.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/404852365272"
 },
 {
   "id": "Paradyz_11",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Viano Grys Elewacja 240х65х7 мм",
-  "tile_color": "Бежевый;Серый",
+  "tile_color": [
+    "Бежевый",
+    "Серый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2659",
-  "image": "https://static.tildacdn.com/stor6661-3230-4162-a534-396138656364/96658737.jpg"
+  "image": "https://static.tildacdn.com/stor6661-3230-4162-a534-396138656364/96658737.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/418954008702"
 },
 {
   "id": "Paradyz_12",
@@ -589,7 +682,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2659",
-  "image": "https://static.tildacdn.com/stor3065-6339-4531-b862-616264616531/58518146.jpg"
+  "image": "https://static.tildacdn.com/stor3065-6339-4531-b862-616264616531/58518146.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/380723039012"
 },
 {
   "id": "Paradyz_13",
@@ -600,18 +694,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2640",
-  "image": "https://static.tildacdn.com/stor6334-3230-4466-b638-623331616263/75667055.jpg"
+  "image": "https://static.tildacdn.com/stor6334-3230-4466-b638-623331616263/75667055.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/669523031332"
 },
 {
   "id": "Paradyz_14",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Scandiano Ochra Elewacja 240х65х7 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2640",
-  "image": "https://static.tildacdn.com/stor6361-6561-4534-b139-333161373732/54257622.jpg"
+  "image": "https://static.tildacdn.com/stor6361-6561-4534-b139-333161373732/54257622.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/372179523542"
 },
 {
   "id": "Paradyz_15",
@@ -622,7 +721,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2640",
-  "image": "https://static.tildacdn.com/stor3637-6639-4438-b537-613037333330/49057007.jpg"
+  "image": "https://static.tildacdn.com/stor3637-6639-4438-b537-613037333330/49057007.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/209447100752"
 },
 {
   "id": "Paradyz_16",
@@ -633,7 +733,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2640",
-  "image": "https://static.tildacdn.com/stor6566-3639-4133-b237-623239323761/52140177.jpg"
+  "image": "https://static.tildacdn.com/stor6566-3639-4133-b237-623239323761/52140177.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/795478775872"
 },
 {
   "id": "Paradyz_17",
@@ -644,7 +745,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2658",
-  "image": "https://static.tildacdn.com/stor3034-3863-4138-a332-316335343365/44283201.jpg"
+  "image": "https://static.tildacdn.com/stor3034-3863-4138-a332-316335343365/44283201.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/923016530862"
 },
 {
   "id": "Paradyz_18",
@@ -655,7 +757,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2658",
-  "image": "https://static.tildacdn.com/stor6333-6539-4533-a364-633034613536/14804154.jpg"
+  "image": "https://static.tildacdn.com/stor6333-6539-4533-a364-633034613536/14804154.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/403943086262"
 },
 {
   "id": "Paradyz_19",
@@ -666,7 +769,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2658",
-  "image": "https://static.tildacdn.com/stor6565-3630-4363-b763-353564636132/78506731.jpg"
+  "image": "https://static.tildacdn.com/stor6565-3630-4363-b763-353564636132/78506731.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/604116736282"
 },
 {
   "id": "Paradyz_20",
@@ -677,7 +781,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1668",
-  "image": "https://static.tildacdn.com/stor6238-6438-4533-a335-303463326363/45355785.jpg"
+  "image": "https://static.tildacdn.com/stor6238-6438-4533-a335-303463326363/45355785.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/767146728392"
 },
 {
   "id": "Paradyz_21",
@@ -688,7 +793,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1668",
-  "image": "https://static.tildacdn.com/stor3636-3832-4062-b935-623963623937/33804045.jpg"
+  "image": "https://static.tildacdn.com/stor3636-3832-4062-b935-623963623937/33804045.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/448286650862"
 },
 {
   "id": "Paradyz_22",
@@ -699,7 +805,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1668",
-  "image": "https://static.tildacdn.com/stor6164-3239-4237-a232-366561306631/71112677.jpg"
+  "image": "https://static.tildacdn.com/stor6164-3239-4237-a232-366561306631/71112677.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/696331374162"
 },
 {
   "id": "Paradyz_23",
@@ -710,7 +817,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1710",
-  "image": "https://static.tildacdn.com/stor3935-6163-4265-b036-623634636566/13724969.jpg"
+  "image": "https://static.tildacdn.com/stor3935-6163-4265-b036-623634636566/13724969.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/782424851522"
 },
 {
   "id": "Paradyz_24",
@@ -721,7 +829,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1645",
-  "image": "https://static.tildacdn.com/stor3837-3035-4333-b836-643663623136/15952023.jpg"
+  "image": "https://static.tildacdn.com/stor3837-3035-4333-b836-643663623136/15952023.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/216165307512"
 },
 {
   "id": "Paradyz_25",
@@ -732,7 +841,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1705",
-  "image": "https://static.tildacdn.com/stor3263-3663-4537-a639-346433656562/53571082.jpg"
+  "image": "https://static.tildacdn.com/stor3263-3663-4537-a639-346433656562/53571082.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/686612711382"
 },
 {
   "id": "Paradyz_26",
@@ -743,7 +853,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1645",
-  "image": "https://static.tildacdn.com/stor3365-3065-4462-b233-623437646364/69537640.jpg"
+  "image": "https://static.tildacdn.com/stor3365-3065-4462-b233-623437646364/69537640.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/889751481832"
 },
 {
   "id": "Paradyz_27",
@@ -754,7 +865,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1705",
-  "image": "https://static.tildacdn.com/stor3734-3036-4239-a534-383539643762/77283317.jpg"
+  "image": "https://static.tildacdn.com/stor3734-3036-4239-a534-383539643762/77283317.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/519275850522"
 },
 {
   "id": "Paradyz_28",
@@ -765,7 +877,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2870",
-  "image": "https://static.tildacdn.com/stor6331-6563-4661-a565-343036363666/80138377.jpg"
+  "image": "https://static.tildacdn.com/stor6331-6563-4661-a565-343036363666/80138377.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/752345699342"
 },
 {
   "id": "Paradyz_29",
@@ -776,7 +889,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2870",
-  "image": "https://static.tildacdn.com/stor6337-3466-4662-b262-393230636235/79288117.jpg"
+  "image": "https://static.tildacdn.com/stor6337-3466-4662-b262-393230636235/79288117.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/897172335912"
 },
 {
   "id": "Paradyz_30",
@@ -787,7 +901,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2870",
-  "image": "https://static.tildacdn.com/stor6265-6639-4536-b865-343935376161/60088365.jpg"
+  "image": "https://static.tildacdn.com/stor6265-6639-4536-b865-343935376161/60088365.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/710757049292"
 },
 {
   "id": "Paradyz_31",
@@ -798,73 +913,98 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2870",
-  "image": "https://static.tildacdn.com/stor3437-3261-4138-a466-373964663562/24268104.jpg"
+  "image": "https://static.tildacdn.com/stor3437-3261-4138-a466-373964663562/24268104.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/520513427812"
 },
 {
   "id": "Paradyz_32",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Carrizo Grey Elewacja 397х65х11 мм",
-  "tile_color": "Розовый;Серый",
+  "tile_color": [
+    "Розовый",
+    "Серый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2870",
-  "image": "https://static.tildacdn.com/stor3230-3038-4333-b563-656164366432/22845127.jpg"
+  "image": "https://static.tildacdn.com/stor3230-3038-4333-b563-656164366432/22845127.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/364602058112"
 },
 {
   "id": "Paradyz_33",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Ardis Light Elewacja 397х65х11 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2750",
-  "image": "https://static.tildacdn.com/stor3734-6265-4561-a534-336236616566/18655600.jpg"
+  "image": "https://static.tildacdn.com/stor3734-6265-4561-a534-336236616566/18655600.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/847479346222"
 },
 {
   "id": "Paradyz_34",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Ardis Rust 397х65х11 мм",
-  "tile_color": "Оранжевый;Черный",
+  "tile_color": [
+    "Оранжевый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2750",
-  "image": "https://static.tildacdn.com/stor6232-6363-4030-a463-663366373435/90476900.jpg"
+  "image": "https://static.tildacdn.com/stor6232-6363-4030-a463-663366373435/90476900.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/493542762672"
 },
 {
   "id": "Paradyz_35",
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Ardis Dark Elewacja 397х65х11 мм",
-  "tile_color": "Серый;Черный",
+  "tile_color": [
+    "Серый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2750",
-  "image": "https://static.tildacdn.com/stor3061-3335-4563-b463-653234326661/50988180.jpg"
+  "image": "https://static.tildacdn.com/stor3061-3335-4563-b463-653234326661/50988180.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/586896662102"
 },
 {
   "id": "Cerrad_1",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Elewacja Rustico Gobi 245×65 мм",
-  "tile_color": "Желтый;Оранжевый",
+  "tile_color": [
+    "Желтый",
+    "Оранжевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1755",
-  "image": "https://static.tildacdn.com/stor3233-3163-4634-b339-396266313737/41240379.jpg"
+  "image": "https://static.tildacdn.com/stor3233-3163-4634-b339-396266313737/41240379.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/968380885442"
 },
 {
   "id": "Cerrad_2",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Elewacja Gladka Country Wisnia 245×65 мм",
-  "tile_color": "Красный;Коричневый",
+  "tile_color": [
+    "Красный",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1642",
-  "image": "https://static.tildacdn.com/stor6434-3866-4336-b334-373939336132/17566557.jpg"
+  "image": "https://static.tildacdn.com/stor6434-3866-4336-b334-373939336132/17566557.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/941963863392"
 },
 {
   "id": "Cerrad_3",
@@ -875,18 +1015,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1914",
-  "image": "https://static.tildacdn.com/stor6237-3765-4634-b638-643237666338/64919030.jpg"
+  "image": "https://static.tildacdn.com/stor6237-3765-4634-b638-643237666338/64919030.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/888043534082"
 },
 {
   "id": "Cerrad_4",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Elewacja Rustico Burgund 245×65 мм",
-  "tile_color": "Красный;Коричневый",
+  "tile_color": [
+    "Красный",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1914",
-  "image": "https://static.tildacdn.com/stor3763-6332-4862-a663-373231643435/13990630.jpg"
+  "image": "https://static.tildacdn.com/stor3763-6332-4862-a663-373231643435/13990630.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/920131197332"
 },
 {
   "id": "Cerrad_5",
@@ -897,18 +1042,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1914",
-  "image": "https://static.tildacdn.com/stor3130-3766-4130-b338-646230306431/10914585.jpg"
+  "image": "https://static.tildacdn.com/stor3130-3766-4130-b338-646230306431/10914585.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/622036917852"
 },
 {
   "id": "Cerrad_6",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Elewacja Rustico Alaska 245×65 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1890",
-  "image": "https://static.tildacdn.com/stor6333-3836-4533-b937-383838663234/23749811.jpg"
+  "image": "https://static.tildacdn.com/stor6333-3836-4533-b937-383838663234/23749811.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/489032425162"
 },
 {
   "id": "Cerrad_7",
@@ -919,7 +1069,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1642",
-  "image": "https://static.tildacdn.com/stor3830-3363-4639-b563-323130373034/87855472.jpg"
+  "image": "https://static.tildacdn.com/stor3830-3363-4639-b563-323130373034/87855472.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/992819955412"
 },
 {
   "id": "Cerrad_8",
@@ -930,7 +1081,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1642",
-  "image": "https://static.tildacdn.com/stor6338-3733-4766-a438-383839653964/94611229.jpg"
+  "image": "https://static.tildacdn.com/stor6338-3733-4766-a438-383839653964/94611229.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/526373792562"
 },
 {
   "id": "Cerrad_9",
@@ -941,7 +1093,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor6231-3032-4562-b139-393130656338/62452618.jpg"
+  "image": "https://static.tildacdn.com/stor6231-3032-4562-b139-393130656338/62452618.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/337651635792"
 },
 {
   "id": "Cerrad_10",
@@ -952,7 +1105,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3230-6337-4039-a337-663861346631/91667741.jpg"
+  "image": "https://static.tildacdn.com/stor3230-6337-4039-a337-663861346631/91667741.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/316347805932"
 },
 {
   "id": "Cerrad_11",
@@ -963,7 +1117,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3361-6136-4137-b762-376365613365/50147276.jpg"
+  "image": "https://static.tildacdn.com/stor3361-6136-4137-b762-376365613365/50147276.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/366121137972"
 },
 {
   "id": "Cerrad_12",
@@ -974,18 +1129,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor6534-3838-4863-b637-356538386533/57490719.jpg"
+  "image": "https://static.tildacdn.com/stor6534-3838-4863-b637-356538386533/57490719.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/369213912312"
 },
 {
   "id": "Cerrad_13",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Retro Brick Chili 245×65 мм",
-  "tile_color": "Оранжевый;Коричневый",
+  "tile_color": [
+    "Оранжевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3861-6634-4837-b062-333734343664/23075690.jpg"
+  "image": "https://static.tildacdn.com/stor3861-6634-4837-b062-333734343664/23075690.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/229469724732"
 },
 {
   "id": "Cerrad_14",
@@ -996,7 +1156,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3665-3330-4134-a237-306163386334/23014535.jpg"
+  "image": "https://static.tildacdn.com/stor3665-3330-4134-a237-306163386334/23014535.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/411414406142"
 },
 {
   "id": "Cerrad_15",
@@ -1007,7 +1168,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor6133-3864-4337-b731-643430663630/73057894.jpg"
+  "image": "https://static.tildacdn.com/stor6133-3864-4337-b731-643430663630/73057894.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/620506179812"
 },
 {
   "id": "Cerrad_16",
@@ -1018,7 +1180,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3265-3034-4661-a334-623539363263/86194185.jpg"
+  "image": "https://static.tildacdn.com/stor3265-3034-4661-a334-623539363263/86194185.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/510958520912"
 },
 {
   "id": "Cerrad_17",
@@ -1029,7 +1192,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3361-3662-4330-a634-613233333633/26642339.jpg"
+  "image": "https://static.tildacdn.com/stor3361-3662-4330-a634-613233333633/26642339.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/809555075162"
 },
 {
   "id": "Cerrad_18",
@@ -1040,18 +1204,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor6665-3431-4236-b430-383335396530/70045884.jpg"
+  "image": "https://static.tildacdn.com/stor6665-3431-4236-b430-383335396530/70045884.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/333469249082"
 },
 {
   "id": "Cerrad_19",
   "category": "Клинкерная плитка",
   "brand": "CERRAD",
   "name": "Клинкерная плитка Cerrad Loft Brick Chili 245×65 мм",
-  "tile_color": "Оранжевый;Коричневый",
+  "tile_color": [
+    "Оранжевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor6535-6435-4538-b538-666462653139/96606313.jpg"
+  "image": "https://static.tildacdn.com/stor6535-6435-4538-b538-666462653139/96606313.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/577783708382"
 },
 {
   "id": "Cerrad_20",
@@ -1062,18 +1231,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2295",
-  "image": "https://static.tildacdn.com/stor3732-6266-4965-a563-356638343964/78162816.jpg"
+  "image": "https://static.tildacdn.com/stor3732-6266-4965-a563-356638343964/78162816.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/697738784002"
 },
 {
   "id": "Bestpoint_1",
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint LoftBrick Cardamon 245×65 мм",
-  "tile_color": "Коричневый;Черный",
+  "tile_color": [
+    "Коричневый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6532-3963-4939-b432-636131396335/20629145.jpg"
+  "image": "https://static.tildacdn.com/stor6532-3963-4939-b432-636131396335/20629145.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/278185819302"
 },
 {
   "id": "Bestpoint_2",
@@ -1084,7 +1258,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6434-6338-4430-a563-366132623566/48186697.jpg"
+  "image": "https://static.tildacdn.com/stor6434-6338-4430-a563-366132623566/48186697.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/316023527672"
 },
 {
   "id": "Bestpoint_3",
@@ -1095,7 +1270,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6464-3266-4062-b165-616535373261/98927783.jpg"
+  "image": "https://static.tildacdn.com/stor6464-3266-4062-b165-616535373261/98927783.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/365745676712"
 },
 {
   "id": "Bestpoint_4",
@@ -1106,7 +1282,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor3631-3435-4238-a564-656237323032/70939579.jpg"
+  "image": "https://static.tildacdn.com/stor3631-3435-4238-a564-656237323032/70939579.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/505030499142"
 },
 {
   "id": "Bestpoint_5",
@@ -1117,7 +1294,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6364-3062-4864-b638-343432313336/62917173.jpg"
+  "image": "https://static.tildacdn.com/stor6364-3062-4864-b638-343432313336/62917173.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/504685238962"
 },
 {
   "id": "Bestpoint_6",
@@ -1128,7 +1306,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6263-6330-4338-a433-353265316138/87767010.jpg"
+  "image": "https://static.tildacdn.com/stor6263-6330-4338-a433-353265316138/87767010.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/220630492902"
 },
 {
   "id": "Bestpoint_7",
@@ -1139,7 +1318,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6561-3833-4632-a639-376431313636/50566317.jpg"
+  "image": "https://static.tildacdn.com/stor6561-3833-4632-a639-376431313636/50566317.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/768826400772"
 },
 {
   "id": "Bestpoint_8",
@@ -1150,7 +1330,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6236-3534-4838-b835-343762313935/40434304.jpg"
+  "image": "https://static.tildacdn.com/stor6236-3534-4838-b835-343762313935/40434304.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/504237218232"
 },
 {
   "id": "Bestpoint_9",
@@ -1161,7 +1342,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor3362-3538-4332-b931-393039623637/53955494.jpg"
+  "image": "https://static.tildacdn.com/stor3362-3538-4332-b931-393039623637/53955494.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/285033377912"
 },
 {
   "id": "Bestpoint_10",
@@ -1172,7 +1354,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor3234-3731-4861-b133-313738663962/35987013.jpg"
+  "image": "https://static.tildacdn.com/stor3234-3731-4861-b133-313738663962/35987013.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/388704821672"
 },
 {
   "id": "Bestpoint_11",
@@ -1183,18 +1366,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor3530-3630-4665-b064-643131613033/29588582.jpg"
+  "image": "https://static.tildacdn.com/stor3530-3630-4665-b064-643131613033/29588582.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/487333407242"
 },
 {
   "id": "Bestpoint_12",
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Retro Brick Salt 245×65 мм",
-  "tile_color": "Бежевый;Желтый",
+  "tile_color": [
+    "Бежевый",
+    "Желтый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2400",
-  "image": "https://static.tildacdn.com/stor6234-3530-4738-b438-653939303733/22418521.jpg"
+  "image": "https://static.tildacdn.com/stor6234-3530-4738-b438-653939303733/22418521.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/510005693912"
 },
 {
   "id": "Bestpoint_13",
@@ -1205,7 +1393,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor3563-6233-4061-b430-353133303665/22170578.jpg"
+  "image": "https://static.tildacdn.com/stor3563-6233-4061-b430-353133303665/22170578.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/887174985562"
 },
 {
   "id": "Bestpoint_14",
@@ -1216,7 +1405,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor3363-3234-4264-b338-613031373431/38036928.jpg"
+  "image": "https://static.tildacdn.com/stor3363-3234-4264-b338-613031373431/38036928.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/656653733262"
 },
 {
   "id": "Bestpoint_15",
@@ -1227,18 +1417,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor3563-3166-4134-b861-326164306233/50963001.jpg"
+  "image": "https://static.tildacdn.com/stor3563-3166-4134-b861-326164306233/50963001.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/451053823952"
 },
 {
   "id": "Bestpoint_16",
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Exclusive Midnight 245×65 мм",
-  "tile_color": "Серый;Черный",
+  "tile_color": [
+    "Серый",
+    "Черный"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor3636-3031-4237-a264-353333363333/84618525.jpg"
+  "image": "https://static.tildacdn.com/stor3636-3031-4237-a264-353333363333/84618525.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/171102729582"
 },
 {
   "id": "Bestpoint_17",
@@ -1249,7 +1444,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor6261-6334-4264-a431-353931656334/42529858.jpg"
+  "image": "https://static.tildacdn.com/stor6261-6334-4264-a431-353931656334/42529858.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/308246837582"
 },
 {
   "id": "Markastroi_1",
@@ -1260,7 +1456,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2150",
-  "image": "https://static.tildacdn.com/stor3833-3033-4931-b233-316664373735/88247108.jpg"
+  "image": "https://static.tildacdn.com/stor3833-3033-4931-b233-316664373735/88247108.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/773861475952"
 },
 {
   "id": "Markastroi_2",
@@ -1271,7 +1468,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2150",
-  "image": "https://static.tildacdn.com/stor6664-3931-4432-a364-613464346163/50254538.jpg"
+  "image": "https://static.tildacdn.com/stor6664-3931-4432-a364-613464346163/50254538.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/547523071922"
 },
 {
   "id": "Markastroi_3",
@@ -1282,29 +1480,38 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2150",
-  "image": "https://static.tildacdn.com/stor3635-3130-4232-b537-643666383861/13530958.jpg"
+  "image": "https://static.tildacdn.com/stor3635-3130-4232-b537-643666383861/13530958.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/111253866492"
 },
 {
   "id": "Markastroi_4",
   "category": "Клинкерная плитка",
   "brand": "MARKAСТРОЙ",
   "name": "Клинкерная плитка MARKAСТРОЙ Скала Вишня 320х44 мм",
-  "tile_color": "Красный;Коричневый",
+  "tile_color": [
+    "Красный",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2150",
-  "image": "https://static.tildacdn.com/stor3631-6331-4763-b261-356132633336/11196872.jpg"
+  "image": "https://static.tildacdn.com/stor3631-6331-4763-b261-356132633336/11196872.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/653473584382"
 },
 {
   "id": "Bestpoint_18",
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Exclusive Red Wine 245×65 мм",
-  "tile_color": "Красный;Коричневый",
+  "tile_color": [
+    "Красный",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2650",
-  "image": "https://static.tildacdn.com/stor3162-3762-4631-a465-656365393331/90886296.jpg"
+  "image": "https://static.tildacdn.com/stor3162-3762-4631-a465-656365393331/90886296.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/928113468772"
 },
 
 {
@@ -1316,7 +1523,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3831-3232-4262-b935-366334343165/38588885.jpg"
+  "image": "https://static.tildacdn.com/stor3831-3232-4262-b935-366334343165/38588885.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/949332155272"
 },
 {
   "id": "Leonardo_2",
@@ -1327,7 +1535,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2350",
-  "image": "https://static.tildacdn.com/stor3562-6264-4333-b538-636263643862/97368693.jpg"
+  "image": "https://static.tildacdn.com/stor3562-6264-4333-b538-636263643862/97368693.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/658146816922"
 },
 {
   "id": "Leonardo_3",
@@ -1338,18 +1547,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2350",
-  "image": "https://static.tildacdn.com/stor6263-3066-4630-b337-383137666439/66330642.jpg"
+  "image": "https://static.tildacdn.com/stor6263-3066-4630-b337-383137666439/66330642.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/799586659312"
 },
 {
   "id": "Leonardo_4",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Ванкувер 403 485х40х15 мм",
-  "tile_color": "Серый;Розовый",
+  "tile_color": [
+    "Серый",
+    "Розовый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "2200",
-  "image": "https://static.tildacdn.com/stor3336-3133-4131-b836-393031666333/16023372.jpg"
+  "image": "https://static.tildacdn.com/stor3336-3133-4131-b836-393031666333/16023372.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/184114099752"
 },
 {
   "id": "Leonardo_5",
@@ -1360,18 +1574,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor6330-3036-4638-b135-353563633631/32234092.jpg"
+  "image": "https://static.tildacdn.com/stor6330-3036-4638-b135-353563633631/32234092.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/954245926772"
 },
 {
   "id": "Leonardo_6",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Перт 773 Л 235х70х12 мм",
-  "tile_color": "Красный;Коричневый",
+  "tile_color": [
+    "Красный",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3235-6439-4139-b966-343632393935/37761052.jpg"
+  "image": "https://static.tildacdn.com/stor3235-6439-4139-b966-343632393935/37761052.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/244577375472"
 },
 {
   "id": "Leonardo_7",
@@ -1382,7 +1601,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor6232-3064-4430-a139-323765353638/69126671.jpg"
+  "image": "https://static.tildacdn.com/stor6232-3064-4430-a139-323765353638/69126671.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/844053626632"
 },
 {
   "id": "Leonardo_8",
@@ -1393,7 +1613,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3134-3263-4537-b464-383735373863/87842201.jpg"
+  "image": "https://static.tildacdn.com/stor3134-3263-4537-b464-383735373863/87842201.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/552714692752"
 },
 {
   "id": "Leonardo_9",
@@ -1404,7 +1625,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3666-6532-4631-b361-633731313039/97241189.jpg"
+  "image": "https://static.tildacdn.com/stor3666-6532-4631-b361-633731313039/97241189.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/294629827632"
 },
 {
   "id": "Leonardo_10",
@@ -1415,7 +1637,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3337-3834-4865-b162-663131313435/71627870.jpg"
+  "image": "https://static.tildacdn.com/stor3337-3834-4865-b162-663131313435/71627870.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/663970533962"
 },
 {
   "id": "Leonardo_11",
@@ -1426,18 +1649,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor6165-6665-4234-a438-326337636437/36371847.jpg"
+  "image": "https://static.tildacdn.com/stor6165-6665-4234-a438-326337636437/36371847.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/232393937572"
 },
 {
   "id": "Leonardo_12",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Дижон 773 237х70х14 мм",
-  "tile_color": "Коричневый;Оранжевый",
+  "tile_color": [
+    "Коричневый",
+    "Оранжевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3331-3361-4764-b462-643032356662/24892605.jpg"
+  "image": "https://static.tildacdn.com/stor3331-3361-4764-b462-643032356662/24892605.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/259638152802"
 },
 {
   "id": "Leonardo_13",
@@ -1448,29 +1676,38 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor6237-3632-4336-b730-303132306461/41964447.jpg"
+  "image": "https://static.tildacdn.com/stor6237-3632-4336-b730-303132306461/41964447.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/289393542502"
 },
 {
   "id": "Leonardo_14",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Дижон 767 237х70х14 мм",
-  "tile_color": "Оранжевый;Коричневый",
+  "tile_color": [
+    "Оранжевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor6133-3163-4138-b137-613166616630/35618590.jpg"
+  "image": "https://static.tildacdn.com/stor6133-3163-4138-b137-613166616630/35618590.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/115286233192"
 },
 {
   "id": "Leonardo_15",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Дижон 787 237х70х14 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3831-6463-4364-a366-306236396535/49221733.jpg"
+  "image": "https://static.tildacdn.com/stor3831-6463-4364-a366-306236396535/49221733.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/382769140782"
 },
 {
   "id": "Leonardo_16",
@@ -1481,7 +1718,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3665-3137-4037-b464-363966623332/76870761.jpg"
+  "image": "https://static.tildacdn.com/stor3665-3137-4037-b464-363966623332/76870761.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/915220822142"
 },
 {
   "id": "Leonardo_17",
@@ -1492,7 +1730,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3934-6437-4239-a637-663265363436/70248543.jpg"
+  "image": "https://static.tildacdn.com/stor3934-6437-4239-a637-663265363436/70248543.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/389822261952"
 },
 {
   "id": "Leonardo_18",
@@ -1503,7 +1742,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3833-3331-4163-b361-626637303863/16642305.jpg"
+  "image": "https://static.tildacdn.com/stor3833-3331-4163-b361-626637303863/16642305.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/950986241172"
 },
 {
   "id": "Leonardo_19",
@@ -1514,7 +1754,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3365-6364-4166-b536-333466663764/32084414.jpg"
+  "image": "https://static.tildacdn.com/stor3365-6364-4166-b536-333466663764/32084414.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/252339720172"
 },
 {
   "id": "Leonardo_20",
@@ -1525,7 +1766,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor3138-6564-4936-b833-633464653862/67745391.jpg"
+  "image": "https://static.tildacdn.com/stor3138-6564-4936-b833-633464653862/67745391.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/370180104492"
 },
 {
   "id": "Leonardo_21",
@@ -1536,18 +1778,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1700",
-  "image": "https://static.tildacdn.com/stor6636-3837-4265-b737-303034383834/35191066.jpg"
+  "image": "https://static.tildacdn.com/stor6636-3837-4265-b737-303034383834/35191066.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/923541118802"
 },
 {
   "id": "Leonardo_22",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Денвер 051 238х72х12 мм",
-  "tile_color": "Желтый;Бежевый",
+  "tile_color": [
+    "Желтый",
+    "Бежевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3266-3137-4263-b562-663265383639/42280721.jpg"
+  "image": "https://static.tildacdn.com/stor3266-3137-4263-b562-663265383639/42280721.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/781456166222"
 },
 {
   "id": "Leonardo_23",
@@ -1558,7 +1805,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor6139-3236-4632-b833-333434303632/70322431.jpg"
+  "image": "https://static.tildacdn.com/stor6139-3236-4632-b833-333434303632/70322431.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/543672895162"
 },
 {
   "id": "Leonardo_24",
@@ -1569,7 +1817,8 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor6537-3336-4265-b331-326635303666/34522273.jpg"
+  "image": "https://static.tildacdn.com/stor6537-3336-4265-b331-326635303666/34522273.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/960820002092"
 },
 {
   "id": "Leonardo_25",
@@ -1580,29 +1829,38 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3738-3730-4166-a363-666130663666/98145943.jpg"
+  "image": "https://static.tildacdn.com/stor3738-3730-4166-a363-666130663666/98145943.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/315821505632"
 },
 {
   "id": "Leonardo_26",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Орли 052 215х65х12 мм",
-  "tile_color": "Желтый;Бежевый",
+  "tile_color": [
+    "Желтый",
+    "Бежевый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3539-3735-4932-a636-616339333038/42870266.jpg"
+  "image": "https://static.tildacdn.com/stor3539-3735-4932-a636-616339333038/42870266.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/574376166652"
 },
 {
   "id": "Leonardo_27",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Орли 333 215х65х12 мм",
-  "tile_color": "Бежевый;Коричневый",
+  "tile_color": [
+    "Бежевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3935-3439-4235-b866-393233333435/27267041.jpg"
+  "image": "https://static.tildacdn.com/stor3935-3439-4235-b866-393233333435/27267041.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/903067849612"
 },
 {
   "id": "Leonardo_28",
@@ -1613,18 +1871,23 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor6165-6434-4765-b532-313634646637/17357259.jpg"
+  "image": "https://static.tildacdn.com/stor6165-6434-4765-b532-313634646637/17357259.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/641090102242"
 },
 {
   "id": "Leonardo_29",
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Лион 485 215х65х12 мм",
-  "tile_color": "Оранжевый;Коричневый",
+  "tile_color": [
+    "Оранжевый",
+    "Коричневый"
+  ],
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3862-3461-4362-b039-633765313564/53098670.jpg"
+  "image": "https://static.tildacdn.com/stor3862-3461-4362-b039-633765313564/53098670.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/694804253192"
 },
 {
   "id": "Leonardo_30",
@@ -1635,8 +1898,9 @@
   "grout_color": "Белый",
   "price_category": "Низкая",
   "price": "1600",
-  "image": "https://static.tildacdn.com/stor3538-6532-4637-b162-646132303230/75995318.jpg"
-}
+  "image": "https://static.tildacdn.com/stor3538-6532-4637-b162-646132303230/75995318.jpg",
+  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/939352789812"
+}    
   ],
 
   "_comment_renders": "==================== РЕНДЕРЫ (левый блок) ====================",
@@ -1702,6 +1966,7 @@
     }
   ]
 }
+
 
 
 
