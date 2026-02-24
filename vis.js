@@ -45,6 +45,16 @@
     return Math.max(a, Math.min(b, n));
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+
   function preloadImages(urls = []) {
     const uniq = Array.from(new Set(urls.filter(Boolean)));
     return Promise.all(
@@ -302,6 +312,13 @@
   transform: translateX(0);
 }
 
+
+#${CONFIG.ROOT_ID} .mzt-fs-info-label{
+  color: rgba(197,162,122,.95); /* светло-коричневый */
+  font-weight:700;
+}
+
+
 /* ===================== CARD ===================== */
 #${CONFIG.ROOT_ID} .mzt-card{
   background:#ffffff;
@@ -370,18 +387,23 @@
   height:34px;
   border-radius:10px;
   border:1px solid rgba(0,0,0,.14);
-  padding:0 10px;
+  padding:0 34px 0 10px;
   background:#fff;
   font-size:13px;
   cursor:pointer;
+  width:100%;
+  text-align:left;
+  appearance:none;
 }
+#${CONFIG.ROOT_ID} button.mzt-groutbox-select{ background:#fff; }
 
-/* fullscreen grout panel (слева по центру) */
+
+/* fullscreen grout panel (сверху слева) */
 #${CONFIG.ROOT_ID} .mzt-fs-grout{
   position:absolute;
   left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 14px;
+  transform: none;
   z-index: 1000003;
   padding: 10px 16px;
   border-radius: 20px;
@@ -404,9 +426,14 @@
   border: 1px solid rgba(255,255,255,.25);
   background: rgba(255,255,255,.10);
   color:#fff;
-  padding:0 10px;
+  padding:0 34px 0 10px;
   outline:none;
+  width:100%;
+  text-align:left;
+  appearance:none;
 }
+#${CONFIG.ROOT_ID} button.mzt-fs-grout-select{ cursor:pointer; }
+
 #${CONFIG.ROOT_ID} .mzt-fs-grout-select option{ color:#111827; }
 
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
@@ -1146,6 +1173,13 @@ function tileMatchesFilters(tile) {
   // ====== левый блок: группы рендеров (6 кадров × 5 цветов затирки = 30) ======
   const GROUT_COLORS = ["Белый", "Серый", "Бежевый", "Коричневый", "Черный"];
 
+  const GROUT_ARROW_SVG = `
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+
+
   function splitRenderGroups(images) {
     if (!Array.isArray(images) || images.length === 0) return [];
     // ожидаем порядок: 5 подряд на один кадр
@@ -1169,27 +1203,70 @@ function tileMatchesFilters(tile) {
     return group.find((x) => x.grout_color === groutColor) || group[0];
   }
 
+  
+  function buildGroutCustomSelect(buttonClass, extraBoxClass = "") {
+    const box = el("div", { class: ("mzt-select " + extraBoxClass).trim() });
+
+    const btn = el("button", { class: buttonClass, type: "button" });
+    const btnText = el("span", { class: "mzt-grout-val", text: state.renderGroutColor });
+    btn.appendChild(btnText);
+
+    const arrow = el("div", { class: "mzt-select-arrow", html: GROUT_ARROW_SVG });
+
+    const list = el("div", { class: "mzt-select-list", role: "listbox" });
+
+    GROUT_COLORS.forEach((c) => {
+      const item = el("div", {
+        class: "mzt-select-item" + (c === state.renderGroutColor ? " is-active" : ""),
+        text: c,
+        role: "option",
+        "data-value": c
+      });
+
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.renderGroutColor = c;
+
+        // UI
+        btnText.textContent = c;
+        qsa(".mzt-select-item", list).forEach((x) => x.classList.remove("is-active"));
+        item.classList.add("is-active");
+
+        box.classList.remove("is-open");
+
+        // rerender
+        renderRenderBlock();
+        syncFullscreenGroutUI();
+      });
+
+      list.appendChild(item);
+    });
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = box.classList.contains("is-open");
+      closeAllSelects(null);
+      box.classList.toggle("is-open", !isOpen);
+    });
+
+    box.appendChild(btn);
+    box.appendChild(arrow);
+    box.appendChild(list);
+
+    return box;
+  }
+
   function renderGroutPanelInline() {
     const box = el("div", { class: "mzt-groutbox" });
     const title = el("div", { class: "mzt-groutbox-title", text: "Цвет затирки" });
 
-    const select = el("select", { class: "mzt-groutbox-select", "aria-label": "Цвет затирки" });
-    GROUT_COLORS.forEach((c) => {
-      const opt = el("option", { value: c, text: c });
-      if (c === state.renderGroutColor) opt.selected = true;
-      select.appendChild(opt);
-    });
-
-    select.addEventListener("change", () => {
-      state.renderGroutColor = select.value;
-      renderRenderBlock();
-      syncFullscreenGroutUI();
-    });
+    const selectBox = buildGroutCustomSelect("mzt-groutbox-select", "mzt-grout-select-inline");
 
     box.appendChild(title);
-    box.appendChild(select);
+    box.appendChild(selectBox);
     return box;
   }
+
 
   function getCurrentRenderVariant() {
     const groups = splitRenderGroups(state.activeRenderImages);
@@ -1198,20 +1275,31 @@ function tileMatchesFilters(tile) {
     return pickByGrout(groups[idx], state.renderGroutColor);
   }
 
+  
   function syncFullscreenGroutUI() {
     const root = qs(`#${CONFIG.ROOT_ID}`);
     if (!root) return;
     const modal = qs(".mzt-fs", root);
     if (!modal) return;
 
-    const sel = qs(".mzt-fs-grout-select", modal);
-    if (sel) sel.value = state.renderGroutColor;
+    // обновляем UI кастом-селекта в fullscreen
+    const valSpan = qs(".mzt-fs-grout .mzt-grout-val", modal);
+    if (valSpan) valSpan.textContent = state.renderGroutColor;
+
+    const list = qs(".mzt-fs-grout .mzt-select-list", modal);
+    if (list) {
+      qsa(".mzt-select-item", list).forEach((it) => {
+        it.classList.toggle("is-active", it.getAttribute("data-value") === state.renderGroutColor);
+      });
+    }
 
     if (modal.classList.contains("is-open")) {
       const img = qs(".mzt-fs-img", modal);
       const cur = getCurrentRenderVariant();
       if (img && cur) img.src = cur.image;
     }
+  }
+
   }
 
 /* ==========================================================================
@@ -1321,15 +1409,8 @@ function ensureFullscreenRenderModal() {
   const groutBox = el("div", { class: "mzt-fs-grout" }, [
     el("div", { class: "mzt-fs-grout-title", text: "Цвет затирки" }),
     (() => {
-      const s = el("select", { class: "mzt-fs-grout-select", "aria-label": "Цвет затирки" });
-      GROUT_COLORS.forEach((c) => s.appendChild(el("option", { value: c, text: c })));
-      s.value = state.renderGroutColor;
-      s.addEventListener("change", () => {
-        state.renderGroutColor = s.value;
-        renderRenderBlock();
-        syncFullscreenGroutUI();
-      });
-      return s;
+      const selBox = buildGroutCustomSelect("mzt-fs-grout-select", "mzt-grout-select-fs");
+      return selBox;
     })()
   ]);
    
@@ -1343,8 +1424,9 @@ modal.addEventListener("click", (e) => {
   const clickedOnImage = e.target.closest(".mzt-fs-img");
   const clickedOnClose = e.target.closest(".mzt-fs-close");
   const clickedOnInfo  = e.target.closest(".mzt-fs-info");
+  const clickedOnGrout = e.target.closest(".mzt-fs-grout");
 
-  if (!clickedOnImage && !clickedOnClose && !clickedOnInfo) {
+  if (!clickedOnImage && !clickedOnClose && !clickedOnInfo && !clickedOnGrout) {
     closeFullscreenRenderModal();
   }
 });
@@ -1378,7 +1460,7 @@ modal.addEventListener("click", (e) => {
   // текст инфо-плашки
   if (info) {
     const safeName = tileName || "—";
-    info.textContent = `Наименование плитки: ${safeName}`;
+    info.innerHTML = `<span class="mzt-fs-info-label">Наименование плитки:</span><br>${escapeHtml(safeName)}`;
     info.classList.remove("is-show");
   }
 
