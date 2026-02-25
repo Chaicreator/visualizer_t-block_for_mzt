@@ -5,6 +5,10 @@
   const READY_VAL = "1";
   const FADE_MS = 200;
 
+// UX-настройки
+const SHOW_DELAY_MS = 120;   // ждать перед показом (если загрузка быстрая — не покажем)
+const MIN_SHOW_MS   = 350;   // минимальное время показа, если уже показали
+
   const root = document.getElementById(ROOT_ID);
   if (!root) return;
 
@@ -15,6 +19,8 @@
   }
 
   let removed = false;
+  let shownAt = 0;
+  let showTimer = null;
 
   function isReady() {
     return root.getAttribute(READY_ATTR) === READY_VAL;
@@ -38,19 +44,39 @@
     root.appendChild(wrap);
   }
 
-  function removeLoader() {
-    if (removed) return;
-    removed = true;
+function removeLoader() {
+  if (removed) return;
+  removed = true;
 
-    const wrap = root.querySelector(":scope > .mztvld-loader-wrap");
-    if (!wrap) return;
+  // если лоадер ещё даже не показался — просто отменяем таймер
+  if (showTimer) {
+    clearTimeout(showTimer);
+    showTimer = null;
+  }
 
+  const wrap = root.querySelector(":scope > .mztvld-loader-wrap");
+  if (!wrap) {
+    observer.disconnect();
+    return;
+  }
+
+  const elapsed = performance.now() - shownAt;
+  const wait = Math.max(0, MIN_SHOW_MS - elapsed);
+
+  setTimeout(() => {
     wrap.classList.add("is-hide");
     setTimeout(() => wrap.remove(), FADE_MS + 80);
     observer.disconnect();
-  }
+  }, wait);
+}
 
-  ensureLoader();
+// показываем с задержкой (чтобы не мигал при быстрой загрузке)
+showTimer = setTimeout(() => {
+  if (!isReady()) {
+    ensureLoader();
+    shownAt = performance.now();
+  }
+}, SHOW_DELAY_MS);
 
   // если buildLayout() перезатрёт детей — восстановим оверлей
   const observer = new MutationObserver(() => {
