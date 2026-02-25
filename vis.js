@@ -1708,6 +1708,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
-
-
