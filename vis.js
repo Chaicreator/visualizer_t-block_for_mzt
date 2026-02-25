@@ -125,6 +125,7 @@
 
 function setImgSrcWithLoader(container, img, nextSrc) {
   if (!container || !img) return;
+
   if (!nextSrc) {
     img.removeAttribute("src");
     img.style.opacity = "1";
@@ -135,20 +136,32 @@ function setImgSrcWithLoader(container, img, nextSrc) {
 
   const cur = img.getAttribute("src") || "";
   if (cur === nextSrc) {
-    // на всякий: если было скрыто из-за гонки — покажем
     img.style.opacity = "1";
     return;
   }
 
+  // ✅ Быстрая проверка: если картинка уже в кэше — не мигаем лоадером
+  const probe = new Image();
+  probe.decoding = "async";
+  probe.src = nextSrc;
+
+  if (probe.complete) {
+    img.style.transition = "";
+    img.style.opacity = "1";
+    img.setAttribute("src", nextSrc);
+
+    const old = container.querySelector(":scope > .mztvld-cell-loader");
+    if (old) old.remove();
+    return;
+  }
+
+  // обычный сценарий: картинки нет в кэше → показываем лоадер
   img.style.opacity = "0";
   img.style.transition = "opacity .14s ease";
 
-  // ставим лоадер ДО смены src, чтобы не пропустить load при кэше
   const finalize = attachCellLoader(container, img);
-
   img.setAttribute("src", nextSrc);
 
-  // ещё одна страховка: если load уже произошёл синхронно (кэш), добьём
   if (img.complete && img.naturalWidth > 0) {
     requestAnimationFrame(finalize);
   }
@@ -1695,5 +1708,6 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
 
