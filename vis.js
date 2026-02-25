@@ -1143,11 +1143,10 @@ function tileMatchesFilters(tile) {
 
     state.activeRenderImages = set.images || [];
     renderRenderBlock();
-  }
-
 
     // тихая подгрузка в кэш (без блокировки UI)
     preloadImages((set.images || []).map((x) => x.image));
+  }
 
   
   // ====== левый блок: группы рендеров (6 кадров × 5 цветов затирки = 30) ======
