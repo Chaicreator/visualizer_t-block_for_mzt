@@ -109,6 +109,128 @@
     img.addEventListener("error", done, { once: true });
   }
 
+
+// =======================================================================
+// [2.x] Быстрый swap картинок без пересборки DOM
+//  - решает "милисекундный" показ общего лоадера при смене затирки/кадра
+//  - меняем только src у существующих <img>, а лоадер показываем ТОЛЬКО в ячейках
+// =======================================================================
+
+function setImgSrcWithLoader(container, img, nextSrc) {
+  if (!container || !img) return;
+  if (!nextSrc) return;
+
+  const cur = img.getAttribute("src") || "";
+  if (cur === nextSrc) return;
+
+  const old = container.querySelector(":scope > .mztvld-cell-loader");
+  if (old) old.remove();
+
+  img.style.opacity = "0";
+  img.style.transition = "opacity .14s ease";
+
+  img.setAttribute("src", nextSrc);
+  attachCellLoader(container, img);
+}
+
+const renderDOM = {
+  mainWrap: null,
+  mainImg: null,
+  groutPanel: null,
+  thumbsWrap: null,
+  thumbs: [] // [{wrap, img}]
+};
+
+function resetRenderDOM() {
+  renderDOM.mainWrap = null;
+  renderDOM.mainImg = null;
+  renderDOM.groutPanel = null;
+  renderDOM.thumbsWrap = null;
+  renderDOM.thumbs = [];
+}
+
+function ensureRenderDOM() {
+  const main = qs("#mztRenderMain");
+  const thumbs = qs("#mztRenderThumbs");
+  if (!main || !thumbs) return;
+
+  if (renderDOM.mainImg && renderDOM.mainImg.isConnected && renderDOM.thumbs.length === 6) {
+    renderDOM.mainWrap = main;
+    renderDOM.thumbsWrap = thumbs;
+    return;
+  }
+
+  resetRenderDOM();
+  renderDOM.mainWrap = main;
+  renderDOM.thumbsWrap = thumbs;
+
+  main.innerHTML = "";
+  thumbs.innerHTML = "";
+
+  const mainImg = el("img", { src: "", alt: "render main", loading: "eager" });
+  main.appendChild(mainImg);
+  renderDOM.mainImg = mainImg;
+
+  const groutPanel = renderGroutPanelInline();
+  renderDOM.groutPanel = groutPanel;
+  main.appendChild(groutPanel);
+
+  mainImg.style.cursor = "zoom-in";
+  mainImg.addEventListener("click", () => {
+    const cur = getCurrentRenderVariant();
+    if (!cur) return;
+    const tileName = getSelectedTileName();
+    const label = tileName || cur.description || "—";
+    openFullscreenRenderModal(cur.image, label);
+  });
+
+  for (let i = 0; i < 6; i++) {
+    const wrap = el("div", { class: "mzt-thumb" });
+    const img = el("img", { src: "", alt: `thumb ${i + 1}`, loading: "lazy" });
+    wrap.appendChild(img);
+
+    wrap.addEventListener("click", () => {
+      state.activeThumbIndex = i;
+      updateRenderImages();
+      syncFullscreenGroutUI();
+    });
+
+    thumbs.appendChild(wrap);
+    renderDOM.thumbs.push({ wrap, img });
+  }
+}
+
+function updateRenderImages() {
+  if (!state.activeRenderSetId || !Array.isArray(state.activeRenderImages) || state.activeRenderImages.length === 0) return;
+
+  ensureRenderDOM();
+  if (!renderDOM.mainWrap || !renderDOM.mainImg) return;
+
+  const groups = splitRenderGroups(state.activeRenderImages);
+  if (!groups.length) return;
+
+  state.activeThumbIndex = clamp(state.activeThumbIndex, 0, Math.min(5, groups.length - 1));
+
+  const cur = pickByGrout(groups[state.activeThumbIndex], state.renderGroutColor) || (groups[0] && groups[0][0]);
+  if (cur?.image) {
+    setImgSrcWithLoader(renderDOM.mainWrap, renderDOM.mainImg, cur.image);
+  }
+
+  for (let i = 0; i < renderDOM.thumbs.length; i++) {
+    const g = groups[i];
+    const v = g ? (pickByGrout(g, state.renderGroutColor) || g[0]) : null;
+    const item = renderDOM.thumbs[i];
+
+    item.wrap.classList.toggle("is-active", i === state.activeThumbIndex);
+
+    if (v?.image) {
+      setImgSrcWithLoader(item.wrap, item.img, v.image);
+    } else {
+      item.img.removeAttribute("src");
+    }
+  }
+}
+
   function allFiltersAreBlank() {
     const f = state.filters;
     return f.tile_color === "---" && f.tile_type === "---" && f.price_category === "---";
@@ -872,38 +994,15 @@ root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
   /* ==========================================================================
      [7] Loader
      ========================================================================== */
-  // Глобальный лоадер (оверлей) — показываем ТОЛЬКО если загрузка реально заметна.
-  // Иначе получается «вспышка» на 1 кадр.
-  let _loaderTimer = null;
-  let _loaderShown = false;
-
-  function _mountLoader() {
-    if (qs("#mztLoader")) return;
-    const loader = el(
-      "div",
-      { class: "mzt-loader", id: "mztLoader" },
-      [el("div", { class: "mzt-spinner", "aria-label": "loading" })]
-    );
+  function showLoader() {
+    if (qs(".mzt-loader")) return;
+    const loader = el("div", { class: "mzt-loader", id: "mztLoader" }, [el("div", { class: "mzt-spinner", "aria-label": "loading" })]);
     document.body.appendChild(loader);
-    _loaderShown = true;
-  }
-
-  function showLoaderDelayed(delayMs = 140) {
-    if (_loaderShown || _loaderTimer) return;
-    _loaderTimer = setTimeout(() => {
-      _loaderTimer = null;
-      _mountLoader();
-    }, delayMs);
   }
 
   function hideLoader() {
-    if (_loaderTimer) {
-      clearTimeout(_loaderTimer);
-      _loaderTimer = null;
-    }
     const loader = qs("#mztLoader");
     if (loader) loader.remove();
-    _loaderShown = false;
   }
 
   /* ==========================================================================
@@ -1160,54 +1259,55 @@ function tileMatchesFilters(tile) {
     return b ? b.render_set_id : null;
   }
 
-  async function onTileClick(tileId) {
-    state.selectedTileId = tileId;
+  
+async function onTileClick(tileId) {
+  state.selectedTileId = tileId;
 
-    // при выборе новой плитки начинаем с 1-го кадра
-    state.activeThumbIndex = 0;
+  // при выборе новой плитки начинаем с 1-го кадра
+  state.activeThumbIndex = 0;
 
-    // подсветка выбранной плитки
-    renderTilesPage({ mode: "normal" });
+  // подсветка выбранной плитки
+  renderTilesPage({ mode: "normal" });
 
-    const renderSetId = getBoundRenderSetId(tileId);
-    state.activeRenderSetId = renderSetId;
+  const renderSetId = getBoundRenderSetId(tileId);
+  state.activeRenderSetId = renderSetId;
 
-    if (!renderSetId) {
-      state.activeRenderImages = [];
-      renderRenderBlock();
-      return;
-    }
-
-    const set = getRenderSetById(renderSetId);
-    if (!set) {
-      state.activeRenderImages = [];
-      renderRenderBlock();
-      return;
-    }
-
-    // Важно:
-    // 1) НЕ грузим все 30 картинок (6 кадров × 5 цветов) — это лишнее.
-    // 2) НЕ показываем глобальный оверлей, если всё загрузилось мгновенно.
-    //    За подгрузку конкретных картинок уже отвечает attachCellLoader() на main/thumb.
-    const warmUrls = (() => {
-      const groups = splitRenderGroups(set.images || []);
-      // подогреем только 6 кадров под ТЕКУЩИЙ цвет затирки
-      return groups
-        .slice(0, 6)
-        .map((g) => (pickByGrout(g, state.renderGroutColor) || g[0])?.image)
-        .filter(Boolean);
-    })();
-
-    showLoaderDelayed(160);
-    await preloadImages(warmUrls);
-    hideLoader();
-
-    state.activeRenderImages = set.images || [];
+  if (!renderSetId) {
+    state.activeRenderImages = [];
     renderRenderBlock();
+    return;
   }
 
-  
-  // ====== левый блок: группы рендеров (6 кадров × 5 цветов затирки = 30) ======
+  const set = getRenderSetById(renderSetId);
+  if (!set) {
+    state.activeRenderImages = [];
+    renderRenderBlock();
+    return;
+  }
+
+  // ВАЖНО: НЕ показываем глобальный лоадер на всю страницу.
+  // Просто обновляем нужные <img> (main + 6 миниатюр), а лоадер — только внутри их ячеек.
+  state.activeRenderImages = set.images || [];
+  renderRenderBlock();
+
+  // тихо подогреем кеш (7 картинок), чтобы дальше переключения были мгновенные
+  try {
+    const groups = splitRenderGroups(state.activeRenderImages);
+    const urls = [];
+    for (let i = 0; i < Math.min(6, groups.length); i++) {
+      const v = pickByGrout(groups[i], state.renderGroutColor) || groups[i][0];
+      if (v?.image) urls.push(v.image);
+    }
+    const cur = getCurrentRenderVariant();
+    if (cur?.image) urls.push(cur.image);
+    preloadImages(urls);
+  } catch (e) {
+    // noop
+  }
+}
+
+
+// ====== левый блок: группы рендеров (6 кадров × 5 цветов затирки = 30) ======
   const GROUT_COLORS = ["Белый", "Серый", "Бежевый", "Коричневый", "Черный"];
 
   const GROUT_ARROW_SVG = `
@@ -1271,20 +1371,8 @@ function tileMatchesFilters(tile) {
 
         box.classList.remove("is-open");
 
-        // подогреваем только те картинки, которые реально будут показаны
-        // (главная + 6 миниатюр под выбранный цвет затирки)
-        try {
-          const groups = splitRenderGroups(state.activeRenderImages);
-          const urls = groups
-            .slice(0, 6)
-            .map((g) => (pickByGrout(g, c) || g[0])?.image)
-            .filter(Boolean);
-          // не ждём — просто кладём в кэш
-          preloadImages(urls);
-        } catch (_) {}
-
         // rerender
-        renderRenderBlock();
+        updateRenderImages();
         syncFullscreenGroutUI();
       });
 
@@ -1354,76 +1442,50 @@ function tileMatchesFilters(tile) {
      [12] Render block: большая + миниатюры, swap
      ========================================================================== */
   
-  function renderRenderBlock() {
-    const main = qs("#mztRenderMain");
-    const thumbs = qs("#mztRenderThumbs");
+  
+function renderRenderBlock() {
+  const main = qs("#mztRenderMain");
+  const thumbs = qs("#mztRenderThumbs");
+  if (!main || !thumbs) return;
 
+  // Если пользователь ничего не выбрал и фильтры пустые — подсказка
+  if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenderImages.length === 0)) {
+    resetRenderDOM();
     main.innerHTML = "";
     thumbs.innerHTML = "";
-
-    // Если пользователь ничего не выбрал и фильтры пустые — подсказка
-    if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenderImages.length === 0)) {
-      main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
-      return;
-    }
-
-    if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
-      main.appendChild(
-        el("div", {
-          class: "mzt-empty",
-          text: state.selectedTileId
-            ? "Для выбранной плитки пока нет хороших изображений, но мы постараемся сделать в самое короткое время!"
-            : "Выберите плитку справа, чтобы увидеть рендеры дома."
-        })
-      );
-      return;
-    }
-
-    const groups = splitRenderGroups(state.activeRenderImages);
-    if (!groups.length) {
-      main.appendChild(el("div", { class: "mzt-empty", text: "Нет данных рендера." }));
-      return;
-    }
-
-    state.activeThumbIndex = clamp(state.activeThumbIndex, 0, Math.min(5, groups.length - 1));
-
-    // ===== main render =====
-    const cur = pickByGrout(groups[state.activeThumbIndex], state.renderGroutColor) || groups[0][0];
-
-    const mainImg = el("img", { src: cur.image, alt: "render main", loading: "eager" });
-    main.appendChild(mainImg);
-    attachCellLoader(main, mainImg);
-
-    // панель выбора цвета затирки (внутри main)
-    main.appendChild(renderGroutPanelInline());
-
-    mainImg.style.cursor = "zoom-in";
-    mainImg.addEventListener("click", () => {
-      const tileName = getSelectedTileName();
-      const label = tileName || cur.description || "—";
-      openFullscreenRenderModal(cur.image, label);
-    });
-
-    // ===== thumbs: 6 статичных миниатюр =====
-    groups.slice(0, 6).forEach((group, idx) => {
-      const v = pickByGrout(group, state.renderGroutColor) || group[0];
-      const t = el("div", { class: "mzt-thumb" + (idx === state.activeThumbIndex ? " is-active" : "") });
-      const img = el("img", { src: v.image, alt: `thumb ${idx + 1}`, loading: "lazy" });
-      t.appendChild(img);
-      attachCellLoader(t, img);
-
-      t.addEventListener("click", () => {
-        state.activeThumbIndex = idx;
-        renderRenderBlock();
-        syncFullscreenGroutUI();
-      });
-
-      thumbs.appendChild(t);
-    });
+    main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
+    return;
   }
 
+  if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
+    resetRenderDOM();
+    main.innerHTML = "";
+    thumbs.innerHTML = "";
+    main.appendChild(
+      el("div", {
+        class: "mzt-empty",
+        text: state.selectedTileId
+          ? "Для выбранной плитки пока нет хороших изображений, но мы постараемся сделать в самое короткое время!"
+          : "Выберите плитку справа, чтобы увидеть рендеры дома."
+      })
+    );
+    return;
+  }
 
-  /* ==========================================================================
+  const groups = splitRenderGroups(state.activeRenderImages);
+  if (!groups.length) {
+    resetRenderDOM();
+    main.innerHTML = "";
+    thumbs.innerHTML = "";
+    main.appendChild(el("div", { class: "mzt-empty", text: "Нет данных рендера." }));
+    return;
+  }
+
+  // Собираем DOM один раз и дальше меняем только src (без пересборки)
+  ensureRenderDOM();
+  updateRenderImages();
+}
+/* ==========================================================================
      [13] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
      ========================================================================== */
 
@@ -1566,8 +1628,7 @@ function closeFullscreenRenderModal() {
     injectStyles();
     buildLayout(root);
 
-    // На первом старте можно показывать сразу (без задержки)
-    showLoaderDelayed(0);
+    showLoader();
     try {
       state.db = await loadDB();
 
