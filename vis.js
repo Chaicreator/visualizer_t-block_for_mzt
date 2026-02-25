@@ -126,44 +126,62 @@
 function setImgSrcWithLoader(container, img, nextSrc) {
   if (!container || !img) return;
 
-  if (!nextSrc) {
-    img.removeAttribute("src");
-    img.style.opacity = "1";
-    const old = container.querySelector(":scope > .mztvld-cell-loader");
-    if (old) old.remove();
-    return;
-  }
-
   const cur = img.getAttribute("src") || "";
-  if (cur === nextSrc) {
-    img.style.opacity = "1";
-    return;
-  }
+  if (!nextSrc || cur === nextSrc) return;
 
-  // ✅ Быстрая проверка: если картинка уже в кэше — не мигаем лоадером
+  let loaderShown = false;
+  let done = false;
+  let timer = null;
+
+  // покажем лоадер только если реально не успело быстро
+  timer = setTimeout(() => {
+    if (done) return;
+    loaderShown = true;
+    attachCellLoader(container, img); // просто оверлей, НЕ прячем img
+  }, 120);
+
   const probe = new Image();
   probe.decoding = "async";
   probe.src = nextSrc;
 
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+
+    // меняем src только когда картинка уже готова
+    img.style.transition = "opacity .14s ease";
+    img.style.opacity = "0";
+
+    requestAnimationFrame(() => {
+      img.setAttribute("src", nextSrc);
+      // на всякий — если браузер уже держит декодированным, вернём сразу
+      requestAnimationFrame(() => {
+        img.style.opacity = "1";
+        // если лоадер показывали — он снимется через attachCellLoader->load,
+        // но т.к. img уже с новым src, можно подчистить вручную:
+        if (loaderShown) {
+          const old = container.querySelector(":scope > .mztvld-cell-loader");
+          if (old) {
+            old.classList.add("is-hide");
+            setTimeout(() => old.remove(), 260);
+          }
+        }
+      });
+    });
+  };
+
   if (probe.complete) {
-    img.style.transition = "";
-    img.style.opacity = "1";
-    img.setAttribute("src", nextSrc);
-
-    const old = container.querySelector(":scope > .mztvld-cell-loader");
-    if (old) old.remove();
-    return;
-  }
-
-  // обычный сценарий: картинки нет в кэше → показываем лоадер
-  img.style.opacity = "0";
-  img.style.transition = "opacity .14s ease";
-
-  const finalize = attachCellLoader(container, img);
-  img.setAttribute("src", nextSrc);
-
-  if (img.complete && img.naturalWidth > 0) {
-    requestAnimationFrame(finalize);
+    finish();
+  } else {
+    probe.onload = finish;
+    probe.onerror = () => {
+      done = true;
+      clearTimeout(timer);
+      // на ошибке не трогаем текущую картинку
+      const old = container.querySelector(":scope > .mztvld-cell-loader");
+      if (old) old.remove();
+    };
   }
 }
 
@@ -1708,3 +1726,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
