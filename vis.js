@@ -872,15 +872,38 @@ root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
   /* ==========================================================================
      [7] Loader
      ========================================================================== */
-  function showLoader() {
-    if (qs(".mzt-loader")) return;
-    const loader = el("div", { class: "mzt-loader", id: "mztLoader" }, [el("div", { class: "mzt-spinner", "aria-label": "loading" })]);
+  // Глобальный лоадер (оверлей) — показываем ТОЛЬКО если загрузка реально заметна.
+  // Иначе получается «вспышка» на 1 кадр.
+  let _loaderTimer = null;
+  let _loaderShown = false;
+
+  function _mountLoader() {
+    if (qs("#mztLoader")) return;
+    const loader = el(
+      "div",
+      { class: "mzt-loader", id: "mztLoader" },
+      [el("div", { class: "mzt-spinner", "aria-label": "loading" })]
+    );
     document.body.appendChild(loader);
+    _loaderShown = true;
+  }
+
+  function showLoaderDelayed(delayMs = 140) {
+    if (_loaderShown || _loaderTimer) return;
+    _loaderTimer = setTimeout(() => {
+      _loaderTimer = null;
+      _mountLoader();
+    }, delayMs);
   }
 
   function hideLoader() {
+    if (_loaderTimer) {
+      clearTimeout(_loaderTimer);
+      _loaderTimer = null;
+    }
     const loader = qs("#mztLoader");
     if (loader) loader.remove();
+    _loaderShown = false;
   }
 
   /* ==========================================================================
@@ -1162,8 +1185,21 @@ function tileMatchesFilters(tile) {
       return;
     }
 
-    showLoader();
-    await preloadImages(set.images.map((x) => x.image));
+    // Важно:
+    // 1) НЕ грузим все 30 картинок (6 кадров × 5 цветов) — это лишнее.
+    // 2) НЕ показываем глобальный оверлей, если всё загрузилось мгновенно.
+    //    За подгрузку конкретных картинок уже отвечает attachCellLoader() на main/thumb.
+    const warmUrls = (() => {
+      const groups = splitRenderGroups(set.images || []);
+      // подогреем только 6 кадров под ТЕКУЩИЙ цвет затирки
+      return groups
+        .slice(0, 6)
+        .map((g) => (pickByGrout(g, state.renderGroutColor) || g[0])?.image)
+        .filter(Boolean);
+    })();
+
+    showLoaderDelayed(160);
+    await preloadImages(warmUrls);
     hideLoader();
 
     state.activeRenderImages = set.images || [];
@@ -1234,6 +1270,18 @@ function tileMatchesFilters(tile) {
         item.classList.add("is-active");
 
         box.classList.remove("is-open");
+
+        // подогреваем только те картинки, которые реально будут показаны
+        // (главная + 6 миниатюр под выбранный цвет затирки)
+        try {
+          const groups = splitRenderGroups(state.activeRenderImages);
+          const urls = groups
+            .slice(0, 6)
+            .map((g) => (pickByGrout(g, c) || g[0])?.image)
+            .filter(Boolean);
+          // не ждём — просто кладём в кэш
+          preloadImages(urls);
+        } catch (_) {}
 
         // rerender
         renderRenderBlock();
@@ -1518,7 +1566,8 @@ function closeFullscreenRenderModal() {
     injectStyles();
     buildLayout(root);
 
-    showLoader();
+    // На первом старте можно показывать сразу (без задержки)
+    showLoaderDelayed(0);
     try {
       state.db = await loadDB();
 
