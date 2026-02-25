@@ -69,15 +69,18 @@
     </div>
   `;
 
-  function attachCellLoader(container, img) {
+    function attachCellLoader(container, img) {
     if (!container || !img) return;
 
-    // если картинка уже в кэше и валидна — не показываем лоадер
-    if (img.complete && img.naturalWidth > 0) return;
-
-    // не копим лоадеры при смене src
+    // если ранее уже был лоадер — убираем, чтобы не копился при смене src
     const old = container.querySelector(":scope > .mztvld-cell-loader");
     if (old) old.remove();
+
+    // если картинка уже в кэше и валидна — не показываем лоадер
+    if (img.complete && img.naturalWidth > 0) {
+      img.style.opacity = "1";
+      return;
+    }
 
     // на всякий: контейнер должен быть позиционируемым
     const cs = getComputedStyle(container);
@@ -98,6 +101,10 @@
       img.removeEventListener("load", done);
       img.removeEventListener("error", done);
     };
+
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
+  };
 
     img.addEventListener("load", done, { once: true });
     img.addEventListener("error", done, { once: true });
@@ -1333,50 +1340,117 @@ function tileMatchesFilters(tile) {
      [12] Render block: большая + миниатюры, swap
      ========================================================================== */
   
-  function renderRenderBlock() {
+    function renderRenderBlock() {
     const main = qs("#mztRenderMain");
     const thumbs = qs("#mztRenderThumbs");
-
     if (!main || !thumbs) return;
+
+    const resetToEmpty = (msg) => {
+      main.innerHTML = "";
+      thumbs.innerHTML = "";
+      thumbs.removeAttribute("data-init");
+      main.appendChild(el("div", { class: "mzt-empty", text: msg }));
+    };
 
     // Если пользователь ничего не выбрал и фильтры пустые — подсказка
     if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenderImages.length === 0)) {
-      main.innerHTML = "";
-      thumbs.innerHTML = "";
-      main.appendChild(el("div", { class: "mzt-empty", text: "Выберите значения для отображения." }));
-      renderDom.builtForSetId = null;
+      resetToEmpty("Выберите значения для отображения.");
       return;
     }
 
     if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
-      main.innerHTML = "";
-      thumbs.innerHTML = "";
-      main.appendChild(
-        el("div", {
-          class: "mzt-empty",
-          text: state.selectedTileId
-            ? "Для выбранной плитки пока нет хороших изображений, но мы постараемся сделать в самое короткое время!"
-            : "Выберите плитку справа, чтобы увидеть рендеры дома."
-        })
+      resetToEmpty(
+        state.selectedTileId
+          ? "Для выбранной плитки пока нет хороших изображений, но мы постараемся сделать в самое короткое время!"
+          : "Выберите плитку справа, чтобы увидеть рендеры дома."
       );
-      renderDom.builtForSetId = null;
       return;
     }
 
     const groups = splitRenderGroups(state.activeRenderImages);
     if (!groups.length) {
-      main.innerHTML = "";
-      thumbs.innerHTML = "";
-      main.appendChild(el("div", { class: "mzt-empty", text: "Нет данных рендера." }));
-      renderDom.builtForSetId = null;
+      resetToEmpty("Нет данных рендера.");
       return;
     }
 
-    ensureRenderShell(groups);
-    updateRenderView();
+    // ----------------------------------------------------------------------
+    // Один раз создаём DOM (1 main img + grout panel + 6 thumbs),
+    // дальше только меняем src (без пересоздания блоков) — это убирает “мигание”.
+    // ----------------------------------------------------------------------
+    let mainImg = qs("#mztMainImg", main);
+    if (!mainImg) {
+      main.innerHTML = "";
+      mainImg = el("img", { id: "mztMainImg", alt: "render main", loading: "eager" });
+      main.appendChild(mainImg);
+      main.appendChild(renderGroutPanelInline());
+    }
+
+    if (!thumbs.getAttribute("data-init")) {
+      thumbs.innerHTML = "";
+      for (let i = 0; i < 6; i++) {
+        const t = el("div", { class: "mzt-thumb", "data-idx": String(i) });
+        const img = el("img", { alt: `thumb ${i + 1}`, loading: "lazy" });
+        t.appendChild(img);
+        t.addEventListener("click", () => {
+          state.activeThumbIndex = i;
+          renderRenderBlock();
+          syncFullscreenGroutUI();
+        });
+        thumbs.appendChild(t);
+      }
+      thumbs.setAttribute("data-init", "1");
+    }
+
+    state.activeThumbIndex = clamp(state.activeThumbIndex, 0, Math.min(5, groups.length - 1));
+
+    // ===== main render =====
+    const cur = pickByGrout(groups[state.activeThumbIndex], state.renderGroutColor) || groups[0][0];
+
+    if (mainImg.getAttribute("src") !== cur.image) {
+      mainImg.setAttribute("src", cur.image);
+    }
+    attachCellLoader(main, mainImg);
+
+    // клик по main -> fullscreen (обработчик один раз, внутри берём текущий вариант)
+    if (!mainImg.getAttribute("data-mzt-bound")) {
+      mainImg.setAttribute("data-mzt-bound", "1");
+      mainImg.style.cursor = "zoom-in";
+      mainImg.addEventListener("click", () => {
+        const v = getCurrentRenderVariant();
+        if (!v) return;
+        const tileName = getSelectedTileName();
+        const label = tileName || v.description || "—";
+        openFullscreenRenderModal(v.image, label);
+      });
+    }
+
+    // ===== thumbs: 6 статичных миниатюр =====
+    for (let idx = 0; idx < 6; idx++) {
+      const group = groups[idx];
+      const thumb = qs(`.mzt-thumb[data-idx="${idx}"]`, thumbs);
+      if (!thumb) continue;
+
+      // если групп меньше 6 — скрываем хвост
+      if (!group) {
+        thumb.style.display = "none";
+        continue;
+      }
+      thumb.style.display = "";
+
+      const v = pickByGrout(group, state.renderGroutColor) || group[0];
+      const img = qs("img", thumb);
+
+      thumb.classList.toggle("is-active", idx === state.activeThumbIndex);
+
+      if (img && img.getAttribute("src") !== v.image) {
+        img.setAttribute("src", v.image);
+      }
+      if (img) attachCellLoader(thumb, img);
+    }
   }
 
-  /* ==========================================================================
+
+/* ==========================================================================
      [13] РАЗДЕЛ ПОД ОБРАБОТКУ РАЗВОРАЧИВАНИЯ В ПОПАП ГЛАВНОГО РЕНДЕРА
      ========================================================================== */
 
