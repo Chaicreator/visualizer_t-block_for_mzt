@@ -394,6 +394,7 @@
   width:100%;
   text-align:left;
   appearance:none;
+  min-width:120px;
 }
 #${CONFIG.ROOT_ID} button.mzt-groutbox-select{ background:#fff; }
 
@@ -1547,3 +1548,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
