@@ -80,30 +80,44 @@
   `;
 
   function attachCellLoader(container, img) {
-    if (!container || !img) return;
+  if (!container || !img) return () => {};
 
-    // если картинка уже в кэше и валидна — не показываем лоадер
-    if (img.complete && img.naturalWidth > 0) return;
+  // контейнер должен быть позиционируемым
+  const cs = getComputedStyle(container);
+  if (cs.position === "static") container.style.position = "relative";
 
-    // на всякий: контейнер должен быть позиционируемым
-    const cs = getComputedStyle(container);
-    if (cs.position === "static") container.style.position = "relative";
+  // убираем старый лоадер если есть
+  const old = container.querySelector(":scope > .mztvld-cell-loader");
+  if (old) old.remove();
 
-    // ставим лоадер поверх
-    const loader = el("div", { class: "mztvld-cell-loader", html: CELL_LOADER_HTML });
-    container.appendChild(loader);
+  const loader = el("div", { class: "mztvld-cell-loader", html: CELL_LOADER_HTML });
+  container.appendChild(loader);
 
-    // плавно показываем картинку после загрузки
-    img.style.opacity = "0";
-    img.style.transition = "opacity .14s ease";
+  const done = () => {
+    img.style.opacity = "1";
+    loader.classList.add("is-hide");
+    setTimeout(() => loader.remove(), 260);
+  };
 
-    const done = () => {
-      img.style.opacity = "1";
-      loader.classList.add("is-hide");
-      setTimeout(() => loader.remove(), 260);
-      img.removeEventListener("load", done);
-      img.removeEventListener("error", done);
-    };
+  const onDone = () => {
+    done();
+    img.removeEventListener("load", onDone);
+    img.removeEventListener("error", onDone);
+  };
+
+  img.addEventListener("load", onDone);
+  img.addEventListener("error", onDone);
+
+  // если браузер уже считает картинку загруженной (кэш) — доводим до конца сразу
+  if (img.complete && img.naturalWidth > 0) {
+    // чтобы не попасть в гонку с моментом смены src — делаем в следующем тике
+    requestAnimationFrame(onDone);
+  }
+
+  return onDone;
+}
+
+;
 
     img.addEventListener("load", done, { once: true });
     img.addEventListener("error", done, { once: true });
@@ -118,19 +132,33 @@
 
 function setImgSrcWithLoader(container, img, nextSrc) {
   if (!container || !img) return;
-  if (!nextSrc) return;
+  if (!nextSrc) {
+    img.removeAttribute("src");
+    img.style.opacity = "1";
+    const old = container.querySelector(":scope > .mztvld-cell-loader");
+    if (old) old.remove();
+    return;
+  }
 
   const cur = img.getAttribute("src") || "";
-  if (cur === nextSrc) return;
-
-  const old = container.querySelector(":scope > .mztvld-cell-loader");
-  if (old) old.remove();
+  if (cur === nextSrc) {
+    // на всякий: если было скрыто из-за гонки — покажем
+    img.style.opacity = "1";
+    return;
+  }
 
   img.style.opacity = "0";
   img.style.transition = "opacity .14s ease";
 
+  // ставим лоадер ДО смены src, чтобы не пропустить load при кэше
+  const finalize = attachCellLoader(container, img);
+
   img.setAttribute("src", nextSrc);
-  attachCellLoader(container, img);
+
+  // ещё одна страховка: если load уже произошёл синхронно (кэш), добьём
+  if (img.complete && img.naturalWidth > 0) {
+    requestAnimationFrame(finalize);
+  }
 }
 
 const renderDOM = {
