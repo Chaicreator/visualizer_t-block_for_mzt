@@ -116,12 +116,13 @@ showTimer = setTimeout(() => {
         background:#efefef;
 
         opacity:1;
-        transition: opacity ${FADE_MS}ms ease;
+        transition: none;
       }
 
       #${ROOT_ID} > .mztvld-loader-wrap.is-hide{
         opacity:0;
         pointer-events:none;
+        transition: opacity 200ms ease;
       }
 
       /* spinner container */
