@@ -1282,9 +1282,9 @@ function tileMatchesFilters(tile) {
 
     // Быстрое обновление подсветки выбранной плитки без перерендера сетки
   function attrSelectorValue(v) {
-    // безопасно для значения внутри [attr="..."]
-    return String(v).replace(/\\/g, "\\\\").replace(/"/g, "\\"");
-  }
+  // безопасно для значения внутри [attr="..."]
+  return String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
 
   function updateSelectedTileUI(tileId) {
     const grid = qs("#mztTilesGrid");
@@ -1695,4 +1695,5 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
