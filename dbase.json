@@ -553,31 +553,31 @@
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3533-6436-4265-b531-393662373465/16.png",
+          "image": "https://static.tildacdn.com/tild3432-3638-4331-b962-373132303238/16_white.png",
           "grout_color": "Белый"
         },
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3533-6436-4265-b531-393662373465/16.png",
+          "image": "https://static.tildacdn.com/tild3032-6564-4735-b535-326561373835/16_grey.png",
           "grout_color": "Серый"
         },
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3533-6436-4265-b531-393662373465/16.png",
+          "image": "https://static.tildacdn.com/tild3536-3864-4234-a235-653638346539/16_beige.png",
           "grout_color": "Бежевый"
         },
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3533-6436-4265-b531-393662373465/16.png",
+          "image": "https://static.tildacdn.com/tild3834-3634-4137-a266-323539353537/16_brown.png",
           "grout_color": "Коричневый"
         },
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3533-6436-4265-b531-393662373465/16.png",
+          "image": "https://static.tildacdn.com/tild6332-3237-4636-a438-353930623734/16_black.png",
           "grout_color": "Черный"
         },
         {
@@ -889,5 +889,6 @@
     }
   ]
 }
+
 
 
