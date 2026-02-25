@@ -69,7 +69,7 @@
     </div>
   `;
 
-    function attachCellLoader(container, img) {
+  function attachCellLoader(container, img) {
     if (!container || !img) return;
 
     // если ранее уже был лоадер — убираем, чтобы не копился при смене src
@@ -101,10 +101,6 @@
       img.removeEventListener("load", done);
       img.removeEventListener("error", done);
     };
-
-    img.addEventListener("load", done, { once: true });
-    img.addEventListener("error", done, { once: true });
-  };
 
     img.addEventListener("load", done, { once: true });
     img.addEventListener("error", done, { once: true });
