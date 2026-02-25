@@ -1230,7 +1230,7 @@ function tileMatchesFilters(tile) {
     const pageItems = state.filteredTiles.slice(start, start + perPage);
 
     pageItems.forEach((t) => {
-      const card = el("div", { class: "mzt-tile" + (state.selectedTileId === t.id ? " is-selected" : "") });
+      const card = el("div", { class: "mzt-tile" + (state.selectedTileId === t.id ? " is-selected" : ""), "data-tile-id": t.id });
       const img = el("img", { src: t.image, alt: t.name, loading: "lazy" });
       card.appendChild(img);
       attachCellLoader(card, img);
@@ -1280,15 +1280,31 @@ function tileMatchesFilters(tile) {
     return b ? b.render_set_id : null;
   }
 
-  
+    // Быстрое обновление подсветки выбранной плитки без перерендера сетки
+  function attrSelectorValue(v) {
+    // безопасно для значения внутри [attr="..."]
+    return String(v).replace(/\\/g, "\\\\").replace(/"/g, "\\"");
+  }
+
+  function updateSelectedTileUI(tileId) {
+    const grid = qs("#mztTilesGrid");
+    if (!grid) return;
+
+    const prev = grid.querySelector(".mzt-tile.is-selected");
+    if (prev) prev.classList.remove("is-selected");
+
+    const next = grid.querySelector(`.mzt-tile[data-tile-id="${attrSelectorValue(tileId)}"]`);
+    if (next) next.classList.add("is-selected");
+  }
+   
 async function onTileClick(tileId) {
   state.selectedTileId = tileId;
 
   // при выборе новой плитки начинаем с 1-го кадра
   state.activeThumbIndex = 0;
 
-  // подсветка выбранной плитки
-  renderTilesPage({ mode: "normal" });
+   // подсветка выбранной плитки (без перерендера 9 карточек)
+   updateSelectedTileUI(tileId);
 
   const renderSetId = getBoundRenderSetId(tileId);
   state.activeRenderSetId = renderSetId;
@@ -1679,3 +1695,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
