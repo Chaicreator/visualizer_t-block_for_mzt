@@ -253,26 +253,27 @@ function ensureRenderDOM() {
 }
 
 function updateRenderImages() {
-  if (!state.activeRenderSetId || !Array.isArray(state.activeRenderImages) || state.activeRenderImages.length === 0) return;
+  if (!state.activeRenderSetId || !Array.isArray(state.activeRenders) || state.activeRenders.length === 0) return;
 
   ensureRenderDOM();
   if (!renderDOM.mainWrap || !renderDOM.mainImg) return;
 
-  const groups = splitRenderGroups(state.activeRenderImages);
-  if (!groups.length) return;
+  const renders = state.activeRenders;
 
-  state.activeThumbIndex = clamp(state.activeThumbIndex, 0, Math.min(5, groups.length - 1));
+  state.activeThumbIndex = clamp(state.activeThumbIndex, 0, Math.min(5, renders.length - 1));
 
-  const cur = pickByGrout(groups[state.activeThumbIndex], state.renderGroutColor) || (groups[0] && groups[0][0]);
+  const activeRender = getRenderByIndex(renders, state.activeThumbIndex);
+  const cur = pickVariant(activeRender, state.renderGroutColor) || pickVariant(getRenderByIndex(renders, 0), state.renderGroutColor);
+
   if (cur?.image) {
     setImgSrcWithLoader(renderDOM.mainWrap, renderDOM.mainImg, cur.image);
   }
 
   for (let i = 0; i < renderDOM.thumbs.length; i++) {
-    const g = groups[i];
-    const v = g ? (pickByGrout(g, state.renderGroutColor) || g[0]) : null;
-    const item = renderDOM.thumbs[i];
+    const r = getRenderByIndex(renders, i);
+    const v = pickVariant(r, state.renderGroutColor);
 
+    const item = renderDOM.thumbs[i];
     item.wrap.classList.toggle("is-active", i === state.activeThumbIndex);
 
     if (v?.image) {
@@ -305,7 +306,7 @@ function updateRenderImages() {
 
     selectedTileId: null,
     activeRenderSetId: null,
-    activeRenderImages: [],
+    activeRenders: [],
 
     // левый блок: выбранный цвет затирки (для рендеров)
     renderGroutColor: "Белый",
@@ -1203,10 +1204,10 @@ function tileMatchesFilters(tile) {
   if (initial?.render_set_id) {
     state.activeRenderSetId = initial.render_set_id;
     const set = getRenderSetById(initial.render_set_id);
-    state.activeRenderImages = set ? (set.images || []) : [];
+    state.activeRenders = set ? (set.renders || []) : [];
   } else {
     state.activeRenderSetId = null;
-    state.activeRenderImages = [];
+    state.activeRenders = [];
   }
 
   // На дефолтном экране ничего не "выбрано"
@@ -1302,8 +1303,49 @@ function tileMatchesFilters(tile) {
   /* ==========================================================================
      [11] Клик по плитке -> привязка -> рендеры
      ========================================================================== */
+  function normalizeRenderSetData(rs) {
+    if (!rs) return null;
+
+    // Новый формат: {id,name,renders:[{id, description?, variants:{Белый:..., ...}}]}
+    if (Array.isArray(rs.renders)) return rs;
+
+    // Старый формат: {id,name,images:[{id, image, grout_color, description?}, ...]}
+    if (Array.isArray(rs.images)) {
+      const order = [];
+      const map = new Map();
+
+      rs.images.forEach((it) => {
+        const rid = it?.id;
+        if (!rid) return;
+        if (!map.has(rid)) {
+          map.set(rid, []);
+          order.push(rid);
+        }
+        map.get(rid).push(it);
+      });
+
+      const renders = order.map((rid) => {
+        const items = map.get(rid) || [];
+        const variants = {};
+        let description = "";
+        for (const it of items) {
+          if (!description && it?.description) description = it.description;
+          if (it?.grout_color && it?.image) variants[it.grout_color] = it.image;
+        }
+        const obj = { id: rid, variants };
+        if (description) obj.description = description;
+        return obj;
+      });
+
+      return { id: rs.id, name: rs.name, renders };
+    }
+
+    return rs;
+  }
+
   function getRenderSetById(id) {
-    return state.db.renderSets.find((r) => r.id === id) || null;
+    const raw = state.db.renderSets.find((r) => r.id === id) || null;
+    return normalizeRenderSetData(raw);
   }
 
   function getBoundRenderSetId(tileId) {
@@ -1341,29 +1383,29 @@ async function onTileClick(tileId) {
   state.activeRenderSetId = renderSetId;
 
   if (!renderSetId) {
-    state.activeRenderImages = [];
+    state.activeRenders = [];
     renderRenderBlock();
     return;
   }
 
   const set = getRenderSetById(renderSetId);
   if (!set) {
-    state.activeRenderImages = [];
+    state.activeRenders = [];
     renderRenderBlock();
     return;
   }
 
   // ВАЖНО: НЕ показываем глобальный лоадер на всю страницу.
   // Просто обновляем нужные <img> (main + 6 миниатюр), а лоадер — только внутри их ячеек.
-  state.activeRenderImages = set.images || [];
+  state.activeRenders = set.renders || [];
   renderRenderBlock();
 
-  // тихо подогреем кеш (7 картинок), чтобы дальше переключения были мгновенные
+  // тихо подогреем кеш (main + 6 миниатюр), чтобы дальше переключения были мгновенные
   try {
-    const groups = splitRenderGroups(state.activeRenderImages);
     const urls = [];
-    for (let i = 0; i < Math.min(6, groups.length); i++) {
-      const v = pickByGrout(groups[i], state.renderGroutColor) || groups[i][0];
+    const renders = state.activeRenders || [];
+    for (let i = 0; i < Math.min(6, renders.length); i++) {
+      const v = pickVariant(renders[i], state.renderGroutColor);
       if (v?.image) urls.push(v.image);
     }
     const cur = getCurrentRenderVariant();
@@ -1385,27 +1427,28 @@ async function onTileClick(tileId) {
   `;
 
 
-  function splitRenderGroups(images) {
-    if (!Array.isArray(images) || images.length === 0) return [];
-    // ожидаем порядок: 5 подряд на один кадр
-    if (images.length >= 30) {
-      const groups = [];
-      for (let i = 0; i < 6; i++) groups.push(images.slice(i * 5, i * 5 + 5));
-      return groups;
-    }
-    // fallback: группируем по image url
-    const map = new Map();
-    images.forEach((it) => {
-      const key = it.image || it.id || JSON.stringify(it);
-      if (!map.has(key)) map.set(key, []);
-      map.get(key).push(it);
-    });
-    return Array.from(map.values()).slice(0, 6);
+  function getRenderByIndex(renders, idx) {
+    if (!Array.isArray(renders) || renders.length === 0) return null;
+    const i = clamp(idx, 0, Math.min(5, renders.length - 1));
+    return renders[i] || null;
   }
 
-  function pickByGrout(group, groutColor) {
-    if (!Array.isArray(group) || group.length === 0) return null;
-    return group.find((x) => x.grout_color === groutColor) || group[0];
+  function pickVariant(render, groutColor) {
+    if (!render) return null;
+
+    const variants = render.variants || {};
+    const direct = variants[groutColor];
+
+    // fallback: первый доступный вариант
+    const first = direct || variants[Object.keys(variants)[0]];
+
+    if (!first) return null;
+
+    return {
+      id: render.id,
+      description: render.description || "",
+      image: first
+    };
   }
 
   
@@ -1474,13 +1517,14 @@ async function onTileClick(tileId) {
 
 
   function getCurrentRenderVariant() {
-    const groups = splitRenderGroups(state.activeRenderImages);
-    if (!groups.length) return null;
-    const idx = clamp(state.activeThumbIndex, 0, groups.length - 1);
-    return pickByGrout(groups[idx], state.renderGroutColor);
+    const renders = state.activeRenders;
+    if (!Array.isArray(renders) || renders.length === 0) return null;
+
+    const r = getRenderByIndex(renders, state.activeThumbIndex);
+    return pickVariant(r, state.renderGroutColor);
   }
 
-  
+
   function syncFullscreenGroutUI() {
     const root = qs(`#${CONFIG.ROOT_ID}`);
     if (!root) return;
@@ -1517,7 +1561,7 @@ function renderRenderBlock() {
   if (!main || !thumbs) return;
 
   // Если пользователь ничего не выбрал и фильтры пустые — подсказка
-  if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenderImages.length === 0)) {
+  if (!state.selectedTileId && allFiltersAreBlank() && (!state.activeRenderSetId || state.activeRenders.length === 0)) {
     resetRenderDOM();
     main.innerHTML = "";
     thumbs.innerHTML = "";
@@ -1525,7 +1569,7 @@ function renderRenderBlock() {
     return;
   }
 
-  if (!state.activeRenderSetId || state.activeRenderImages.length === 0) {
+  if (!state.activeRenderSetId || state.activeRenders.length === 0) {
     resetRenderDOM();
     main.innerHTML = "";
     thumbs.innerHTML = "";
@@ -1540,8 +1584,8 @@ function renderRenderBlock() {
     return;
   }
 
-  const groups = splitRenderGroups(state.activeRenderImages);
-  if (!groups.length) {
+  if (!Array.isArray(state.activeRenders) || state.activeRenders.length === 0) {
+
     resetRenderDOM();
     main.innerHTML = "";
     thumbs.innerHTML = "";
@@ -1726,4 +1770,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
