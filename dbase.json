@@ -27,7 +27,7 @@
       "values": [
         "---",
         "Декоративный камень",
-		"Клинкерная плитка"
+        "Клинкерная плитка"
       ]
     },
     "price_category": {
@@ -478,383 +478,179 @@
       "urlprod": "https://mzt-zavod.ru/catalog/tproduct/903067849612"
     },
     {
-  "id": "Markastroi_4",
-  "category": "Клинкерная плитка",
-  "brand": "MARKAСТРОЙ",
-  "name": "Клинкерная плитка MARKAСТРОЙ Скала Вишня 320х44 мм",
-  "tile_color": [
-    "Красный",
-    "Коричневый"
-  ],
-  "price_category": [
-    "Низкая",
-    "Средняя",
-    "Высокая"
-  ],
-  "price": "2150",
-  "image": "https://static.tildacdn.com/stor3631-6331-4763-b261-356132633336/11196872.jpg",
-  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/653473584382"
-},
-{
-  "id": "Bestpoint_18",
-  "category": "Клинкерная плитка",
-  "brand": "BestPoint Ceramics",
-  "name": "Клинкерная плитка BestPoint Exclusive Red Wine 245×65 мм",
-  "tile_color": [
-    "Красный",
-    "Коричневый"
-  ],
-  "price_category": [
-    "Низкая",
-    "Средняя",
-    "Высокая"
-  ],
-  "price": "2650",
-  "image": "https://static.tildacdn.com/stor3162-3762-4631-a465-656365393331/90886296.jpg",
-  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/928113468772"
-}
+      "id": "Markastroi_4",
+      "category": "Клинкерная плитка",
+      "brand": "MARKAСТРОЙ",
+      "name": "Клинкерная плитка MARKAСТРОЙ Скала Вишня 320х44 мм",
+      "tile_color": [
+        "Красный",
+        "Коричневый"
+      ],
+      "price_category": [
+        "Низкая",
+        "Средняя",
+        "Высокая"
+      ],
+      "price": "2150",
+      "image": "https://static.tildacdn.com/stor3631-6331-4763-b261-356132633336/11196872.jpg",
+      "urlprod": "https://mzt-zavod.ru/catalog/tproduct/653473584382"
+    },
+    {
+      "id": "Bestpoint_18",
+      "category": "Клинкерная плитка",
+      "brand": "BestPoint Ceramics",
+      "name": "Клинкерная плитка BestPoint Exclusive Red Wine 245×65 мм",
+      "tile_color": [
+        "Красный",
+        "Коричневый"
+      ],
+      "price_category": [
+        "Низкая",
+        "Средняя",
+        "Высокая"
+      ],
+      "price": "2650",
+      "image": "https://static.tildacdn.com/stor3162-3762-4631-a465-656365393331/90886296.jpg",
+      "urlprod": "https://mzt-zavod.ru/catalog/tproduct/928113468772"
+    }
   ],
   "_comment_renders": "==================== РЕНДЕРЫ (левый блок) ====================",
   "renderSets": [
     {
       "id": "render_house_1",
       "name": "рендер дома один",
-      "images": [
+      "renders": [
         {
           "id": "render_house_1_01",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6336-6335-4366-a338-636566363464/4_white.png",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_01",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3732-6434-4237-a365-613362386532/4_grey.png",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_01",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6233-3561-4161-b835-386239383733/4_beige.png",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_01",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6633-3935-4366-b030-376432343765/4_brown.png",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_01",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6462-3135-4034-b237-316663653436/4_black.png",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6336-6335-4366-a338-636566363464/4_white.png",
+            "Серый": "https://static.tildacdn.com/tild3732-6434-4237-a365-613362386532/4_grey.png",
+            "Бежевый": "https://static.tildacdn.com/tild6233-3561-4161-b835-386239383733/4_beige.png",
+            "Коричневый": "https://static.tildacdn.com/tild6633-3935-4366-b030-376432343765/4_brown.png",
+            "Черный": "https://static.tildacdn.com/tild6462-3135-4034-b237-316663653436/4_black.png"
+          }
         },
         {
           "id": "render_house_1_02",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3432-3638-4331-b962-373132303238/16_white.png",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_02",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3032-6564-4735-b535-326561373835/16_grey.png",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_02",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3536-3864-4234-a235-653638346539/16_beige.png",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_02",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3834-3634-4137-a266-323539353537/16_brown.png",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_02",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6332-3237-4636-a438-353930623734/16_black.png",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild3432-3638-4331-b962-373132303238/16_white.png",
+            "Серый": "https://static.tildacdn.com/tild3032-6564-4735-b535-326561373835/16_grey.png",
+            "Бежевый": "https://static.tildacdn.com/tild3536-3864-4234-a235-653638346539/16_beige.png",
+            "Коричневый": "https://static.tildacdn.com/tild3834-3634-4137-a266-323539353537/16_brown.png",
+            "Черный": "https://static.tildacdn.com/tild6332-3237-4636-a438-353930623734/16_black.png"
+          }
         },
         {
           "id": "render_house_1_03",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_03",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_03",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_03",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_03",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
+            "Серый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
+            "Черный": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg"
+          }
         },
         {
           "id": "render_house_1_04",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_04",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_04",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_04",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_04",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
+            "Серый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
+            "Черный": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg"
+          }
         },
         {
           "id": "render_house_1_05",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_05",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_05",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_05",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_05",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
+            "Серый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
+            "Черный": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg"
+          }
         },
         {
           "id": "render_house_1_06",
           "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_1_06",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_1_06",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_1_06",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_1_06",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "image": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
+            "Серый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
+            "Черный": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg"
+          }
         }
       ]
     },
     {
       "id": "render_house_2",
       "name": "рендер дома два",
-      "images": [
+      "renders": [
         {
           "id": "render_house_2_01",
-          "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_01",
-          "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_01",
-          "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_01",
-          "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_01",
-          "image": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
+            "Серый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
+            "Черный": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg"
+          }
         },
         {
           "id": "render_house_2_02",
-          "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_02",
-          "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_02",
-          "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_02",
-          "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_02",
-          "image": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
+            "Серый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
+            "Черный": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg"
+          }
         },
         {
           "id": "render_house_2_03",
-          "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_03",
-          "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_03",
-          "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_03",
-          "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_03",
-          "image": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
+            "Серый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
+            "Черный": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg"
+          }
         },
         {
           "id": "render_house_2_04",
-          "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_04",
-          "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_04",
-          "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_04",
-          "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_04",
-          "image": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
+            "Серый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
+            "Черный": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg"
+          }
         },
         {
           "id": "render_house_2_05",
-          "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_05",
-          "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_05",
-          "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_05",
-          "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_05",
-          "image": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
+            "Серый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
+            "Черный": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg"
+          }
         },
         {
           "id": "render_house_2_06",
-          "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-          "grout_color": "Белый"
-        },
-        {
-          "id": "render_house_2_06",
-          "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-          "grout_color": "Серый"
-        },
-        {
-          "id": "render_house_2_06",
-          "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-          "grout_color": "Бежевый"
-        },
-        {
-          "id": "render_house_2_06",
-          "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-          "grout_color": "Коричневый"
-        },
-        {
-          "id": "render_house_2_06",
-          "image": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-          "grout_color": "Черный"
+          "variants": {
+            "Белый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
+            "Серый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
+            "Бежевый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
+            "Коричневый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
+            "Черный": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg"
+          }
         }
       ]
     }
@@ -889,6 +685,3 @@
     }
   ]
 }
-
-
-
