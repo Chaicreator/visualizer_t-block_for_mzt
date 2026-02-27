@@ -2366,6 +2366,7 @@
     "renders": [
       {
         "id": "Beryoza-Arfak_01",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
           "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
@@ -2376,6 +2377,7 @@
       },
       {
         "id": "Beryoza-Arfak_02",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
           "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
@@ -2386,6 +2388,7 @@
       },
       {
         "id": "Beryoza-Arfak_03",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
           "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
@@ -2396,6 +2399,7 @@
       },
       {
         "id": "Beryoza-Arfak_04",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
           "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
@@ -2406,6 +2410,7 @@
       },
       {
         "id": "Beryoza-Arfak_05",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
           "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
@@ -2416,6 +2421,7 @@
       },
       {
         "id": "Beryoza-Arfak_06",
+        "description": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
         "variants": {
           "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
           "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
@@ -2877,3 +2883,4 @@
   }
             ]
 }
+
