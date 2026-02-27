@@ -2359,173 +2359,521 @@
   ],
   "_comment_renders": "==================== РЕНДЕРЫ (левый блок) ====================",
   "renderSets": [
-    {
-      "id": "render_house_1",
-      "name": "рендер дома один",
-      "renders": [
-        {
-          "id": "render_house_1_01",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6336-6335-4366-a338-636566363464/4_white.png",
-            "Серый": "https://static.tildacdn.com/tild3732-6434-4237-a365-613362386532/4_grey.png",
-            "Бежевый": "https://static.tildacdn.com/tild6233-3561-4161-b835-386239383733/4_beige.png",
-            "Коричневый": "https://static.tildacdn.com/tild6633-3935-4366-b030-376432343765/4_brown.png",
-            "Черный": "https://static.tildacdn.com/tild6462-3135-4034-b237-316663653436/4_black.png"
-          }
-        },
-        {
-          "id": "render_house_1_02",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild3432-3638-4331-b962-373132303238/16_white.png",
-            "Серый": "https://static.tildacdn.com/tild3032-6564-4735-b535-326561373835/16_grey.png",
-            "Бежевый": "https://static.tildacdn.com/tild3536-3864-4234-a235-653638346539/16_beige.png",
-            "Коричневый": "https://static.tildacdn.com/tild3834-3634-4137-a266-323539353537/16_brown.png",
-            "Черный": "https://static.tildacdn.com/tild6332-3237-4636-a438-353930623734/16_black.png"
-          }
-        },
-        {
-          "id": "render_house_1_03",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-            "Серый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg",
-            "Черный": "https://static.tildacdn.com/tild3264-6137-4333-b839-383539396635/Beryoza-Arfak--R1.jpg"
-          }
-        },
-        {
-          "id": "render_house_1_04",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-            "Серый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg",
-            "Черный": "https://static.tildacdn.com/tild3261-6233-4663-a235-323334313833/Beryoza-Arfak--R2.jpg"
-          }
-        },
-        {
-          "id": "render_house_1_05",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-            "Серый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg",
-            "Черный": "https://static.tildacdn.com/tild6564-6432-4561-a165-396565643035/r2-2500x1875-64.jpg"
-          }
-        },
-        {
-          "id": "render_house_1_06",
-          "description": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-            "Серый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg",
-            "Черный": "https://static.tildacdn.com/tild6434-3861-4161-b463-393933663863/r1-2500x1875-64.jpg"
-          }
+  {
+    "id": "Beryoza-Arfak",
+    "name": "Клинкерная плитка Beryoza Ceramica Arfak Коричневый 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Arfak Коричневый 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Arfak_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
+          "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3239-3639-4263-a430-333531396334/caedae5a2a923862e4d8ec3083acd2c1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3430-6233-4135-a436-613234663261/91f81610c9db4c27f57abcb56a78c970.jpg",
+          "Черный": "https://static.tildacdn.com/stor6139-3136-4330-b037-363262316165/e3d47fa138c40053c589871213d5f635.jpg"
         }
-      ]
-    },
-    {
-      "id": "render_house_2",
-      "name": "рендер дома два",
-      "renders": [
-        {
-          "id": "render_house_2_01",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-            "Серый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg",
-            "Черный": "https://static.tildacdn.com/tild3634-3535-4939-b431-393264343832/generated.jpg"
-          }
-        },
-        {
-          "id": "render_house_2_02",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-            "Серый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg",
-            "Черный": "https://static.tildacdn.com/tild6363-3038-4736-a665-356636623465/generated.jpg"
-          }
-        },
-        {
-          "id": "render_house_2_03",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-            "Серый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg",
-            "Черный": "https://static.tildacdn.com/tild6231-3239-4733-b035-323533306237/generated.jpg"
-          }
-        },
-        {
-          "id": "render_house_2_04",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-            "Серый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg",
-            "Черный": "https://static.tildacdn.com/tild3664-6136-4431-b837-396230326365/generated.jpg"
-          }
-        },
-        {
-          "id": "render_house_2_05",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-            "Серый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg",
-            "Черный": "https://static.tildacdn.com/tild6138-6562-4235-a336-333261346135/1_1.jpg"
-          }
-        },
-        {
-          "id": "render_house_2_06",
-          "variants": {
-            "Белый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-            "Серый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-            "Бежевый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-            "Коричневый": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg",
-            "Черный": "https://static.tildacdn.com/tild6665-6561-4164-a464-336565326534/12.jpg"
-          }
+      },
+      {
+        "id": "Beryoza-Arfak_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
+          "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3263-6163-4031-b936-343631383064/656f1a7fdd5a8c0969613505fdb7b4d7.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6164-3666-4038-a562-346538326134/430b5eb7290f1b53f6d61a039bb05e97.jpg",
+          "Черный": "https://static.tildacdn.com/stor3364-6637-4132-b765-303864396336/34114ef68c1171e856a317fad99985fe.jpg"
         }
-      ]
-    }
-  ],
+      },
+      {
+        "id": "Beryoza-Arfak_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
+          "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3239-3639-4263-a430-333531396334/caedae5a2a923862e4d8ec3083acd2c1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3430-6233-4135-a436-613234663261/91f81610c9db4c27f57abcb56a78c970.jpg",
+          "Черный": "https://static.tildacdn.com/stor6139-3136-4330-b037-363262316165/e3d47fa138c40053c589871213d5f635.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Arfak_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
+          "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3263-6163-4031-b936-343631383064/656f1a7fdd5a8c0969613505fdb7b4d7.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6164-3666-4038-a562-346538326134/430b5eb7290f1b53f6d61a039bb05e97.jpg",
+          "Черный": "https://static.tildacdn.com/stor3364-6637-4132-b765-303864396336/34114ef68c1171e856a317fad99985fe.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Arfak_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6334-3637-4731-b030-323763336165/8d52712a1417140d0179db2b64fe785d.jpg",
+          "Серый": "https://static.tildacdn.com/stor3538-3961-4266-b437-373333373337/31ab91aa1cc41c58609d29ab25abb630.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3239-3639-4263-a430-333531396334/caedae5a2a923862e4d8ec3083acd2c1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3430-6233-4135-a436-613234663261/91f81610c9db4c27f57abcb56a78c970.jpg",
+          "Черный": "https://static.tildacdn.com/stor6139-3136-4330-b037-363262316165/e3d47fa138c40053c589871213d5f635.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Arfak_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3838-6138-4538-b031-633966356333/bf991381bb5e665d665814cabc40f673.jpg",
+          "Серый": "https://static.tildacdn.com/stor3865-6566-4265-b939-623039363437/a5149bd966cc9db883336c7c9a1b59d1.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3263-6163-4031-b936-343631383064/656f1a7fdd5a8c0969613505fdb7b4d7.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6164-3666-4038-a562-346538326134/430b5eb7290f1b53f6d61a039bb05e97.jpg",
+          "Черный": "https://static.tildacdn.com/stor3364-6637-4132-b765-303864396336/34114ef68c1171e856a317fad99985fe.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Akita",
+    "name": "Клинкерная плитка Beryoza Ceramica Akita Бежевый 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Akita Бежевый 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Akita_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3232-4133-b337-316437633463/47f321ca7eb2f919ba111375292da541.jpg",
+          "Серый": "https://static.tildacdn.com/stor3961-3630-4239-b661-356338653066/657ebb5f92437e1e2ee12fa00554cd97.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6231-3137-4430-b037-306634316136/c695967c3529a74fc8286b8ab3d2e0ea.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3130-6636-4464-b737-303562316536/6b884c81a9ed9461fbb73730ec56c299.jpg",
+          "Черный": "https://static.tildacdn.com/stor3639-3939-4332-b565-616262643532/23abd40c99001f351453b7d0400ed366.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Akita_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6631-3864-4363-b530-643764636433/bd8c2789c693926c80774af0dbdbdb4c.jpg",
+          "Серый": "https://static.tildacdn.com/stor3330-6239-4130-b038-363363316330/9466405e72115df0241604f12a240ef5.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6235-6132-4337-b336-303731363136/2422aeb689070cc575f08c601512d292.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3239-6237-4265-a633-316161633739/3748e47cde2a72b1866250d199d81052.jpg",
+          "Черный": "https://static.tildacdn.com/stor6231-3464-4331-b535-613236383162/93cbf519f99ea1138db5b48dc3d8a8e7.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Akita_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3232-4133-b337-316437633463/47f321ca7eb2f919ba111375292da541.jpg",
+          "Серый": "https://static.tildacdn.com/stor3961-3630-4239-b661-356338653066/657ebb5f92437e1e2ee12fa00554cd97.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6231-3137-4430-b037-306634316136/c695967c3529a74fc8286b8ab3d2e0ea.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3130-6636-4464-b737-303562316536/6b884c81a9ed9461fbb73730ec56c299.jpg",
+          "Черный": "https://static.tildacdn.com/stor3639-3939-4332-b565-616262643532/23abd40c99001f351453b7d0400ed366.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Akita_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6631-3864-4363-b530-643764636433/bd8c2789c693926c80774af0dbdbdb4c.jpg",
+          "Серый": "https://static.tildacdn.com/stor3330-6239-4130-b038-363363316330/9466405e72115df0241604f12a240ef5.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6235-6132-4337-b336-303731363136/2422aeb689070cc575f08c601512d292.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3239-6237-4265-a633-316161633739/3748e47cde2a72b1866250d199d81052.jpg",
+          "Черный": "https://static.tildacdn.com/stor6231-3464-4331-b535-613236383162/93cbf519f99ea1138db5b48dc3d8a8e7.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Akita_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3232-4133-b337-316437633463/47f321ca7eb2f919ba111375292da541.jpg",
+          "Серый": "https://static.tildacdn.com/stor3961-3630-4239-b661-356338653066/657ebb5f92437e1e2ee12fa00554cd97.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6231-3137-4430-b037-306634316136/c695967c3529a74fc8286b8ab3d2e0ea.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3130-6636-4464-b737-303562316536/6b884c81a9ed9461fbb73730ec56c299.jpg",
+          "Черный": "https://static.tildacdn.com/stor3639-3939-4332-b565-616262643532/23abd40c99001f351453b7d0400ed366.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Akita_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6631-3864-4363-b530-643764636433/bd8c2789c693926c80774af0dbdbdb4c.jpg",
+          "Серый": "https://static.tildacdn.com/stor3330-6239-4130-b038-363363316330/9466405e72115df0241604f12a240ef5.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6235-6132-4337-b336-303731363136/2422aeb689070cc575f08c601512d292.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3239-6237-4265-a633-316161633739/3748e47cde2a72b1866250d199d81052.jpg",
+          "Черный": "https://static.tildacdn.com/stor6231-3464-4331-b535-613236383162/93cbf519f99ea1138db5b48dc3d8a8e7.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Evia",
+    "name": "Клинкерная плитка Beryoza Ceramica Evia Натурал 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Evia Натурал 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Evia_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6537-3065-4034-a335-666465643636/36db3bc54c7cce6db852932cba326c98.jpg",
+          "Серый": "https://static.tildacdn.com/stor6636-6334-4465-b661-346335333632/08facf1fc3004943ea95745859c8f91f.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6361-6566-4132-b163-373431373537/246151d16fd4b140a0ec5f668e402721.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6632-6463-4665-b533-363362316662/ce9f5b122b96865e9d36d3752d4ec138.jpg",
+          "Черный": "https://static.tildacdn.com/stor3530-3430-4962-b338-616538346538/832ae9c23995a6cc223cdb9aadcc8173.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Evia_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3236-3263-4965-b131-383630316136/517ce5bb4ed54d85319e7c7c58d4ffa9.jpg",
+          "Серый": "https://static.tildacdn.com/stor6363-3334-4363-a537-393831366566/af1554c40f45d6bd3f7b9ca7857fdffd.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6463-6162-4736-a262-313064323831/8e22fbc422af082c637647aba35d793d.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6531-3434-4762-b839-393864343935/bbc5364e7dd5349fd9149da529d73075.jpg",
+          "Черный": "https://static.tildacdn.com/stor3939-3038-4531-b032-343738636662/36ba4dd6f83a1223d6fbe61d4612a4eb.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Evia_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6537-3065-4034-a335-666465643636/36db3bc54c7cce6db852932cba326c98.jpg",
+          "Серый": "https://static.tildacdn.com/stor6636-6334-4465-b661-346335333632/08facf1fc3004943ea95745859c8f91f.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6361-6566-4132-b163-373431373537/246151d16fd4b140a0ec5f668e402721.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6632-6463-4665-b533-363362316662/ce9f5b122b96865e9d36d3752d4ec138.jpg",
+          "Черный": "https://static.tildacdn.com/stor3530-3430-4962-b338-616538346538/832ae9c23995a6cc223cdb9aadcc8173.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Evia_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3236-3263-4965-b131-383630316136/517ce5bb4ed54d85319e7c7c58d4ffa9.jpg",
+          "Серый": "https://static.tildacdn.com/stor6363-3334-4363-a537-393831366566/af1554c40f45d6bd3f7b9ca7857fdffd.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6463-6162-4736-a262-313064323831/8e22fbc422af082c637647aba35d793d.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6531-3434-4762-b839-393864343935/bbc5364e7dd5349fd9149da529d73075.jpg",
+          "Черный": "https://static.tildacdn.com/stor3939-3038-4531-b032-343738636662/36ba4dd6f83a1223d6fbe61d4612a4eb.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Evia_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6537-3065-4034-a335-666465643636/36db3bc54c7cce6db852932cba326c98.jpg",
+          "Серый": "https://static.tildacdn.com/stor6636-6334-4465-b661-346335333632/08facf1fc3004943ea95745859c8f91f.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6361-6566-4132-b163-373431373537/246151d16fd4b140a0ec5f668e402721.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6632-6463-4665-b533-363362316662/ce9f5b122b96865e9d36d3752d4ec138.jpg",
+          "Черный": "https://static.tildacdn.com/stor3530-3430-4962-b338-616538346538/832ae9c23995a6cc223cdb9aadcc8173.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Evia_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3236-3263-4965-b131-383630316136/517ce5bb4ed54d85319e7c7c58d4ffa9.jpg",
+          "Серый": "https://static.tildacdn.com/stor6363-3334-4363-a537-393831366566/af1554c40f45d6bd3f7b9ca7857fdffd.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6463-6162-4736-a262-313064323831/8e22fbc422af082c637647aba35d793d.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6531-3434-4762-b839-393864343935/bbc5364e7dd5349fd9149da529d73075.jpg",
+          "Черный": "https://static.tildacdn.com/stor3939-3038-4531-b032-343738636662/36ba4dd6f83a1223d6fbe61d4612a4eb.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Kaylos",
+    "name": "Клинкерная плитка Beryoza Ceramica Kaylos Терракотовый 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Kaylos Терракотовый 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Kaylos_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6231-3066-4735-b830-306636333737/0c0e6df4b9583d37e113657e0a4b2876.jpg",
+          "Серый": "https://static.tildacdn.com/stor3639-6666-4665-b638-353161373237/f818f011a6e2103c17441e6d78396bc7.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3166-6338-4132-a634-323866316264/a838175c60a95a84f0a6e5c794c995f1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6665-6361-4464-b936-643663376566/cf3d007e4f082ec8b8463eb0c05c4fac.jpg",
+          "Черный": "https://static.tildacdn.com/stor3439-6339-4038-b631-663262336434/7c75455a78af283abd0171bf3780bdd1.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Kaylos_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6162-3336-4230-b166-333961343531/d30efcacfb427b6da984d66c6ba181f6.jpg",
+          "Серый": "https://static.tildacdn.com/stor6461-6539-4364-b566-336361313839/4eaa87c325007eaca95480ddad3c71e0.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3866-6266-4537-b736-336532326564/2dfc529da2481401e7ef32c0c29cb98c.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6562-3733-4264-b230-656565386561/bd908a857a053cc55645a75a82624eea.jpg",
+          "Черный": "https://static.tildacdn.com/stor3766-3335-4732-a435-333661623262/25b1bab33ab53a535ebaf6bcfc57acef.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Kaylos_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6231-3066-4735-b830-306636333737/0c0e6df4b9583d37e113657e0a4b2876.jpg",
+          "Серый": "https://static.tildacdn.com/stor3639-6666-4665-b638-353161373237/f818f011a6e2103c17441e6d78396bc7.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3166-6338-4132-a634-323866316264/a838175c60a95a84f0a6e5c794c995f1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6665-6361-4464-b936-643663376566/cf3d007e4f082ec8b8463eb0c05c4fac.jpg",
+          "Черный": "https://static.tildacdn.com/stor3439-6339-4038-b631-663262336434/7c75455a78af283abd0171bf3780bdd1.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Kaylos_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6162-3336-4230-b166-333961343531/d30efcacfb427b6da984d66c6ba181f6.jpg",
+          "Серый": "https://static.tildacdn.com/stor6461-6539-4364-b566-336361313839/4eaa87c325007eaca95480ddad3c71e0.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3866-6266-4537-b736-336532326564/2dfc529da2481401e7ef32c0c29cb98c.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6562-3733-4264-b230-656565386561/bd908a857a053cc55645a75a82624eea.jpg",
+          "Черный": "https://static.tildacdn.com/stor3766-3335-4732-a435-333661623262/25b1bab33ab53a535ebaf6bcfc57acef.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Kaylos_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6231-3066-4735-b830-306636333737/0c0e6df4b9583d37e113657e0a4b2876.jpg",
+          "Серый": "https://static.tildacdn.com/stor3639-6666-4665-b638-353161373237/f818f011a6e2103c17441e6d78396bc7.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3166-6338-4132-a634-323866316264/a838175c60a95a84f0a6e5c794c995f1.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6665-6361-4464-b936-643663376566/cf3d007e4f082ec8b8463eb0c05c4fac.jpg",
+          "Черный": "https://static.tildacdn.com/stor3439-6339-4038-b631-663262336434/7c75455a78af283abd0171bf3780bdd1.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Kaylos_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6162-3336-4230-b166-333961343531/d30efcacfb427b6da984d66c6ba181f6.jpg",
+          "Серый": "https://static.tildacdn.com/stor6461-6539-4364-b566-336361313839/4eaa87c325007eaca95480ddad3c71e0.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3866-6266-4537-b736-336532326564/2dfc529da2481401e7ef32c0c29cb98c.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6562-3733-4264-b230-656565386561/bd908a857a053cc55645a75a82624eea.jpg",
+          "Черный": "https://static.tildacdn.com/stor3766-3335-4732-a435-333661623262/25b1bab33ab53a535ebaf6bcfc57acef.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Sandia",
+    "name": "Клинкерная плитка Beryoza Ceramica Sandia Песочный 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Sandia Песочный 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Sandia_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6139-6562-4834-a161-353230303965/516cf2f0a686c03f65abde662f65d6ab.jpg",
+          "Серый": "https://static.tildacdn.com/stor3936-3464-4735-b062-383734643432/3ff5f35589ffe0e8e53536ec81968141.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6333-3935-4034-b630-323361343239/e8b065a2498e3d077557d3f9bf87cb89.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6661-3638-4332-b931-626566316263/95e67ea43a87439f8576ba3e76c5a868.jpg",
+          "Черный": "https://static.tildacdn.com/stor3731-3663-4232-a562-383834313238/4f8318c4a6aafee14442e206bbb95469.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Sandia_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3039-6138-4130-a461-333664383062/6fe8cdd0dc5d9faa147f9aaad1a989e2.jpg",
+          "Серый": "https://static.tildacdn.com/stor3535-3461-4236-a237-316235383266/31c1d25f9a2bb073ef8de989d78bfcb9.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3333-3232-4138-b166-383230393034/238aa261269fbe6ef349ad7cd78fa73e.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3034-6138-4465-b530-356532333463/642fbfde467257362cad7bc563c00113.jpg",
+          "Черный": "https://static.tildacdn.com/stor3562-6163-4738-b830-616162373463/42590f637de6c0cf910c4a79c826eef3.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Sandia_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6139-6562-4834-a161-353230303965/516cf2f0a686c03f65abde662f65d6ab.jpg",
+          "Серый": "https://static.tildacdn.com/stor3936-3464-4735-b062-383734643432/3ff5f35589ffe0e8e53536ec81968141.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6333-3935-4034-b630-323361343239/e8b065a2498e3d077557d3f9bf87cb89.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6661-3638-4332-b931-626566316263/95e67ea43a87439f8576ba3e76c5a868.jpg",
+          "Черный": "https://static.tildacdn.com/stor3731-3663-4232-a562-383834313238/4f8318c4a6aafee14442e206bbb95469.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Sandia_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3039-6138-4130-a461-333664383062/6fe8cdd0dc5d9faa147f9aaad1a989e2.jpg",
+          "Серый": "https://static.tildacdn.com/stor3535-3461-4236-a237-316235383266/31c1d25f9a2bb073ef8de989d78bfcb9.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3333-3232-4138-b166-383230393034/238aa261269fbe6ef349ad7cd78fa73e.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3034-6138-4465-b530-356532333463/642fbfde467257362cad7bc563c00113.jpg",
+          "Черный": "https://static.tildacdn.com/stor3562-6163-4738-b830-616162373463/42590f637de6c0cf910c4a79c826eef3.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Sandia_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6139-6562-4834-a161-353230303965/516cf2f0a686c03f65abde662f65d6ab.jpg",
+          "Серый": "https://static.tildacdn.com/stor3936-3464-4735-b062-383734643432/3ff5f35589ffe0e8e53536ec81968141.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6333-3935-4034-b630-323361343239/e8b065a2498e3d077557d3f9bf87cb89.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6661-3638-4332-b931-626566316263/95e67ea43a87439f8576ba3e76c5a868.jpg",
+          "Черный": "https://static.tildacdn.com/stor3731-3663-4232-a562-383834313238/4f8318c4a6aafee14442e206bbb95469.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Sandia_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3039-6138-4130-a461-333664383062/6fe8cdd0dc5d9faa147f9aaad1a989e2.jpg",
+          "Серый": "https://static.tildacdn.com/stor3535-3461-4236-a237-316235383266/31c1d25f9a2bb073ef8de989d78bfcb9.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3333-3232-4138-b166-383230393034/238aa261269fbe6ef349ad7cd78fa73e.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3034-6138-4465-b530-356532333463/642fbfde467257362cad7bc563c00113.jpg",
+          "Черный": "https://static.tildacdn.com/stor3562-6163-4738-b830-616162373463/42590f637de6c0cf910c4a79c826eef3.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Trevi",
+    "name": "Клинкерная плитка Beryoza Ceramica Trevi Умбра 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Trevi Умбра 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Trevi_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3361-4866-b634-613537376563/a0d34fcd87cc1a79b62782577b56e690.jpg",
+          "Серый": "https://static.tildacdn.com/stor3063-3534-4839-b937-623733643166/ec167a21e0152e5ee045bac49badf29e.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3464-6434-4232-b735-373435336439/3999254671a4b61a37b81c16f1e31c59.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6530-3732-4232-a561-366464323663/935c872942d146fcec5e05b25836b37d.jpg",
+          "Черный": "https://static.tildacdn.com/stor3430-3637-4936-a464-366166616338/2ead5c89ae3d8556dc8934f17ce8fcec.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Trevi_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6130-3332-4535-a166-653131306566/3d53e39cf33965db679c34381a9350b7.jpg",
+          "Серый": "https://static.tildacdn.com/stor3065-3837-4363-a539-376562333463/792958079be01e639baf713b4fdc1ec3.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3437-6530-4233-a434-663562613136/e50873bd2802e9b187640e6970ea44d9.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3134-3830-4263-a632-393239363739/3e802c2f25739c93cea761e0df31ae15.jpg",
+          "Черный": "https://static.tildacdn.com/stor3638-3264-4634-b936-646336386663/f13cc7f5a1cecc24f7446ab53517d24c.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Trevi_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3361-4866-b634-613537376563/a0d34fcd87cc1a79b62782577b56e690.jpg",
+          "Серый": "https://static.tildacdn.com/stor3063-3534-4839-b937-623733643166/ec167a21e0152e5ee045bac49badf29e.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3464-6434-4232-b735-373435336439/3999254671a4b61a37b81c16f1e31c59.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6530-3732-4232-a561-366464323663/935c872942d146fcec5e05b25836b37d.jpg",
+          "Черный": "https://static.tildacdn.com/stor3430-3637-4936-a464-366166616338/2ead5c89ae3d8556dc8934f17ce8fcec.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Trevi_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6130-3332-4535-a166-653131306566/3d53e39cf33965db679c34381a9350b7.jpg",
+          "Серый": "https://static.tildacdn.com/stor3065-3837-4363-a539-376562333463/792958079be01e639baf713b4fdc1ec3.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3437-6530-4233-a434-663562613136/e50873bd2802e9b187640e6970ea44d9.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3134-3830-4263-a632-393239363739/3e802c2f25739c93cea761e0df31ae15.jpg",
+          "Черный": "https://static.tildacdn.com/stor3638-3264-4634-b936-646336386663/f13cc7f5a1cecc24f7446ab53517d24c.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Trevi_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6239-3361-4866-b634-613537376563/a0d34fcd87cc1a79b62782577b56e690.jpg",
+          "Серый": "https://static.tildacdn.com/stor3063-3534-4839-b937-623733643166/ec167a21e0152e5ee045bac49badf29e.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3464-6434-4232-b735-373435336439/3999254671a4b61a37b81c16f1e31c59.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6530-3732-4232-a561-366464323663/935c872942d146fcec5e05b25836b37d.jpg",
+          "Черный": "https://static.tildacdn.com/stor3430-3637-4936-a464-366166616338/2ead5c89ae3d8556dc8934f17ce8fcec.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Trevi_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor6130-3332-4535-a166-653131306566/3d53e39cf33965db679c34381a9350b7.jpg",
+          "Серый": "https://static.tildacdn.com/stor3065-3837-4363-a539-376562333463/792958079be01e639baf713b4fdc1ec3.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3437-6530-4233-a434-663562613136/e50873bd2802e9b187640e6970ea44d9.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3134-3830-4263-a632-393239363739/3e802c2f25739c93cea761e0df31ae15.jpg",
+          "Черный": "https://static.tildacdn.com/stor3638-3264-4634-b936-646336386663/f13cc7f5a1cecc24f7446ab53517d24c.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "Beryoza-Alarcon",
+    "name": "Клинкерная плитка Beryoza Ceramica Alarcon Персик 245×65 мм",
+    "tpanel": "Термопанель ППС Beryoza Ceramica Alarcon Персик 0,464 м²",
+    "renders": [
+      {
+        "id": "Beryoza-Alarcon_01",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3264-6565-4563-b335-323836323363/2fbb96bffe67e74781ec6239f43792d3.jpg",
+          "Серый": "https://static.tildacdn.com/stor3165-3233-4932-b964-373938393361/0678ea304a31cd286e028c6dae9d50af.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6166-6632-4032-b662-653036663961/c6d01bf35758198cc4271a70dd16b78f.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6436-6631-4037-b665-343965383731/c9c9a943f637606e35d09638bb79a7e1.jpg",
+          "Черный": "https://static.tildacdn.com/stor3261-3530-4161-b734-376664333235/412b4930e5943f2c7463de1d15fd0a71.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Alarcon_02",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3133-6362-4337-b435-316265346534/53f20c5fe2418062b0a877847c6e0bf4.jpg",
+          "Серый": "https://static.tildacdn.com/stor3261-3636-4064-b434-323465386265/709b4aade72cd274cec8c315cdd179be.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3666-3064-4537-a630-636236653766/b9e3e74ddb571e31e5a2abe14b18830a.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3139-6562-4462-b835-306639636462/c72c4fb6529787ff0c6982e63962d0ab.jpg",
+          "Черный": "https://static.tildacdn.com/stor6261-3133-4566-b937-316234393534/e1da3c31a791d296ec53f55edf06dd7e.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Alarcon_03",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3264-6565-4563-b335-323836323363/2fbb96bffe67e74781ec6239f43792d3.jpg",
+          "Серый": "https://static.tildacdn.com/stor3165-3233-4932-b964-373938393361/0678ea304a31cd286e028c6dae9d50af.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6166-6632-4032-b662-653036663961/c6d01bf35758198cc4271a70dd16b78f.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6436-6631-4037-b665-343965383731/c9c9a943f637606e35d09638bb79a7e1.jpg",
+          "Черный": "https://static.tildacdn.com/stor3261-3530-4161-b734-376664333235/412b4930e5943f2c7463de1d15fd0a71.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Alarcon_04",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3133-6362-4337-b435-316265346534/53f20c5fe2418062b0a877847c6e0bf4.jpg",
+          "Серый": "https://static.tildacdn.com/stor3261-3636-4064-b434-323465386265/709b4aade72cd274cec8c315cdd179be.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3666-3064-4537-a630-636236653766/b9e3e74ddb571e31e5a2abe14b18830a.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3139-6562-4462-b835-306639636462/c72c4fb6529787ff0c6982e63962d0ab.jpg",
+          "Черный": "https://static.tildacdn.com/stor6261-3133-4566-b937-316234393534/e1da3c31a791d296ec53f55edf06dd7e.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Alarcon_05",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3264-6565-4563-b335-323836323363/2fbb96bffe67e74781ec6239f43792d3.jpg",
+          "Серый": "https://static.tildacdn.com/stor3165-3233-4932-b964-373938393361/0678ea304a31cd286e028c6dae9d50af.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor6166-6632-4032-b662-653036663961/c6d01bf35758198cc4271a70dd16b78f.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor6436-6631-4037-b665-343965383731/c9c9a943f637606e35d09638bb79a7e1.jpg",
+          "Черный": "https://static.tildacdn.com/stor3261-3530-4161-b734-376664333235/412b4930e5943f2c7463de1d15fd0a71.jpg"
+        }
+      },
+      {
+        "id": "Beryoza-Alarcon_06",
+        "variants": {
+          "Белый": "https://static.tildacdn.com/stor3133-6362-4337-b435-316265346534/53f20c5fe2418062b0a877847c6e0bf4.jpg",
+          "Серый": "https://static.tildacdn.com/stor3261-3636-4064-b434-323465386265/709b4aade72cd274cec8c315cdd179be.jpg",
+          "Бежевый": "https://static.tildacdn.com/stor3666-3064-4537-a630-636236653766/b9e3e74ddb571e31e5a2abe14b18830a.jpg",
+          "Коричневый": "https://static.tildacdn.com/stor3139-6562-4462-b835-306639636462/c72c4fb6529787ff0c6982e63962d0ab.jpg",
+          "Черный": "https://static.tildacdn.com/stor6261-3133-4566-b937-316234393534/e1da3c31a791d296ec53f55edf06dd7e.jpg"
+        }
+      }
+    ]
+  }
+],
   "_comment_popset": "==================== ПРИВЯЗКА ПО-УМОЛЧАНИЮ к --- ====================",
   "initial_state": {
     "_comment": "Состояние по умолчанию когда все фильтры = '---'",
-    "render_set_id": "render_house_1",
+    "render_set_id": "Beryoza-Arfak",
     "popular_tiles": [
-      "Leonardo_1",
-      "Leonardo_2",
-      "Leonardo_3",
-      "Leonardo_4",
-      "Leonardo_5",
-      "Leonardo_6",
-      "Leonardo_7",
+      "Beryoza_1",
+      "Beryoza_7",
+      "Beryoza_3",
+      "Beryoza_8",
+      "Beryoza_6",
+      "Beryoza_4",
+      "Beryoza_5",
       "Leonardo_8",
       "Leonardo_9"
     ]
   },
   "_comment_bindings": "==================== ПРИВЯЗКА ПЛИТКА -> РЕНДЕРЫ ====================",
   "bindings": [
-    {
-      "_comment": "По заданию: второй объект из массива красной плитки -> render_house_1",
-      "tile_id": "Leonardo_1",
-      "render_set_id": "render_house_1"
-    },
-    {
-      "_comment": "По заданию: третий объект из массива красной плитки -> render_house_2",
-      "tile_id": "Leonardo_2",
-      "render_set_id": "render_house_2"
-    }
-  ]
+  {
+    "tile_id": "Beryoza_5",
+    "render_set_id": "Beryoza-Arfak"
+  },
+  {
+    "tile_id": "Beryoza_4",
+    "render_set_id": "Beryoza-Akita"
+  },
+  {
+    "tile_id": "Beryoza_6",
+    "render_set_id": "Beryoza-Evia"
+  },
+  {
+    "tile_id": "Beryoza_8",
+    "render_set_id": "Beryoza-Kaylos"
+  },
+  {
+    "tile_id": "Beryoza_3",
+    "render_set_id": "Beryoza-Sandia"
+  },
+  {
+    "tile_id": "Beryoza_7",
+    "render_set_id": "Beryoza-Trevi"
+  },
+  {
+    "tile_id": "Beryoza_1",
+    "render_set_id": "Beryoza-Alarcon"
+  }
+            ]
 }
-
