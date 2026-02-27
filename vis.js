@@ -628,11 +628,18 @@ function updateRenderImages() {
   border:2px solid transparent;
   cursor:pointer;
 }
+/* anti-moiré for thumbnails (минимально «ухудшаем» только миниатюры) */
 #${CONFIG.ROOT_ID} .mzt-thumb img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
+
+  /* ключевое: убираем муар лёгким блюром и чуть «гасим» картинку */
+  filter: blur(0.35px) saturate(0.95) contrast(0.98);
+  transform: translateZ(0);           /* иногда даёт лучшее ресэмплирование */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 #${CONFIG.ROOT_ID} .mzt-thumb.is-active{
   border-color:#c5a27a;
@@ -1781,3 +1788,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
