@@ -244,7 +244,7 @@ function ensureRenderDOM() {
     wrap.addEventListener("click", () => {
       state.activeThumbIndex = i;
       updateRenderImages();
-      syncFullscreenGroutUI();
+      syncGroutUI();
     });
 
     thumbs.appendChild(wrap);
@@ -1484,7 +1484,7 @@ async function onTileClick(tileId) {
 
         // rerender
         updateRenderImages();
-        syncFullscreenGroutUI();
+        syncGroutUI();
       });
 
       list.appendChild(item);
@@ -1525,27 +1525,35 @@ async function onTileClick(tileId) {
   }
 
 
-  function syncFullscreenGroutUI() {
+  // синхронизирует UI выбора затирки ВЕЗДЕ: и на главном рендере, и в fullscreen
+  function syncGroutUI() {
     const root = qs(`#${CONFIG.ROOT_ID}`);
     if (!root) return;
-    const modal = qs(".mzt-fs", root);
-    if (!modal) return;
 
-    // обновляем UI кастом-селекта в fullscreen
-    const valSpan = qs(".mzt-fs-grout .mzt-grout-val", modal);
-    if (valSpan) valSpan.textContent = state.renderGroutColor;
+    // 1) инлайн-панель (на главном рендере)
+    qsa('.mzt-grout-select-inline .mzt-grout-val', root).forEach((n) => {
+      n.textContent = state.renderGroutColor;
+    });
+    qsa('.mzt-grout-select-inline .mzt-select-item', root).forEach((it) => {
+      it.classList.toggle('is-active', it.getAttribute('data-value') === state.renderGroutColor);
+    });
 
-    const list = qs(".mzt-fs-grout .mzt-select-list", modal);
-    if (list) {
-      qsa(".mzt-select-item", list).forEach((it) => {
-        it.classList.toggle("is-active", it.getAttribute("data-value") === state.renderGroutColor);
+    // 2) fullscreen-панель (если она есть)
+    const modal = qs('.mzt-fs', root);
+    if (modal) {
+      qsa('.mzt-grout-select-fs .mzt-grout-val', modal).forEach((n) => {
+        n.textContent = state.renderGroutColor;
       });
-    }
+      qsa('.mzt-grout-select-fs .mzt-select-item', modal).forEach((it) => {
+        it.classList.toggle('is-active', it.getAttribute('data-value') === state.renderGroutColor);
+      });
 
-    if (modal.classList.contains("is-open")) {
-      const img = qs(".mzt-fs-img", modal);
-      const cur = getCurrentRenderVariant();
-      if (img && cur) img.src = cur.image;
+      // если fullscreen открыт — обновим картинку под текущий кадр + затирку
+      if (modal.classList.contains('is-open')) {
+        const img = qs('.mzt-fs-img', modal);
+        const cur = getCurrentRenderVariant();
+        if (img && cur) img.src = cur.image;
+      }
     }
   }
 
@@ -1689,7 +1697,7 @@ modal.addEventListener("click", (e) => {
   modal.classList.add("is-open");
 
   // синхронизируем селект затирки + картинку
-  syncFullscreenGroutUI();
+  syncGroutUI();
 
   document.documentElement.style.overflow = "hidden";
   document.body.style.overflow = "hidden";
@@ -1717,6 +1725,9 @@ function closeFullscreenRenderModal() {
   if (info) info.classList.remove("is-show");
 
   modal.classList.remove("is-open");
+
+  // важно: после закрытия попапа обновляем инлайн-селект (иначе может остаться старый текст)
+  syncGroutUI();
 
   document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
