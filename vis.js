@@ -185,6 +185,239 @@ function setImgSrcWithLoader(container, img, nextSrc) {
   }
 }
 
+
+// =======================================================================
+// [2.y] Генерация миниатюр через canvas (anti-moiré) + контроль памяти
+//  - делаем нормальный downscale 2500px -> ~320px один раз, дальше используем blob URL
+//  - кэш с refCount + LRU, чтобы не раздувать память, и revokeObjectURL при освобождении
+//  - если CORS не позволит читать картинку (tainted canvas) — тихо фолбэк на оригинальный URL
+// =======================================================================
+
+const THUMB_CFG = {
+  w: 320,            // целевой размер миниатюры (px)
+  h: 200,            // 16:10 под текущий CSS у .mzt-thumb
+  quality: 0.76,     // качество jpeg для миниатюры
+  maxCache: 70       // максимум записей в кэше (LRU, при refCount=0 будут чиститься)
+};
+
+const thumbCache = new Map(); // key -> { url, refCount, lastUsed }
+
+function thumbKey(fullSrc, w = THUMB_CFG.w, h = THUMB_CFG.h) {
+  return `${fullSrc}|${w}x${h}`;
+}
+
+function touchThumbEntry(entry) {
+  entry.lastUsed = performance.now();
+}
+
+function pruneThumbCache() {
+  const max = THUMB_CFG.maxCache;
+  if (thumbCache.size <= max) return;
+
+  // кандидаты на удаление: только refCount=0
+  const candidates = [];
+  for (const [k, e] of thumbCache.entries()) {
+    if ((e.refCount || 0) === 0) candidates.push([k, e]);
+  }
+  candidates.sort((a, b) => (a[1].lastUsed || 0) - (b[1].lastUsed || 0)); // старые -> новые
+
+  for (const [k, e] of candidates) {
+    if (thumbCache.size <= max) break;
+    try { URL.revokeObjectURL(e.url); } catch (_) {}
+    thumbCache.delete(k);
+  }
+}
+
+function retainThumb(key) {
+  const e = thumbCache.get(key);
+  if (!e) return;
+  e.refCount = (e.refCount || 0) + 1;
+  touchThumbEntry(e);
+}
+
+function releaseThumb(key) {
+  if (!key) return;
+  const e = thumbCache.get(key);
+  if (!e) return;
+  e.refCount = Math.max(0, (e.refCount || 0) - 1);
+  touchThumbEntry(e);
+
+  // если не используется и кэш разросся — почистим
+  pruneThumbCache();
+}
+
+function releaseThumbFromImg(img) {
+  if (!img) return;
+  const key = img.dataset.thumbKey || "";
+  if (key) releaseThumb(key);
+  delete img.dataset.thumbKey;
+}
+
+/**
+ * Делает миниатюру (cover под 16:10) и возвращает blob URL.
+ * Если CORS/Canvas не даст — вернёт исходный fullSrc.
+ */
+async function getThumbURL(fullSrc, w = THUMB_CFG.w, h = THUMB_CFG.h) {
+  if (!fullSrc) return "";
+
+  const key = thumbKey(fullSrc, w, h);
+  const existing = thumbCache.get(key);
+  if (existing?.url) {
+    touchThumbEntry(existing);
+    return existing.url;
+  }
+
+  // 1) грузим как Blob через fetch (нужно для canvas, чтобы избежать taint)
+  let blob;
+  try {
+    const res = await fetch(fullSrc, { mode: "cors", cache: "force-cache" });
+    if (!res.ok) throw new Error(`thumb fetch failed: ${res.status}`);
+    blob = await res.blob();
+  } catch (e) {
+    // фолбэк: CORS/сеть — показываем оригинал (можно оставить CSS blur как запасной анти-муар)
+    return fullSrc;
+  }
+
+  // 2) декодируем в bitmap (быстрее/чище), либо Image()
+  let bitmap;
+  try {
+    bitmap = await createImageBitmap(blob);
+  } catch (e) {
+    // Safari/старые — через Image()
+    bitmap = await new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.decoding = "async";
+      img.onload = () => {
+        try { URL.revokeObjectURL(url); } catch (_) {}
+        resolve(img);
+      };
+      img.onerror = () => {
+        try { URL.revokeObjectURL(url); } catch (_) {}
+        reject(new Error("thumb decode failed"));
+      };
+      img.src = url;
+    });
+  }
+
+  // 3) рисуем cover crop в canvas
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+  if (!ctx) return fullSrc;
+
+  // сглаживание
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  const sw = bitmap.width || bitmap.naturalWidth || 0;
+  const sh = bitmap.height || bitmap.naturalHeight || 0;
+  if (!sw || !sh) return fullSrc;
+
+  // cover: берём центральный кроп под target aspect
+  const srcAR = sw / sh;
+  const dstAR = w / h;
+
+  let sx = 0, sy = 0, sww = sw, shh = sh;
+  if (srcAR > dstAR) {
+    // источник шире — режем по ширине
+    sww = Math.round(sh * dstAR);
+    sx = Math.round((sw - sww) / 2);
+  } else if (srcAR < dstAR) {
+    // источник выше — режем по высоте
+    shh = Math.round(sw / dstAR);
+    sy = Math.round((sh - shh) / 2);
+  }
+
+  try {
+    ctx.drawImage(bitmap, sx, sy, sww, shh, 0, 0, w, h);
+  } catch (e) {
+    return fullSrc;
+  } finally {
+    // освобождаем bitmap, если это ImageBitmap
+    try { bitmap.close?.(); } catch (_) {}
+  }
+
+  // 4) кодируем в blob url
+  const outBlob = await new Promise((resolve) => {
+    canvas.toBlob(
+      (b) => resolve(b),
+      "image/jpeg",
+      THUMB_CFG.quality
+    );
+  });
+
+  if (!outBlob) return fullSrc;
+
+  const outUrl = URL.createObjectURL(outBlob);
+  thumbCache.set(key, { url: outUrl, refCount: 0, lastUsed: performance.now() });
+  pruneThumbCache();
+
+  return outUrl;
+}
+
+/**
+ * Ставит миниатюру в <img>, освобождая предыдущую (revoke по refCount/LRU).
+ * Внутри — защита от гонок: если пока генерили пользователь уже переключил рендеры.
+ */
+function setThumbSrcWithMemory(container, img, fullSrc) {
+  if (!container || !img) return;
+
+  const w = THUMB_CFG.w, h = THUMB_CFG.h;
+
+  // если это тот же fullSrc — ничего не делаем
+  const curFull = img.dataset.fullSrc || "";
+  if (curFull && fullSrc && curFull === fullSrc) return;
+
+  // освобождаем предыдущую миниатюру из кэша
+  releaseThumbFromImg(img);
+
+  // помним, что хотим показать
+  img.dataset.fullSrc = fullSrc || "";
+
+  // локальный токен, чтобы отменять устаревшие промисы
+  const token = String((img._mztThumbToken = (img._mztThumbToken || 0) + 1));
+
+  // небольшой лоадер, если генерация/загрузка не мгновенная
+  let loaderTimer = setTimeout(() => {
+    // показываем только если токен актуален
+    if (String(img._mztThumbToken) !== token) return;
+    attachCellLoader(container, img);
+  }, 120);
+
+  (async () => {
+    const url = await getThumbURL(fullSrc, w, h);
+
+    // если пока ждали — img уже хотят использовать под другое
+    if (String(img._mztThumbToken) !== token) return;
+
+    clearTimeout(loaderTimer);
+    loaderTimer = null;
+
+    // если вернулся blob url — учитываем refCount
+    if (url && url !== fullSrc) {
+      const key = thumbKey(fullSrc, w, h);
+      img.dataset.thumbKey = key;
+      retainThumb(key);
+    }
+
+    // ставим src аккуратно (с лоадером в ячейке)
+    if (url) setImgSrcWithLoader(container, img, url);
+    else img.removeAttribute("src");
+  })();
+}
+
+// на всякий: при уходе со страницы освобождаем всё
+window.addEventListener("beforeunload", () => {
+  try {
+    for (const e of thumbCache.values()) URL.revokeObjectURL(e.url);
+    thumbCache.clear();
+  } catch (_) {}
+});
+
+
 const renderDOM = {
   mainWrap: null,
   mainImg: null,
@@ -194,6 +427,11 @@ const renderDOM = {
 };
 
 function resetRenderDOM() {
+  // освободим blob-миниатюры (если были) перед сбросом DOM
+  try {
+    (renderDOM.thumbs || []).forEach(({ img }) => releaseThumbFromImg(img));
+  } catch (_) {}
+
   renderDOM.mainWrap = null;
   renderDOM.mainImg = null;
   renderDOM.groutPanel = null;
@@ -277,8 +515,10 @@ function updateRenderImages() {
     item.wrap.classList.toggle("is-active", i === state.activeThumbIndex);
 
     if (v?.image) {
-      setImgSrcWithLoader(item.wrap, item.img, v.image);
+      setThumbSrcWithMemory(item.wrap, item.img, v.image);
     } else {
+      releaseThumbFromImg(item.img);
+      delete item.img.dataset.fullSrc;
       item.img.removeAttribute("src");
     }
   }
@@ -1788,4 +2028,3 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-
