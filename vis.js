@@ -194,8 +194,8 @@ function setImgSrcWithLoader(container, img, nextSrc) {
 // =======================================================================
 
 const THUMB_CFG = {
-  w: 160,            // целевой размер миниатюры (px)
-  h: 100,            // 16:10 под текущий CSS у .mzt-thumb
+  w: 288,            // целевой размер миниатюры (px)
+  h: 180,            // 16:10 под текущий CSS у .mzt-thumb
   quality: 0.76,     // качество jpeg для миниатюры
   maxCache: 80       // максимум записей в кэше (LRU, при refCount=0 будут чиститься)
 };
@@ -2028,4 +2028,5 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
 
