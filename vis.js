@@ -194,10 +194,10 @@ function setImgSrcWithLoader(container, img, nextSrc) {
 // =======================================================================
 
 const THUMB_CFG = {
-  w: 320,            // целевой размер миниатюры (px)
-  h: 200,            // 16:10 под текущий CSS у .mzt-thumb
+  w: 160,            // целевой размер миниатюры (px)
+  h: 100,            // 16:10 под текущий CSS у .mzt-thumb
   quality: 0.76,     // качество jpeg для миниатюры
-  maxCache: 70       // максимум записей в кэше (LRU, при refCount=0 будут чиститься)
+  maxCache: 80       // максимум записей в кэше (LRU, при refCount=0 будут чиститься)
 };
 
 const thumbCache = new Map(); // key -> { url, refCount, lastUsed }
@@ -2028,3 +2028,4 @@ function closeFullscreenRenderModal() {
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
