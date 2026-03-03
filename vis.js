@@ -1277,6 +1277,7 @@ function setupTilesGridSizer() {
   const MIN_TILE_SOFT = 72; // если плитка меньше — уменьшаем количество рядов
   const MIN_TILE_HARD = 64; // абсолютный минимум (страховка)
   const SAFE = 2;           // чтобы НИКОГДА не подрезало низ из-за округления
+  const STACKED_BP = 980;   // когда правая панель уходит вниз (flex-direction: column)
 
   function recalc() {
     // Считаем по РЕАЛЬНО доступной зоне именно под сетку (tilesWrap)
@@ -1290,7 +1291,32 @@ function setupTilesGridSizer() {
 
     const cols = 3;
 
-    // считаем размер плитки для заданного количества рядов
+    // На мобилках/планшетах, когда правая панель УЖЕ снизу (stage column),
+    // нет смысла "экономить" высоту — всегда показываем 3 ряда (9 плиток),
+    // а размер считаем только от ширины.
+    const isStacked = window.matchMedia(`(max-width: ${STACKED_BP}px)`).matches;
+    if (isStacked) {
+      const sizeByW = Math.floor((w - GAP * (cols - 1)) / cols);
+      const tileSize = Math.max(MIN_TILE_HARD, sizeByW - SAFE);
+      const rows = 3;
+
+      root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
+      root.style.setProperty("--mzt-tiles-rows", String(rows));
+
+      const nextPerPage = cols * rows;
+      if (state.tilesRows !== rows || state.tilesPerPage !== nextPerPage) {
+        state.tilesCols = cols;
+        state.tilesRows = rows;
+        state.tilesPerPage = nextPerPage;
+
+        const mode = state.tilesMode || (state.filteredTiles.length ? "normal" : "no_matches");
+        renderTilesPage({ mode });
+        renderPagination();
+      }
+      return;
+    }
+
+    // считаем размер плитки для заданного количества рядов (side-by-side режим)
     const sizeFor = (rows) => {
       const sizeByW = Math.floor((w - GAP * (cols - 1)) / cols);
       const sizeByH = Math.floor((h - GAP * (rows - 1)) / rows);
