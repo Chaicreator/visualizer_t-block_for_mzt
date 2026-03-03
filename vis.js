@@ -22,29 +22,6 @@
     ASPECT_H: 9
   };
 
-  /* ======================================================================
-     [1.x] Лимиты адаптива / пропорции (удобно править)
-     ====================================================================== */
-  const LIMITS = {
-    // breakpoint: ниже этого stage перестраивается в колонку (у тебя уже было 980)
-    BP_STACK_STAGE: 980,
-
-    // breakpoint: ниже/равно этого миниатюры рендеров идут в 2 ряда (6 -> 3+3)
-    BP_RENDER_THUMBS_2ROWS: 720,
-
-    // пропорции внутри правого блока (плитки vs колонка управления)
-    //  - DESKTOP (шире 980): плитки >= 2/3 ширины (2 : 1)
-    //  - MOBILE  (980 и ниже): плитки >= 4/5 ширины (4 : 1)
-    PANEL_TILES_FLEX_DESKTOP: 2,
-    PANEL_CTRL_FLEX_DESKTOP: 1,
-    PANEL_TILES_FLEX_MOBILE: 4,
-    PANEL_CTRL_FLEX_MOBILE: 1,
-
-    // плитки: безопасный отступ, чтобы НИКОГДА не подрезало низ при округлениях
-    TILE_SAFE_PX: 2
-  };
-
-
   /* ==========================================================================
      [2] Вспомогательные утилиты
      ========================================================================== */
@@ -574,7 +551,13 @@ function updateRenderImages() {
     // левый блок: выбранный цвет затирки (для рендеров)
     renderGroutColor: "Белый",
     // какой из 6 кадров сейчас выбран (0..5)
-    activeThumbIndex: 0
+    activeThumbIndex: 0,
+
+    // responsive tiles layout (правый блок)
+    tilesCols: 3,
+    tilesRows: 3,
+    tilesPerPage: 9,
+    tilesMode: "normal" // normal | no_matches
   };
 
   /* ==========================================================================
@@ -619,10 +602,7 @@ function updateRenderImages() {
   background: #f3f4f6;
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
-  /* ВАЖНО: не ограничиваем по 100vh — иначе на низких экранах правый блок "режется".
-     Пусть страница просто скроллится, но плитки остаются целыми. */
-  min-height: ${CONFIG.TARGET_DESKTOP_HEIGHT}px;
-  height: auto;
+  height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
 
   /* расширяем примерно на 10% */
   width: min(100%, calc(${CONFIG.TARGET_DESKTOP_HEIGHT}px * 16 / 9 * 1.045));
@@ -933,43 +913,6 @@ function updateRenderImages() {
   padding:16px;
   gap:14px;
 }
-/* ===== right panel layout: tiles (left) + controls (right) ===== */
-#${CONFIG.ROOT_ID} .mzt-panel-row{
-  flex:1;
-  display:flex;
-  gap:14px;
-  min-height:0; /* важно для корректной работы ResizeObserver/высоты */
-}
-
-/* пропорции колонок (удобно править в LIMITS) */
-#${CONFIG.ROOT_ID} #mztTilesWrap{
-  flex: 2 1 0; /* >= 2/3 ширины на десктопе (2 : 1) */
-  min-width:0;
-}
-#${CONFIG.ROOT_ID} #mztPanelControls{
-  flex: 1 1 0;
-  min-width: 180px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  min-height:0;
-}
-
-/* пагинацию прижимаем вниз колонки управления */
-#${CONFIG.ROOT_ID} #mztPagination{ margin-top:auto; }
-
-/* на мобильных плитки шире: >= 4/5 (4 : 1) */
-@media (max-width: 980px){
-  #${CONFIG.ROOT_ID} #mztTilesWrap{ flex: 4 1 0; }
-  #${CONFIG.ROOT_ID} #mztPanelControls{ flex: 1 1 0; min-width: 150px; }
-}
-
-/* миниатюры рендеров в 2 ряда на узких экранах */
-@media (max-width: 720px){
-  #${CONFIG.ROOT_ID} .mzt-render-thumbs{
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 #${CONFIG.ROOT_ID} #vispanel-top{
   padding:10px 10px 2px;
 }
@@ -1082,7 +1025,7 @@ function updateRenderImages() {
 #${CONFIG.ROOT_ID} .mzt-tiles-grid{
   display:grid;
   grid-template-columns: repeat(3, var(--mzt-tile-size, 120px));
-  grid-auto-rows: var(--mzt-tile-size, 120px);
+  grid-template-rows: repeat(var(--mzt-tiles-rows, 3), var(--mzt-tile-size, 120px));
   gap: var(--mzt-tile-gap, 10px);
 
   justify-content: center;   /* если остаётся свободное место */
@@ -1152,6 +1095,14 @@ function updateRenderImages() {
   align-items:center;
   padding-top:2px;
   max-width:100%;
+}
+
+/* не кликабельный разделитель страниц */
+#${CONFIG.ROOT_ID} .mzt-page-ellipsis{
+  padding: 0 6px;
+  color:#6b7280;
+  font-weight:600;
+  user-select:none;
 }
 #${CONFIG.ROOT_ID} .mzt-pagebtn{
   min-width:34px;
@@ -1230,6 +1181,13 @@ function updateRenderImages() {
   #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
   #${CONFIG.ROOT_ID} .mzt-thumb{ width: 100%; }
 }
+
+/* На узких экранах миниатюры рендеров делаем в 2 ряда (3×2) */
+@media (max-width: 720px){
+  #${CONFIG.ROOT_ID} .mzt-render-thumbs{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 520px){
   #${CONFIG.ROOT_ID} .mzt-stage-wrap{ padding:16px 10px 12px; }
   #${CONFIG.ROOT_ID} #visrender{ padding:12px; }
@@ -1279,28 +1237,20 @@ function updateRenderImages() {
     left.appendChild(thumbs);
 
     // panel structure
-// ВАЖНО: правый блок делаем 2-колоночным:
-//  - слева: сетка плиток
-//  - справа: управление (селекты + пагинация)
-// Это позволяет задать долю ширины плиток (2/3 на десктопе, 4/5 на мобильных).
-const top = el("div", { id: "vispanel-top" });
+    const top = el("div", { id: "vispanel-top" });
+    const bot = el("div", { id: "vispanel-bot" });
 
-const panelRow = el("div", { class: "mzt-panel-row", id: "mztPanelRow" });
+    const tilesWrap = el("div", { class: "mzt-tiles-wrap", id: "mztTilesWrap" });
+    const grid = el("div", { class: "mzt-tiles-grid", id: "mztTilesGrid" });
+    tilesWrap.appendChild(grid);
 
-const tilesWrap = el("div", { class: "mzt-tiles-wrap", id: "mztTilesWrap" });
-const grid = el("div", { class: "mzt-tiles-grid", id: "mztTilesGrid" });
-tilesWrap.appendChild(grid);
+    const pagination = el("div", { class: "mzt-pagination", id: "mztPagination" });
 
-const controls = el("div", { class: "mzt-panel-controls", id: "mztPanelControls" });
-const pagination = el("div", { class: "mzt-pagination", id: "mztPagination" });
+    bot.appendChild(tilesWrap);
+    bot.appendChild(pagination);
 
-controls.appendChild(top);
-controls.appendChild(pagination);
-
-panelRow.appendChild(tilesWrap);
-panelRow.appendChild(controls);
-
-right.appendChild(panelRow);
+    right.appendChild(top);
+    right.appendChild(bot);
 
     stage.appendChild(left);
     stage.appendChild(right);
@@ -1315,7 +1265,7 @@ function setupTilesGridSizer() {
   const root = qs(`#${CONFIG.ROOT_ID}`);
   if (!root) return;
 
-  const wrap = qs("#mztTilesWrap", root);       // область, где живут ПЛИТКИ (важно: она должна быть целиком видна)
+  const wrap = qs("#vispanel-bot", root);       // область, где живут плитки + пагинация
   const grid = qs(".mzt-tiles-grid", root);
   const pag  = qs(".mzt-pagination", root);
 
@@ -1324,24 +1274,56 @@ function setupTilesGridSizer() {
   const GAP = 10; // держим как в дизайне
   root.style.setProperty("--mzt-tile-gap", `${GAP}px`);
 
+  const MIN_TILE_SOFT = 72; // если плитка меньше — уменьшаем количество рядов
+  const MIN_TILE_HARD = 64; // абсолютный минимум (страховка)
+  const SAFE = 2;           // чтобы НИКОГДА не подрезало низ из-за округления
+
   function recalc() {
-// Считаем по РЕАЛЬНО доступной зоне именно под сетку (tilesWrap)
-// доступная ширина/высота под 3×3 (без padding'ов)
-const w = wrap.clientWidth;
-const h = wrap.clientHeight;
+    // Считаем по РЕАЛЬНО доступной зоне именно под сетку (tilesWrap)
+    const tilesWrap = qs("#mztTilesWrap", root);
+    if (!tilesWrap) return;
 
-if (w <= 0 || h <= 0) return;
+    // доступная ширина/высота под сетку
+    const w = tilesWrap.clientWidth;
+    const h = tilesWrap.clientHeight;
+    if (w <= 0 || h <= 0) return;
 
-// 3 плитки + 2 промежутка (gap) по каждой оси
-const sizeByW = Math.floor((w - GAP * 2) / 3);
-const sizeByH = Math.floor((h - GAP * 2) / 3);
+    const cols = 3;
 
-// страховка от субпикселей/округления, чтобы НИКОГДА не подрезало низ
-const SAFE = LIMITS.TILE_SAFE_PX;
+    // считаем размер плитки для заданного количества рядов
+    const sizeFor = (rows) => {
+      const sizeByW = Math.floor((w - GAP * (cols - 1)) / cols);
+      const sizeByH = Math.floor((h - GAP * (rows - 1)) / rows);
+      return Math.max(MIN_TILE_HARD, Math.min(sizeByW, sizeByH) - SAFE);
+    };
 
-const tileSize = Math.max(64, Math.min(sizeByW, sizeByH) - SAFE);
+    let rows = 3;
+    let tileSize = sizeFor(rows);
+    if (tileSize < MIN_TILE_SOFT) {
+      rows = 2;
+      tileSize = sizeFor(rows);
+    }
+    if (tileSize < MIN_TILE_SOFT) {
+      rows = 1;
+      tileSize = sizeFor(rows);
+    }
 
-root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
+    root.style.setProperty("--mzt-tile-size", `${tileSize}px`);
+    root.style.setProperty("--mzt-tiles-rows", String(rows));
+
+    const nextPerPage = cols * rows;
+
+    // если меняется раскладка — перерисуем плитки/пагинацию (чтобы ничего не резалось)
+    if (state.tilesRows !== rows || state.tilesPerPage !== nextPerPage) {
+      state.tilesCols = cols;
+      state.tilesRows = rows;
+      state.tilesPerPage = nextPerPage;
+
+      // пере-рендер сетки и пагинации, но без лишней логики фильтров
+      const mode = state.tilesMode || (state.filteredTiles.length ? "normal" : "no_matches");
+      renderTilesPage({ mode });
+      renderPagination();
+    }
   }
 
   // первичный расчёт (после текущего рендера)
@@ -1527,14 +1509,19 @@ function tileMatchesFilters(tile) {
   state.selectedTileId = null;
   state.page = 1;
 
-  renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
-  renderPagination({ forceSingle: true }); // 9 плиток без пагинации
+  state.tilesMode = state.filteredTiles.length ? "normal" : "no_matches";
+  renderTilesPage({ mode: state.tilesMode });
+
+  // если на маленькой высоте perPage может быть 6/3 — пагинация нужна
+  const perPage = state.tilesPerPage || (state.db.ui?.tiles_per_page ?? 9);
+  renderPagination({ forceSingle: state.filteredTiles.length <= perPage });
   renderRenderBlock();
   return;
 }
 
     state.filteredTiles = state.db.tiles.filter(tileMatchesFilters);
-    renderTilesPage({ mode: state.filteredTiles.length ? "normal" : "no_matches" });
+    state.tilesMode = state.filteredTiles.length ? "normal" : "no_matches";
+    renderTilesPage({ mode: state.tilesMode });
     renderPagination();
   }
 
@@ -1547,12 +1534,12 @@ function tileMatchesFilters(tile) {
     const oldOverlay = qs(".mzt-grid-overlay", wrap);
     if (oldOverlay) oldOverlay.remove();
 
-    const perPage = state.db.ui?.tiles_per_page ?? 9;
+    const perPage = state.tilesPerPage || (state.db.ui?.tiles_per_page ?? 9);
     const total = state.filteredTiles.length;
     const pages = Math.max(1, Math.ceil(total / perPage));
     state.page = clamp(state.page, 1, pages);
 
-    // всегда рисуем 9 плейсхолдеров (еле видные серые блоки)
+    // всегда рисуем плейсхолдеры по текущему perPage
     if (mode === "need_selection" || mode === "no_matches") {
       for (let i = 0; i < perPage; i++) {
         grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
@@ -1583,7 +1570,7 @@ function tileMatchesFilters(tile) {
       grid.appendChild(card);
     });
 
-    // добиваем до 9
+    // добиваем до perPage
     for (let i = pageItems.length; i < perPage; i++) {
       grid.appendChild(el("div", { class: "mzt-tile is-empty" }));
     }
@@ -1591,80 +1578,54 @@ function tileMatchesFilters(tile) {
 
   function renderPagination({ forceSingle } = {}) {
     const wrap = qs("#mztPagination");
-    if (!wrap) return;
     wrap.innerHTML = "";
 
-    const perPage = state.db.ui?.tiles_per_page ?? 9;
+    const perPage = state.tilesPerPage || (state.db.ui?.tiles_per_page ?? 9);
     const total = state.filteredTiles.length;
     const pages = Math.max(1, Math.ceil(total / perPage));
 
-    // ===================== настройки пагинации (удобно править) =====================
-    const PAGINATION_CFG = {
-      // если страниц <= 8 — показываем все
-      SHOW_ALL_UP_TO: 8,
-
-      // сколько соседей вокруг выбранной страницы показывать
-      NEIGHBORS: 1
-    };
-    // ==============================================================================
-
-    if (forceSingle || total === 0 || pages <= 1) {
+    if (forceSingle || total === 0) {
       wrap.appendChild(el("button", { class: "mzt-pagebtn is-active", text: "1", type: "button" }));
       return;
     }
 
-    const cur = clamp(state.page, 1, pages);
-    state.page = cur;
+    // Схема пагинации:
+    // - если страниц <= 8 — показываем все
+    // - иначе: первая/последняя + текущая со соседями + многоточия
+    const model = (() => {
+      if (pages <= 8) return Array.from({ length: pages }, (_, i) => i + 1);
 
-    const items = [];
+      const cur = clamp(state.page, 1, pages);
+      if (cur <= 3) return [1, 2, 3, 4, "…", pages];
+      if (cur >= pages - 2) return [1, "…", pages - 3, pages - 2, pages - 1, pages];
+      return [1, "…", cur - 1, cur, cur + 1, "…", pages];
+    })();
 
-    if (pages <= PAGINATION_CFG.SHOW_ALL_UP_TO) {
-      for (let p = 1; p <= pages; p++) items.push(p);
-    } else {
-      const neigh = PAGINATION_CFG.NEIGHBORS;
+    model.forEach((item) => {
+      if (item === "…") {
+        wrap.appendChild(el("span", { class: "mzt-page-ellipsis", text: "…" }));
+        return;
+      }
 
-      // всегда первая
-      items.push(1);
-
-      const left = Math.max(2, cur - neigh);
-      const right = Math.min(pages - 1, cur + neigh);
-
-      if (left > 2) items.push("...");
-
-      for (let p = left; p <= right; p++) items.push(p);
-
-      if (right < pages - 1) items.push("...");
-
-      // всегда последняя
-      items.push(pages);
-    }
-
-    const makeBtn = (p) => {
+      const p = Number(item);
       const btn = el("button", {
         class: "mzt-pagebtn" + (p === state.page ? " is-active" : ""),
         text: String(p),
-        type: "button"
+        type: "button",
+        "aria-label": `page ${p}`
       });
       btn.addEventListener("click", () => {
         state.page = p;
-        renderTilesPage({ mode: "normal" });
+        renderTilesPage({ mode: state.tilesMode || "normal" });
         renderPagination();
       });
-      return btn;
-    };
-
-    items.forEach((it) => {
-      if (it === "...") {
-        wrap.appendChild(el("span", { class: "mzt-pagebtn", text: "…", "aria-hidden": "true" }));
-        return;
-      }
-      wrap.appendChild(makeBtn(it));
+      wrap.appendChild(btn);
     });
   }
 
-
   /* ==========================================================================
-     ===================================== */
+     [11] Клик по плитке -> привязка -> рендеры
+     ========================================================================== */
   function normalizeRenderSetData(rs) {
     if (!rs) return null;
 
@@ -2116,6 +2077,12 @@ function closeFullscreenRenderModal() {
     showLoader();
     try {
       state.db = await loadDB();
+
+      // базовые значения для сетки плиток (дальше setupTilesGridSizer подстроит под высоту)
+      const ui = state.db?.ui || {};
+      state.tilesCols = Number(ui.tiles_grid_cols || 3) || 3;
+      state.tilesRows = Number(ui.tiles_grid_rows || 3) || 3;
+      state.tilesPerPage = Number(ui.tiles_per_page || state.tilesCols * state.tilesRows) || 9;
 
       renderSelects();
       applyFiltersAndRenderTiles();
