@@ -748,7 +748,7 @@ function updateRenderImages() {
   overflow:hidden;
 }
 /* правая карточка НЕ должна выпускать контент наружу */
-#${CONFIG.ROOT_ID} #vispanel{ overflow:hidden; }
+#${CONFIG.ROOT_ID} #vispanel{ overflow:visible; }
 
 /* но выпадающие списки должны быть поверх плиток внутри карточки */
 #${CONFIG.ROOT_ID} #vispanel-top{ overflow: visible; position: relative; z-index: 20; }
