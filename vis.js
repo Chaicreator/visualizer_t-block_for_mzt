@@ -420,6 +420,7 @@ window.addEventListener("beforeunload", () => {
 
 const renderDOM = {
   mainWrap: null,
+  mainMedia: null,
   mainImg: null,
   groutPanel: null,
   thumbsWrap: null,
@@ -433,6 +434,7 @@ function resetRenderDOM() {
   } catch (_) {}
 
   renderDOM.mainWrap = null;
+  renderDOM.mainMedia = null;
   renderDOM.mainImg = null;
   renderDOM.groutPanel = null;
   renderDOM.thumbsWrap = null;
@@ -446,6 +448,7 @@ function ensureRenderDOM() {
 
   if (renderDOM.mainImg && renderDOM.mainImg.isConnected && renderDOM.thumbs.length === 6) {
     renderDOM.mainWrap = main;
+    renderDOM.mainMedia = qs(":scope > .mzt-render-media", main) || null;
     renderDOM.thumbsWrap = thumbs;
     return;
   }
@@ -457,8 +460,11 @@ function ensureRenderDOM() {
   main.innerHTML = "";
   thumbs.innerHTML = "";
 
+  const mainMedia = el("div", { class: "mzt-render-media" });
   const mainImg = el("img", { src: "", alt: "render main", loading: "eager" });
-  main.appendChild(mainImg);
+  mainMedia.appendChild(mainImg);
+  main.appendChild(mainMedia);
+  renderDOM.mainMedia = mainMedia;
   renderDOM.mainImg = mainImg;
 
   const groutPanel = renderGroutPanelInline();
@@ -748,7 +754,7 @@ function updateRenderImages() {
   overflow:hidden;
 }
 /* правая карточка НЕ должна выпускать контент наружу */
-#${CONFIG.ROOT_ID} #vispanel{ overflow:visible; }
+#${CONFIG.ROOT_ID} #vispanel{ overflow:hidden; }
 
 /* но выпадающие списки должны быть поверх плиток внутри карточки */
 #${CONFIG.ROOT_ID} #vispanel-top{ overflow: visible; position: relative; z-index: 20; }
@@ -772,8 +778,15 @@ function updateRenderImages() {
   position:relative;
   flex:1;
   border-radius:14px;
-  overflow:hidden;
+  overflow:visible;
   background:#eaecef;
+}
+#${CONFIG.ROOT_ID} .mzt-render-media{
+  width:100%;
+  height:100%;
+  border-radius:inherit;
+  overflow:hidden;
+  background:inherit;
 }
 #${CONFIG.ROOT_ID} .mzt-render-main img{
   width:100%;
