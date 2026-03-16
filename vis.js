@@ -1202,7 +1202,7 @@ function updateRenderImages() {
     width: min(100%, ${CONFIG.MAX_WIDTH}px);
     flex-direction:column;
   }
-  #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 420px; }
+  #${CONFIG.ROOT_ID} #visrender{ flex: none; min-height: 680px; }
   #${CONFIG.ROOT_ID} #vispanel{ flex: none; }
   #${CONFIG.ROOT_ID} .mzt-thumb{ width: 100%; }
 }
