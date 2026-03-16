@@ -448,7 +448,6 @@ function ensureRenderDOM() {
 
   if (renderDOM.mainImg && renderDOM.mainImg.isConnected && renderDOM.thumbs.length === 6) {
     renderDOM.mainWrap = main;
-    renderDOM.mainMedia = qs(":scope > .mzt-render-media", main) || null;
     renderDOM.thumbsWrap = thumbs;
     return;
   }
@@ -609,6 +608,7 @@ function updateRenderImages() {
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
   height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
+  min-height:0;
 
   /* расширяем примерно на 10% */
   width: min(100%, calc(${CONFIG.TARGET_DESKTOP_HEIGHT}px * 16 / 9 * 1.045));
@@ -752,6 +752,8 @@ function updateRenderImages() {
   border-radius:16px;
   box-shadow: 0 10px 30px rgba(0,0,0,.12);
   overflow:hidden;
+  min-width:0;
+  min-height:0;
 }
 /* правая карточка НЕ должна выпускать контент наружу */
 #${CONFIG.ROOT_ID} #vispanel{ overflow:hidden; }
@@ -771,24 +773,28 @@ function updateRenderImages() {
   flex: 2.6;
   display:flex;
   flex-direction:column;
+  min-width:0;
+  min-height:0;
   padding:16px;
   gap:14px;
 }
 #${CONFIG.ROOT_ID} .mzt-render-main{
   position:relative;
-  flex:1;
+  flex:1 1 auto;
+  min-height:0;
   border-radius:14px;
   overflow:visible;
   background:#eaecef;
 }
 #${CONFIG.ROOT_ID} .mzt-render-media{
+  position:absolute;
+  inset:0;
   width:100%;
   height:100%;
   border-radius:inherit;
   overflow:hidden;
-  background:inherit;
 }
-#${CONFIG.ROOT_ID} .mzt-render-main img{
+#${CONFIG.ROOT_ID} .mzt-render-media > img{
   width:100%;
   height:100%;
   object-fit:cover;
@@ -873,13 +879,19 @@ function updateRenderImages() {
 
 #${CONFIG.ROOT_ID} .mzt-render-thumbs{
   display:grid;
-  grid-template-columns: repeat(6, 1fr); /* 7 рендеров: 1 главный + 6 миниатюр */
+  grid-template-columns: repeat(6, minmax(0, 1fr)); /* 7 рендеров: 1 главный + 6 миниатюр */
   gap:10px;
+  flex:0 0 auto;
+  min-width:0;
+  min-height:0;
+  align-content:start;
   overflow:hidden;   /* НИКАКОЙ прокрутки */
   padding-bottom:2px;
 }
 #${CONFIG.ROOT_ID} .mzt-thumb{
   width: 100%;
+  min-width:0;
+  min-height:0;
   aspect-ratio: 16/10;
   border-radius:12px;
   overflow:hidden;
