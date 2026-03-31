@@ -221,10 +221,7 @@
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Brick Wall Табачный 250×75 мм",
-  "tile_color": [
-    "Серый",
-    "Бежевый"
-  ],
+  "tile_color": "Серый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -350,10 +347,7 @@
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Орегон 4 Коричневый 245×65 мм",
-  "tile_color": [
-    "Оранжевый",
-    "Коричневый"
-  ],
+  "tile_color": "Оранжевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -368,10 +362,7 @@
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Орегон 3 Темно-бежевый 245×65 мм",
-  "tile_color": [
-    "Бежевый",
-    "Желтый"
-  ],
+  "tile_color": "Желтый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -688,7 +679,7 @@
   "name": "Клинкерная плитка Paradyz Semir Rosa Elewacja 240х65х7 мм",
   "tile_color": [
     "Коричневый",
-    "Черный"
+    "Красный"
   ],
   "price_category": [
     "Низкая",
@@ -1166,10 +1157,7 @@
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Ardis Light Elewacja 397х65х11 мм",
-  "tile_color": [
-    "Бежевый",
-    "Коричневый"
-  ],
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1186,7 +1174,7 @@
   "name": "Клинкерная плитка Paradyz Ardis Rust 397х65х11 мм",
   "tile_color": [
     "Оранжевый",
-    "Черный"
+    "Серый"
   ],
   "price_category": [
     "Низкая",
@@ -1202,10 +1190,7 @@
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Ardis Dark Elewacja 397х65х11 мм",
-  "tile_color": [
-    "Серый",
-    "Черный"
-  ],
+  "tile_color": "Черный",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1539,8 +1524,8 @@
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Loft Brick Cardamon 245×65 мм",
   "tile_color": [
-    "Коричневый",
-    "Черный"
+    "Желтый",
+    "Серый"
   ],
   "price_category": [
     "Низкая",
@@ -1631,7 +1616,10 @@
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Retro Brick Cardamon 245×65 мм",
-  "tile_color": "Коричневый",
+  "tile_color": [
+    "Желтый",
+    "Серый"
+  ],
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1691,7 +1679,7 @@
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Retro Brick Pepper 245×65 мм",
-  "tile_color": "Серый",
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1769,10 +1757,7 @@
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Exclusive Midnight 245×65 мм",
-  "tile_color": [
-    "Серый",
-    "Черный"
-  ],
+  "tile_color": "Черный",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1847,10 +1832,7 @@
   "category": "Клинкерная плитка",
   "brand": "MARKAСТРОЙ",
   "name": "Клинкерная плитка MARKAСТРОЙ Скала Вишня 320х44 мм",
-  "tile_color": [
-    "Красный",
-    "Коричневый"
-  ],
+  "tile_color": "Красный",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1865,10 +1847,7 @@
   "category": "Клинкерная плитка",
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Exclusive Red Wine 245×65 мм",
-  "tile_color": [
-    "Красный",
-    "Коричневый"
-  ],
+  "tile_color": "Коричневый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2106,10 +2085,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Дижон 787 237х70х14 мм",
-  "tile_color": [
-    "Бежевый",
-    "Коричневый"
-  ],
+  "tile_color": "Оранжевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2214,10 +2190,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Денвер 051 238х72х12 мм",
-  "tile_color": [
-    "Желтый",
-    "Бежевый"
-  ],
+  "tile_color": "Желтый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2277,10 +2250,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Орли 052 215х65х12 мм",
-  "tile_color": [
-    "Желтый",
-    "Бежевый"
-  ],
+  "tile_color": "Желтый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2295,10 +2265,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Орли 333 215х65х12 мм",
-  "tile_color": [
-    "Бежевый",
-    "Коричневый"
-  ],
+  "tile_color": "Коричневый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2313,7 +2280,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Лион 100 215х65х12 мм",
-  "tile_color": "Бежевый",
+  "tile_color": "Белый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2328,10 +2295,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Лион 485 215х65х12 мм",
-  "tile_color": [
-    "Оранжевый",
-    "Коричневый"
-  ],
+  "tile_color": "Оранжевый",
   "price_category": [
     "Низкая",
     "Средняя",
