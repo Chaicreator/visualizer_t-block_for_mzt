@@ -269,10 +269,7 @@
   "category": "Клинкерная плитка",
   "brand": "Beryoza Ceramica",
   "name": "Клинкерная плитка Beryoza Ceramica Old Town Натурал 246×120 мм",
-  "tile_color": [
-    "Бежевый",
-    "Коричневый"
-  ],
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -455,10 +452,7 @@
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Колорадо 4 Коричневый 245×65 мм",
-  "tile_color": [
-    "Коричневый",
-    "Серый"
-  ],
+  "tile_color": "Коричневый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -566,10 +560,7 @@
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Амстердам Шейд Коричнево-черный 245×65 мм",
-  "tile_color": [
-    "Коричневый",
-    "Черный"
-  ],
+  "tile_color": "Коричневый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -617,7 +608,7 @@
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
   "name": "Клинкерная плитка Керамин Амстердам 2 Терракота 245×65 мм",
-  "tile_color": "Красный",
+  "tile_color": "Оранжевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -728,7 +719,7 @@
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Mattone Sabbia Brown Elewacja 240х65х7 мм",
-  "tile_color": "Коричневый",
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -866,10 +857,7 @@
   "category": "Клинкерная плитка",
   "brand": "PARADYZ Ceramica",
   "name": "Клинкерная плитка Paradyz Scandiano Ochra Elewacja 240х65х7 мм",
-  "tile_color": [
-    "Бежевый",
-    "Коричневый"
-  ],
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -1524,7 +1512,7 @@
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Loft Brick Cardamon 245×65 мм",
   "tile_color": [
-    "Желтый",
+    "Бежевый",
     "Серый"
   ],
   "price_category": [
@@ -1617,7 +1605,7 @@
   "brand": "BestPoint Ceramics",
   "name": "Клинкерная плитка BestPoint Retro Brick Cardamon 245×65 мм",
   "tile_color": [
-    "Желтый",
+    "Бежевый",
     "Серый"
   ],
   "price_category": [
@@ -1787,7 +1775,7 @@
   "category": "Клинкерная плитка",
   "brand": "MARKAСТРОЙ",
   "name": "Клинкерная плитка MARKAСТРОЙ Скала Пальмира 320х44 мм",
-  "tile_color": "Красный",
+  "tile_color": "Оранжевый",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2067,10 +2055,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Дижон 767 237х70х14 мм",
-  "tile_color": [
-    "Оранжевый",
-    "Коричневый"
-  ],
+  "tile_color": "Красный",
   "price_category": [
     "Низкая",
     "Средняя",
@@ -2265,7 +2250,7 @@
   "category": "Декоративный камень",
   "brand": "Leonardo Stone",
   "name": "Декоративный камень Leonardo Stone Орли 333 215х65х12 мм",
-  "tile_color": "Коричневый",
+  "tile_color": "Бежевый",
   "price_category": [
     "Низкая",
     "Средняя",
