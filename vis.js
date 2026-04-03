@@ -604,7 +604,7 @@ function updateRenderImages() {
   display:flex;
   justify-content:center;
   padding:24px 16px 18px;
-  background: #f3f4f6;
+  background: #efefef;
 }
 #${CONFIG.ROOT_ID} .mzt-stage{
   height: min(${CONFIG.TARGET_DESKTOP_HEIGHT}px, calc(100vh - 170px));
