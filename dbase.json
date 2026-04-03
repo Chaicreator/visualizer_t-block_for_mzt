@@ -607,24 +607,6 @@
   "urlprod": "https://mzt-zavod.ru/catalog/tproduct/138573667482"
 },
 {
-  "id": "Keramin_19",
-  "category": "Клинкерная плитка",
-  "brand": "КЕРАМИН",
-  "name": "Клинкерная плитка Керамин Юта 1 Светло-серый 245×65 мм",
-  "tile_color": [
-    "Белый",
-    "Серый"
-  ],
-  "price_category": [
-    "Низкая",
-    "Средняя",
-    "Высокая"
-  ],
-  "price": "1400",
-  "image": "https://static.tildacdn.com/stor3964-6666-4461-a433-373939653637/18078678.jpg",
-  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/284828342892"
-},
-{
   "id": "Keramin_20",
   "category": "Клинкерная плитка",
   "brand": "КЕРАМИН",
@@ -675,21 +657,6 @@
   "price": "1400",
   "image": "https://static.tildacdn.com/stor3338-3537-4262-b861-343766613064/52292814.jpg",
   "urlprod": "https://mzt-zavod.ru/catalog/tproduct/343726353352"
-},
-{
-  "id": "Keramin_23",
-  "category": "Клинкерная плитка",
-  "brand": "КЕРАМИН",
-  "name": "Клинкерная плитка Керамин Техас 3 Бежевый 245×65 мм",
-  "tile_color": "Желтый",
-  "price_category": [
-    "Низкая",
-    "Средняя",
-    "Высокая"
-  ],
-  "price": "1400",
-  "image": "https://static.tildacdn.com/stor3139-3864-4332-a432-636263356536/69352323.jpg",
-  "urlprod": "https://mzt-zavod.ru/catalog/tproduct/921736476962"
 }
   ],
   "_comment_renders": "==================== РЕНДЕРЫ (левый блок) ====================",
@@ -3219,11 +3186,9 @@
       "Keramin_16",
       "Keramin_17",
       "Keramin_18",
-      "Keramin_19",
       "Keramin_20",
       "Keramin_21",
-      "Keramin_22",
-      "Keramin_23"
+      "Keramin_22"
 ]
   },
   "_comment_bindings": "==================== ПРИВЯЗКА ПЛИТКА -> РЕНДЕРЫ ====================",
