@@ -888,7 +888,7 @@ function updateRenderImages() {
 #${CONFIG.ROOT_ID} .mzt-render-zoomhint{
   position:absolute;
   right:12px;
-  top: calc(12px + var(--mzt-tilebox-h, 74px) + 8px);
+  top: calc(12px + var(--mzt-tilebox-h, 74px) + 14px);
   z-index:6;
   width:48px;
   aspect-ratio:1/1;
@@ -1301,6 +1301,20 @@ function updateRenderImages() {
 @media (max-width: 720px){
   #${CONFIG.ROOT_ID} .mzt-render-thumbs{
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 720px){
+  #${CONFIG.ROOT_ID} .mzt-render-tilebox{
+    width: 42vw;
+    max-width: 42vw;
+    min-width: 0;
+  }
+  #${CONFIG.ROOT_ID} .mzt-render-tilebox-name{
+    font-style: normal;
+    font-weight: 400;
+  }
+  #${CONFIG.ROOT_ID} .mzt-render-zoomhint{
+    top: calc(12px + var(--mzt-tilebox-h, 74px) + 14px);
   }
 }
 @media (max-width: 520px){
