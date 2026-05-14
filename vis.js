@@ -877,13 +877,13 @@ function updateRenderImages() {
 }
 #${CONFIG.ROOT_ID} .mzt-render-tilebox-name{
   font-size:13px;
-  font-weight:600;
+  font-style: normal;
+  font-weight: 400;
   line-height:1.25;
   color:#111827;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+  display:block;
+  white-space:normal;
+  overflow:visible;
 }
 #${CONFIG.ROOT_ID} .mzt-render-zoomhint{
   position:absolute;
@@ -917,16 +917,16 @@ function updateRenderImages() {
   animation-name: mztZoomHintB;
 }
 @keyframes mztZoomHintA{
-  0%{ opacity:0; transform: translate(-50%, -50%) scale(.7); }
-  12%{ opacity:1; transform: translate(-50%, -50%) scale(1); }
-  68%{ opacity:1; transform: translate(calc(-50% - 10px), calc(-50% - 10px)) scale(1); }
-  84%,100%{ opacity:0; transform: translate(calc(-50% - 14px), calc(-50% - 14px)) scale(.92); }
+  0%{ opacity:0; transform: translate(calc(-50% - 4px), calc(-50% - 4px)) scale(.7); }
+  12%{ opacity:1; transform: translate(calc(-50% - 4px), calc(-50% - 4px)) scale(1); }
+  68%{ opacity:1; transform: translate(calc(-50% - 12px), calc(-50% - 12px)) scale(1); }
+  84%,100%{ opacity:0; transform: translate(calc(-50% - 16px), calc(-50% - 16px)) scale(.92); }
 }
 @keyframes mztZoomHintB{
-  0%{ opacity:0; transform: translate(-50%, -50%) scale(.7); }
-  12%{ opacity:1; transform: translate(-50%, -50%) scale(1); }
-  68%{ opacity:1; transform: translate(calc(-50% + 10px), calc(-50% + 10px)) scale(1); }
-  84%,100%{ opacity:0; transform: translate(calc(-50% + 14px), calc(-50% + 14px)) scale(.92); }
+  0%{ opacity:0; transform: translate(calc(-50% + 4px), calc(-50% + 4px)) scale(.7); }
+  12%{ opacity:1; transform: translate(calc(-50% + 4px), calc(-50% + 4px)) scale(1); }
+  68%{ opacity:1; transform: translate(calc(-50% + 12px), calc(-50% + 12px)) scale(1); }
+  84%,100%{ opacity:0; transform: translate(calc(-50% + 16px), calc(-50% + 16px)) scale(.92); }
 }
 
 /* fullscreen grout panel (сверху слева) */
