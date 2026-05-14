@@ -423,6 +423,8 @@ const renderDOM = {
   mainMedia: null,
   mainImg: null,
   groutPanel: null,
+  tileNamePanel: null,
+  zoomHintPanel: null,
   thumbsWrap: null,
   thumbs: [] // [{wrap, img}]
 };
@@ -437,6 +439,8 @@ function resetRenderDOM() {
   renderDOM.mainMedia = null;
   renderDOM.mainImg = null;
   renderDOM.groutPanel = null;
+  renderDOM.tileNamePanel = null;
+  renderDOM.zoomHintPanel = null;
   renderDOM.thumbsWrap = null;
   renderDOM.thumbs = [];
 }
@@ -469,6 +473,14 @@ function ensureRenderDOM() {
   const groutPanel = renderGroutPanelInline();
   renderDOM.groutPanel = groutPanel;
   main.appendChild(groutPanel);
+
+  const tileNamePanel = renderTileNamePanelInline();
+  renderDOM.tileNamePanel = tileNamePanel;
+  main.appendChild(tileNamePanel);
+
+  const zoomHintPanel = renderZoomHintPanelInline();
+  renderDOM.zoomHintPanel = zoomHintPanel;
+  main.appendChild(zoomHintPanel);
 
   mainImg.style.cursor = "zoom-in";
   mainImg.addEventListener("click", () => {
@@ -511,6 +523,8 @@ function updateRenderImages() {
   if (cur?.image) {
     setImgSrcWithLoader(renderDOM.mainWrap, renderDOM.mainImg, cur.image);
   }
+
+  updateRenderTileNamePanel(cur);
 
   for (let i = 0; i < renderDOM.thumbs.length; i++) {
     const r = getRenderByIndex(renders, i);
@@ -838,6 +852,82 @@ function updateRenderImages() {
 }
 #${CONFIG.ROOT_ID} button.mzt-groutbox-select{ background:#fff; }
 
+/* ===== tile name + zoom hint panels on main render ===== */
+#${CONFIG.ROOT_ID} .mzt-render-tilebox{
+  position:absolute;
+  right:12px;
+  top:12px;
+  z-index:6;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  padding:10px 10px;
+  border-radius:12px;
+  background: rgba(255,255,255,.88);
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+  backdrop-filter: blur(6px);
+  width: min(280px, calc(100% - 160px));
+  pointer-events:auto;
+}
+#${CONFIG.ROOT_ID} .mzt-render-tilebox-title{
+  font-size:12px;
+  font-weight:600;
+  color:#111827;
+}
+#${CONFIG.ROOT_ID} .mzt-render-tilebox-name{
+  font-size:13px;
+  font-weight:600;
+  line-height:1.25;
+  color:#111827;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+#${CONFIG.ROOT_ID} .mzt-render-zoomhint{
+  position:absolute;
+  right:12px;
+  top: calc(12px + var(--mzt-tilebox-h, 74px) + 8px);
+  z-index:6;
+  width:48px;
+  aspect-ratio:1/1;
+  border-radius:12px;
+  background: rgba(255,255,255,.88);
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+  backdrop-filter: blur(6px);
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+  overflow:hidden;
+}
+#${CONFIG.ROOT_ID} .mzt-render-zoomhint svg{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:20px;
+  height:20px;
+  color:#9a5e3a;
+  opacity:0;
+  transform: translate(-50%, -50%);
+  animation: mztZoomHintA 2.8s ease-in-out infinite;
+}
+#${CONFIG.ROOT_ID} .mzt-render-zoomhint svg.mzt-zoom-arrow--br{
+  animation-name: mztZoomHintB;
+}
+@keyframes mztZoomHintA{
+  0%{ opacity:0; transform: translate(-50%, -50%) scale(.7); }
+  12%{ opacity:1; transform: translate(-50%, -50%) scale(1); }
+  68%{ opacity:1; transform: translate(calc(-50% - 10px), calc(-50% - 10px)) scale(1); }
+  84%,100%{ opacity:0; transform: translate(calc(-50% - 14px), calc(-50% - 14px)) scale(.92); }
+}
+@keyframes mztZoomHintB{
+  0%{ opacity:0; transform: translate(-50%, -50%) scale(.7); }
+  12%{ opacity:1; transform: translate(-50%, -50%) scale(1); }
+  68%{ opacity:1; transform: translate(calc(-50% + 10px), calc(-50% + 10px)) scale(1); }
+  84%,100%{ opacity:0; transform: translate(calc(-50% + 14px), calc(-50% + 14px)) scale(.92); }
+}
 
 /* fullscreen grout panel (сверху слева) */
 #${CONFIG.ROOT_ID} .mzt-fs-grout{
@@ -1887,6 +1977,57 @@ async function onTileClick(tileId) {
     box.appendChild(title);
     box.appendChild(selectBox);
     return box;
+  }
+
+  function renderTileNamePanelInline() {
+    const box = el("div", { class: "mzt-render-tilebox" });
+    const title = el("div", { class: "mzt-render-tilebox-title", text: "Наименование плитки" });
+    const name = el("div", { class: "mzt-render-tilebox-name", text: "—" });
+
+    box.appendChild(title);
+    box.appendChild(name);
+    return box;
+  }
+
+  function renderZoomHintPanelInline() {
+    const arrowUpLeft = `
+      <svg class="mzt-zoom-arrow--tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 9H9v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 9l7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    `;
+    const arrowBottomRight = `
+      <svg class="mzt-zoom-arrow--br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 15h6V9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M15 15L8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    `;
+
+    return el("div", {
+      class: "mzt-render-zoomhint",
+      title: "Увеличить изображение",
+      html: `${arrowUpLeft}${arrowBottomRight}`
+    });
+  }
+
+  function getCurrentRenderSetName() {
+    if (!state.activeRenderSetId || !state.db?.renderSets) return null;
+    const set = getRenderSetById(state.activeRenderSetId);
+    return set?.name ?? null;
+  }
+
+  function updateRenderTileNamePanel(cur = null) {
+    if (!renderDOM.tileNamePanel) return;
+
+    const nameNode = qs(".mzt-render-tilebox-name", renderDOM.tileNamePanel);
+    const label = getSelectedTileName() || getCurrentRenderSetName() || cur?.description || "—";
+
+    if (nameNode) nameNode.textContent = label;
+
+    requestAnimationFrame(() => {
+      if (!renderDOM.tileNamePanel?.isConnected) return;
+      renderDOM.mainWrap?.style.setProperty("--mzt-tilebox-h", `${Math.ceil(renderDOM.tileNamePanel.offsetHeight)}px`);
+    });
   }
 
 
